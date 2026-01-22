@@ -11,6 +11,7 @@ import CountdownTimer from '@/components/CountdownTimer'
 import BackToTop from '@/components/BackToTop'
 import PullToRefresh from '@/components/PullToRefresh'
 import ImageSkeleton from '@/components/ImageSkeleton'
+import HorizontalScroll from '@/components/HorizontalScroll'
 
 // Lazy load heavy components
 const GiveButton = dynamic(() => import('@/components/GiveButton'), {
@@ -24,7 +25,6 @@ export default function Home() {
   const recentProgramsRef = useRef<HTMLDivElement>(null)
   const [upcomingScrollLeft, setUpcomingScrollLeft] = useState(0)
   const [pastScrollLeft, setPastScrollLeft] = useState(0)
-  const [isHovered, setIsHovered] = useState(false)
   const propheticMondaysRef = useRef<HTMLDivElement>(null)
   const [propheticScrollLeft, setPropheticScrollLeft] = useState(0)
   const [recentProgramsScrollLeft, setRecentProgramsScrollLeft] = useState(0)
@@ -60,33 +60,6 @@ export default function Home() {
 
     return () => clearInterval(interval)
   }, [isTransitioning, heroImages.length])
-
-  // Auto-scroll Recent Programs
-  useEffect(() => {
-    if (!recentProgramsRef.current || isHovered) return
-
-    const scrollContainer = recentProgramsRef.current
-    let scrollPosition = 0
-    const scrollSpeed = 0.5 // pixels per frame (slower = smoother)
-
-    const scroll = () => {
-      if (scrollContainer) {
-        scrollPosition += scrollSpeed
-        const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth
-        
-        if (scrollPosition >= maxScroll) {
-          scrollPosition = 0 // Reset to start for infinite loop
-        }
-        
-        scrollContainer.scrollLeft = scrollPosition
-        setRecentProgramsScrollLeft(scrollPosition)
-      }
-    }
-
-    const animationFrame = setInterval(scroll, 16) // ~60fps
-
-    return () => clearInterval(animationFrame)
-  }, [isHovered])
 
   // Update scroll indicators on resize
   useEffect(() => {
@@ -459,19 +432,14 @@ export default function Home() {
 
           {/* Horizontal Scrollable Container */}
           <div className="relative">
-            <div
-              ref={propheticMondaysRef}
-              onScroll={() => {
-                if (propheticMondaysRef.current) {
-                  setPropheticScrollLeft(propheticMondaysRef.current.scrollLeft)
-                }
+            <HorizontalScroll
+              scrollRef={propheticMondaysRef}
+              onScroll={(scrollLeft) => {
+                setPropheticScrollLeft(scrollLeft)
               }}
-              className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-12 xl:gap-16 overflow-x-auto scrollbar-hide pb-4 scroll-smooth touch-pan-x snap-x snap-start"
-              style={{ 
-                scrollbarWidth: 'none', 
-                msOverflowStyle: 'none',
-                WebkitOverflowScrolling: 'touch'
-              }}
+              pauseOnHover={false}
+              pauseOnTouch={false}
+              autoScroll={false}
             >
               <div className="flex-shrink-0 w-[90vw] sm:w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] group snap-start rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <img
@@ -497,26 +465,27 @@ export default function Home() {
                   loading="lazy"
                 />
               </div>
-            </div>
+            </HorizontalScroll>
             {/* Scroll Indicator */}
-            {propheticMondaysRef.current && propheticMondaysRef.current.scrollWidth > propheticMondaysRef.current.clientWidth && (
-              <div className="flex justify-center gap-2 mt-4">
-                {[0, 1, 2].map((index) => {
-                  const scrollProgress = propheticMondaysRef.current
-                    ? (propheticScrollLeft / (propheticMondaysRef.current.scrollWidth - propheticMondaysRef.current.clientWidth)) * 2
-                    : 0
-                  const isActive = Math.abs(scrollProgress - index) < 0.5
-                  return (
-                    <div
-                      key={index}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        isActive ? 'w-8 bg-navy' : 'w-1.5 bg-gray-300'
-                      }`}
-                    />
-                  )
-                })}
-              </div>
-            )}
+            <div className="flex justify-center gap-2 mt-4">
+              {[0, 1, 2].map((index) => {
+                const maxScroll = propheticMondaysRef.current
+                  ? propheticMondaysRef.current.scrollWidth - propheticMondaysRef.current.clientWidth
+                  : 1
+                const scrollProgress = maxScroll > 0
+                  ? (propheticScrollLeft / maxScroll) * 2
+                  : 0
+                const isActive = Math.abs(scrollProgress - index) < 0.5
+                return (
+                  <div
+                    key={index}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      isActive ? 'w-8 bg-navy' : 'w-1.5 bg-gray-300'
+                    }`}
+                  />
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -573,7 +542,7 @@ export default function Home() {
 
                 {/* Right Visual Element - Image */}
                 <div className="flex-shrink-0 w-full md:w-auto flex justify-center md:justify-end">
-                  <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 group/image">
+                  <div className="relative w-72 h-72 sm:w-64 sm:h-64 md:w-64 md:h-64 lg:w-80 lg:h-80 group/image">
                     {/* Animated Glow Effect */}
                     <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-red-500 via-blue-500 to-red-500 rounded-2xl opacity-30 blur-xl animate-pulse group-hover/image:opacity-50 transition-opacity duration-500"></div>
                     <div className="absolute -inset-1 sm:-inset-2 bg-gradient-to-br from-blue-400/20 to-red-400/20 rounded-2xl blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
@@ -589,7 +558,7 @@ export default function Home() {
                         alt="EBOMI.TV Streaming Platform"
                         fill
                         className="object-contain rounded-2xl group-hover/image:scale-105 transition-transform duration-700"
-                        sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, 256px, 320px"
+                        sizes="(max-width: 640px) 288px, (max-width: 768px) 256px, 256px, 320px"
                         priority
                       />
                       
@@ -620,21 +589,15 @@ export default function Home() {
 
           {/* Horizontal Scrollable Container */}
           <div className="relative">
-            <div
-              ref={recentProgramsRef}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              onScroll={() => {
-                if (recentProgramsRef.current) {
-                  setRecentProgramsScrollLeft(recentProgramsRef.current.scrollLeft)
-                }
+            <HorizontalScroll
+              scrollRef={recentProgramsRef}
+              onScroll={(scrollLeft) => {
+                setRecentProgramsScrollLeft(scrollLeft)
               }}
-              className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-12 xl:gap-16 overflow-x-auto scrollbar-hide pb-4 scroll-smooth touch-pan-x snap-x snap-start"
-              style={{ 
-                scrollbarWidth: 'none', 
-                msOverflowStyle: 'none',
-                WebkitOverflowScrolling: 'touch'
-              }}
+              autoScroll={true}
+              scrollSpeed={0.5}
+              pauseOnHover={true}
+              pauseOnTouch={true}
             >
               {recentProgramsImages.map((image, index) => (
                 <div
@@ -649,26 +612,27 @@ export default function Home() {
                   />
                 </div>
               ))}
-            </div>
+            </HorizontalScroll>
             {/* Scroll Indicator */}
-            {recentProgramsRef.current && recentProgramsRef.current.scrollWidth > recentProgramsRef.current.clientWidth && (
-              <div className="flex justify-center gap-1.5 mt-4">
-                {Array.from({ length: Math.min(10, Math.ceil(recentProgramsImages.length / 3)) }).map((_, index) => {
-                  const scrollProgress = recentProgramsRef.current
-                    ? (recentProgramsScrollLeft / (recentProgramsRef.current.scrollWidth - recentProgramsRef.current.clientWidth)) * (Math.min(10, Math.ceil(recentProgramsImages.length / 3)) - 1)
-                    : 0
-                  const isActive = Math.abs(scrollProgress - index) < 0.5
-                  return (
-                    <div
-                      key={index}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        isActive ? 'w-6 bg-navy' : 'w-1.5 bg-gray-300'
-                      }`}
-                    />
-                  )
-                })}
-              </div>
-            )}
+            <div className="flex justify-center gap-1.5 mt-4">
+              {Array.from({ length: Math.min(10, Math.ceil(recentProgramsImages.length / 3)) }).map((_, index) => {
+                const maxScroll = recentProgramsRef.current
+                  ? recentProgramsRef.current.scrollWidth - recentProgramsRef.current.clientWidth
+                  : 1
+                const scrollProgress = maxScroll > 0
+                  ? (recentProgramsScrollLeft / maxScroll) * (Math.min(10, Math.ceil(recentProgramsImages.length / 3)) - 1)
+                  : 0
+                const isActive = Math.abs(scrollProgress - index) < 0.5
+                return (
+                  <div
+                    key={index}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      isActive ? 'w-6 bg-navy' : 'w-1.5 bg-gray-300'
+                    }`}
+                  />
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>

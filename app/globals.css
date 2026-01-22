@@ -107,12 +107,23 @@
     scroll-snap-type: x mandatory;
   }
 
+  .snap-x-proximity {
+    scroll-snap-type: x proximity;
+  }
+
   .snap-start {
     scroll-snap-align: start;
   }
 
   .snap-center {
     scroll-snap-align: center;
+  }
+
+  /* Horizontal scroll: allow vertical page scroll, smooth horizontal swipe */
+  .horizontal-scroll-touch {
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
