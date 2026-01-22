@@ -1,6 +1,6 @@
 'use client'
 
-import { Heart, Seedling, Building2, Users, Shield, Lock } from 'lucide-react'
+import { Heart, Sprout, Building2, Users, Shield, Lock } from 'lucide-react'
 import Link from 'next/link'
 import { useLanguage } from '@/lib/LanguageContext'
 
@@ -75,7 +75,7 @@ export default function GivePage() {
             {/* Seed */}
             <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow overflow-hidden border-2 border-gray-100">
               <div className="bg-gradient-to-br from-green-500 to-green-700 p-8 text-white">
-                <Seedling className="w-12 h-12 mb-4" />
+                <Sprout className="w-12 h-12 mb-4" />
                 <h3 className="text-2xl font-bold mb-2">{t.give.seed}</h3>
                 <p className="text-white/90">{t.give.seedDescription}</p>
               </div>
