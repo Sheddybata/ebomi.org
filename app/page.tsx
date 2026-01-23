@@ -18,8 +18,69 @@ const GiveButton = dynamic(() => import('@/components/GiveButton'), {
   ssr: false,
 })
 
+// Helper function to render biography with bold headings
+function renderBiographyWithBoldHeadings(text: string, language: string = 'en') {
+  // Only apply bold formatting if text contains English headings
+  // For other languages, return text as-is to preserve formatting
+  const hasEnglishHeadings = text.includes('The Encounter: From Islam to the Cross') || 
+                            text.includes('Ministry Philosophy & Global Impact')
+  
+  if (!hasEnglishHeadings) {
+    // For languages without English headings, return plain text
+    return text
+  }
+
+  const headings = [
+    'The Encounter: From Islam to the Cross',
+    'Ministry Philosophy & Global Impact',
+    'The Global Mission:',
+    'Spiritual Awakening:',
+    'National Reform:',
+    'A Catalyst for National Transformation',
+    'Authorship & Global Media',
+    'Family & Legacy',
+  ]
+
+  // Escape special regex characters and create pattern
+  const escapedHeadings = headings.map(h => h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+  const pattern = new RegExp(`(${escapedHeadings.join('|')})`, 'g')
+  
+  const parts: (string | JSX.Element)[] = []
+  let lastIndex = 0
+  let match
+  let keyCounter = 0
+
+  // Find all matches
+  while ((match = pattern.exec(text)) !== null) {
+    // Add text before match
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index))
+    }
+    // Add bold heading
+    parts.push(
+      <strong key={`bold-${keyCounter++}`} className="font-bold text-navy-dark">
+        {match[0]}
+      </strong>
+    )
+    lastIndex = match.index + match[0].length
+  }
+
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex))
+  }
+
+  return parts.length > 0 ? parts : text
+}
+
 export default function Home() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  
+  // Determine if current language is RTL
+  const isRTL = language === 'ar' || language === 'he'
+  
+  // Get biography text - this will update when language changes
+  const biographyText = t.home.prophetBiography1
   const upcomingScrollRef = useRef<HTMLDivElement>(null)
   const pastScrollRef = useRef<HTMLDivElement>(null)
   const recentProgramsRef = useRef<HTMLDivElement>(null)
@@ -1160,53 +1221,56 @@ export default function Home() {
       </section>
 
       {/* Meet the Prophet Section */}
-      <section className="py-20 bg-white">
+      <section key={`prophet-section-${language}`} className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className={`grid md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center ${isRTL ? 'md:grid-flow-col-dense' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
             {/* Image Section */}
-            <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl group order-2 md:order-1">
-              <div className="relative aspect-[4/5] rounded-xl overflow-hidden">
+            <div className={`relative w-full ${isRTL ? 'order-2 md:order-2' : 'order-2 md:order-1'} md:sticky md:top-24`}>
+              <div className="relative aspect-[4/5] md:aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl group">
+                {/* Background gradient to prevent white space */}
+                <div className="absolute inset-0 bg-gradient-to-br from-navy/10 via-navy/5 to-gold/5"></div>
                 <Image
                   src="/abouttheprophet.png"
                   alt="Prophet Isa El-Buba"
                   fill
-                  className="object-cover rounded-xl group-hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center rounded-2xl group-hover:scale-105 transition-transform duration-700 relative z-10"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 40vw"
+                  priority
                 />
+                {/* Decorative border effect */}
+                <div className="absolute inset-0 border-4 border-gold/20 rounded-2xl pointer-events-none z-20"></div>
+                {/* Decorative overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl pointer-events-none z-30"></div>
               </div>
             </div>
 
             {/* Content Section */}
-            <div className="space-y-6 order-1 md:order-2">
+            <div className={`space-y-5 md:space-y-6 ${isRTL ? 'order-1 md:order-1' : 'order-1 md:order-2'} ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
               <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-navy-dark mb-6">
+                <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-navy-dark mb-4 md:mb-6 ${isRTL ? 'text-right' : 'text-left'}`}>
                   {t.home.meetTheProphet}
                 </h2>
-                <div className="w-20 h-1 bg-gold mb-8"></div>
+                <div className={`${isRTL ? 'mr-0 ml-auto' : 'ml-0 mr-auto'} w-16 sm:w-20 h-1 bg-gold mb-6 md:mb-8`}></div>
               </div>
 
-              <div className="space-y-4 text-gray-700 leading-relaxed text-lg">
-                <p>
-                  {t.home.prophetBiography1}
-                </p>
-                <p>
-                  {t.home.prophetBiography2}
-                </p>
-                <p className="text-navy-dark font-semibold">
-                  {t.home.prophetBiography3}
-                </p>
+              <div 
+                key={`biography-${language}`}
+                className={`text-gray-700 leading-relaxed text-base sm:text-lg whitespace-pre-line break-words hyphens-auto ${isRTL ? 'text-right' : 'text-left'}`} 
+                dir={isRTL ? 'rtl' : 'ltr'}
+              >
+                {renderBiographyWithBoldHeadings(biographyText, language)}
               </div>
 
               {/* Learn More Button */}
-              <div className="pt-4">
+              <div className="pt-2 md:pt-4">
                 <a
                   href="https://isaelbuba.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 px-8 py-4 bg-navy text-white font-bold rounded-lg hover:bg-navy-light transition-colors"
+                  className="inline-flex items-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-navy text-white font-bold rounded-lg hover:bg-navy-light transition-colors text-sm sm:text-base"
                 >
                   <span>{t.common.learnMore}</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
               </div>
             </div>

@@ -125,5 +125,38 @@
     overscroll-behavior-y: auto;
     -webkit-overflow-scrolling: touch;
   }
+
+  /* Language-specific text rendering */
+  [dir="rtl"] {
+    text-align: right;
+    direction: rtl;
+  }
+
+  [dir="ltr"] {
+    text-align: left;
+    direction: ltr;
+  }
+
+  /* Better text rendering for different scripts */
+  [lang="ar"],
+  [lang="he"] {
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  [lang="zh"],
+  [lang="ja"],
+  [lang="ko"] {
+    font-feature-settings: "kern" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Hyphenation support for better text wrapping */
+  .hyphens-auto {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+  }
 }
 

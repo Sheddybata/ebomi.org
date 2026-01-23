@@ -358,9 +358,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'Join intercessors praying for nations',
       joinTheArmyBenefit3: 'Transform society through Kingdom principles',
       joinTheArmyBenefit4: 'Live out your prophetic destiny',
-      prophetBiography1: 'Prophet Isa El-Buba is the President of Evangelical Biblical Outreach Ministries International (EBOMI). His ministry is accompanied with the manifestations of the presence and power of God, the Lord working with Him confirming His word with signs following.',
-      prophetBiography2: 'His mission is to help people discover and confidently live out their God-given purpose through the transformative power of the Gospel. He has a special burden to reach the Muslim World so that they might understand the true God.',
-      prophetBiography3: 'He is married to Pastor Choice El-buba and they are blessed with children and grandchildren.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI extends its impact through four strategic arms, each dedicated to transforming lives and communities',
     },
     common: {
@@ -541,9 +566,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'Rejoindre les intercesseurs qui prient pour les nations',
       joinTheArmyBenefit3: 'Transformer la société par les principes du Royaume',
       joinTheArmyBenefit4: 'Vivre votre destin prophétique',
-      prophetBiography1: 'Le Prophète Isa El-Buba est le Président des Ministères Internationaux d\'Évangélisation Biblique (EBOMI). Son ministère est accompagné des manifestations de la présence et de la puissance de Dieu, le Seigneur travaillant avec lui confirmant Sa parole avec des signes qui suivent.',
-      prophetBiography2: 'Sa mission est d\'aider les gens à découvrir et à vivre avec confiance leur but donné par Dieu grâce au pouvoir transformateur de l\'Évangile. Il a un fardeau spécial pour atteindre le monde musulman afin qu\'ils puissent comprendre le vrai Dieu.',
-      prophetBiography3: 'Il est marié à la Pasteur Choice El-buba et ils sont bénis avec des enfants et des petits-enfants.',
+      prophetBiography1: `Le Prophète (Dr) Isa El-Buba est une voix prophétique mondialement reconnue, un leader transformationnel et un réformateur apostolique. Il est le visionnaire derrière les Ministères Internationaux d'Évangélisation Biblique (EBOMI), dont le siège est à Jos, au Nigeria—un ministère dédié à élever des "Ambassadeurs du Royaume" qui façonnent la culture, reconstruisent les nations et manifestent l'influence divine dans toutes les sphères de l'existence humaine.
+
+Connu pour sa position intransigeante sur la justice et ses profondes perspectives prophétiques, le Prophète Isa El-buba a passé plus de quatre décennies à être un pionnier du réveil spirituel et social à travers le globe.
+
+La Rencontre : De l'Islam à la Croix
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI étend son impact à travers quatre bras stratégiques, chacun dédié à transformer des vies et des communautés',
     },
     common: {
@@ -724,9 +774,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'Unirse a intercesores que oran por las naciones',
       joinTheArmyBenefit3: 'Transformar la sociedad a través de los principios del Reino',
       joinTheArmyBenefit4: 'Vivir tu destino profético',
-      prophetBiography1: 'El Profeta Isa El-Buba es el Presidente de los Ministerios Internacionales de Alcance Bíblico Evangélico (EBOMI). Su ministerio está acompañado de manifestaciones de la presencia y el poder de Dios, el Señor trabajando con Él confirmando Su palabra con señales que siguen.',
-      prophetBiography2: 'Su misión es ayudar a las personas a descubrir y vivir con confianza su propósito dado por Dios a través del poder transformador del Evangelio. Tiene una carga especial para alcanzar el mundo musulmán para que puedan entender al verdadero Dios.',
-      prophetBiography3: 'Está casado con la Pastora Choice El-buba y están bendecidos con hijos y nietos.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI extiende su impacto a través de cuatro brazos estratégicos, cada uno dedicado a transformar vidas y comunidades',
     },
     common: {
@@ -907,9 +982,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'Juntar-se a intercessores que oram pelas nações',
       joinTheArmyBenefit3: 'Transformar a sociedade através dos princípios do Reino',
       joinTheArmyBenefit4: 'Viver seu destino profético',
-      prophetBiography1: 'O Profeta Isa El-Buba é o Presidente dos Ministérios Internacionais de Alcance Bíblico Evangélico (EBOMI). Seu ministério é acompanhado com manifestações da presença e poder de Deus, o Senhor trabalhando com Ele confirmando Sua palavra com sinais que seguem.',
-      prophetBiography2: 'Sua missão é ajudar as pessoas a descobrir e viver com confiança seu propósito dado por Deus através do poder transformador do Evangelho. Ele tem um fardo especial para alcançar o mundo muçulmano para que possam entender o verdadeiro Deus.',
-      prophetBiography3: 'Ele é casado com a Pastora Choice El-buba e são abençoados com filhos e netos.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI estende seu impacto através de quatro braços estratégicos, cada um dedicado a transformar vidas e comunidades',
     },
     common: {
@@ -1006,9 +1106,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'Shiga masu addu\'a waɗanda suke addu\'a ga al\'ummomi',
       joinTheArmyBenefit3: 'Canza al\'umma ta hanyar ka\'idojin Mulki',
       joinTheArmyBenefit4: 'Rayu da makomarka ta annabawa',
-      prophetBiography1: 'Annabi Isa El-Buba shi ne Shugaban Cibiyoyin Wa\'azi na Littafi Mai Tsarki na Duniya (EBOMI). Hidimarsa tana tare da bayyanuwar kasancewar da ikon Allah, Ubangiji yana aiki tare da shi yana tabbatar da maganarsa tare da alamomi masu bi.',
-      prophetBiography2: 'Manufarsa ita ce taimakawa mutane su gano kuma su rayu da gabaɗaya da manufarsu da Allah ya ba su ta hanyar ikon canza Bishara. Yana da nauyi na musamman don isa ga Duniya Musulmi domin su fahimci Allah na gaskiya.',
-      prophetBiography3: 'Ya auri Fasto Choice El-buba kuma an albarkace su da yara da jikoki.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI tana faɗaɗa tasirinta ta hanyar hannaye huɗu na dabara, kowanne ya keɓe ga canza rayuwa da al\'ummomi',
     },
     common: {
@@ -1105,9 +1230,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'Darapọ mọ awọn olugbe ti n gbadura fun awọn orilẹ-ede',
       joinTheArmyBenefit3: 'Yipada awujọ nipasẹ awọn ofin Ijọba',
       joinTheArmyBenefit4: 'Gbe ipinnu woli rẹ jade',
-      prophetBiography1: 'Annabi Isa El-Buba ni Aare ti Awọn Ijọsin Iwọle Bibeli ti Agbaye (EBOMI). Ijọsin rẹ jẹ pẹlu awọn ifihan ti iwọlẹ ati agbara Ọlọrun, Oluwa ti n ṣiṣẹ pẹlu Rẹ ti n jẹrisi Ọrọ Rẹ pẹlu awọn ami ti n tẹle.',
-      prophetBiography2: 'Ipa rẹ ni lati ran awọn eniyan lọwọ lati ṣe awari ati gbe ipinnu ti Ọlọrun fun ni igbagbọ nipasẹ agbara ayipada ti Ihinrere. O ni ewu pataki lati de ọdọ Agbaye Musulumi ki wọn le fẹ Ọlọrun otitọ.',
-      prophetBiography3: 'O ti fẹ pẹlu Pastor Choice El-buba ati pe a n bọ wọn pẹlu awọn ọmọ ati awọn ọmọ ọmọ.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI n fa ipa rẹ kọja awọn apa mẹrin ti ogbon, kọọkan ti o ṣe igbẹkẹle lati yipada awọn igbesi aye ati awọn agbegbe',
     },
     common: {
@@ -1204,9 +1354,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'Sonye ndị na-ekpe ekpere na-ekpe ekpere maka mba',
       joinTheArmyBenefit3: 'Gbanwee ọha mmadụ site na ụkpụrụ Alaeze',
       joinTheArmyBenefit4: 'Bie ọdịnihu amụma gị',
-      prophetBiography1: 'Onye amụma Isa El-Buba bụ Onye isi oche nke Evangelical Biblical Outreach Ministries International (EBOMI). Ozi ya na-esonyere ngosipụta nke ọnụnọ na ike nke Chineke, Onyenwe anyị na-arụkọ ọrụ na Ya na-akwado Okwu Ya na ihe ịrịba ama na-eso.',
-      prophetBiography2: 'Ozi ya bụ inyere ndị mmadụ aka ịchọpụta ma jiri obi ike bie ebumnuche Chineke nyere ha site n\'ike mgbanwe nke Oziọma. O nwere ibu ọrụ pụrụ iche iji ruo ụwa ndị Alakụba ka ha nwee ike ịghọta Chineke n\'ezie.',
-      prophetBiography3: 'Ọ lụrụ Pastor Choice El-buba ma a gọziri ha na ụmụ na ụmụ ụmụ.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI na-agbasawanye mmetụta ya site na aka anọ dị mkpa, nke ọ bụla raara onwe ya nye ịgbanwe ndụ na obodo',
     },
     common: {
@@ -1303,9 +1478,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'Naatu e jokkondirɓe ɓe jokkondirde e leydii',
       joinTheArmyBenefit3: 'Wallit leydi e jokke Ijọba',
       joinTheArmyBenefit4: 'Gbeede fedde annabaa maa',
-      prophetBiography1: 'Annabaa Isa El-Buba ko Aare Fedde Jokkondirde Bibel Aduna (EBOMI). Fedde makko ina jokkondirde e bayyanuwar kasancewar e ikon Alla, Joomi jokkondirde e Makko jokkondirde Konngol Makko e alamomi ɗiɗi njaayoo.',
-      prophetBiography2: 'Fedde makko ko wallitde yimɓe yi\'de e gbeede fedde Alla funɗe e ikon wallitde Bishara. O woodi nauyi naatirɗe ngam yi\'de e Aduna Musulmi ngam ɓe fahamde Alla goonga.',
-      prophetBiography3: 'O seɗɗa e Pastor Choice El-buba e ɓe barkeɗe e ɓiɓɓe e ɓiɓɓe ɓiɓɓe.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI faɗaɗa tasir makko e juuɗe nayi naatirɗe, kala jokkondirɗe e fedde e wallitde nguurndam e leydi',
     },
     common: {
@@ -1402,9 +1602,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'انضم إلى الشفعاء الذين يصلون من أجل الأمم',
       joinTheArmyBenefit3: 'تحويل المجتمع من خلال مبادئ المملكة',
       joinTheArmyBenefit4: 'عش مصيرك النبوي',
-      prophetBiography1: 'النبي عيسى البوبا هو رئيس الوزارات الدولية للوصول الكتابي الإنجيلي (EBOMI). يرافقه خدمته مظاهر حضور وقوة الله، الرب يعمل معه مؤكدًا كلمته بعلامات تتبع.',
-      prophetBiography2: 'مهمته هي مساعدة الناس على اكتشاف والعيش بثقة في هدفهم المعطى من الله من خلال القوة التحويلية للإنجيل. لديه عبء خاص للوصول إلى العالم الإسلامي حتى يفهموا الإله الحقيقي.',
-      prophetBiography3: 'متزوج من القسيسة تشويس البوبا وهم مباركون بأطفال وأحفاد.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'تمتد EBOMI تأثيرها من خلال أربعة أذرع استراتيجية، كل منها مكرس لتحويل الأرواح والمجتمعات',
     },
     common: {
@@ -1501,9 +1726,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: '加入为国家祈祷的代祷者',
       joinTheArmyBenefit3: '通过国度原则转变社会',
       joinTheArmyBenefit4: '活出您的先知命运',
-      prophetBiography1: '先知以撒·埃尔-布巴是福音派圣经外展国际事工（EBOMI）的主席。他的事工伴随着神的存在和能力的显现，主与他同工，用随之而来的神迹确认祂的话语。',
-      prophetBiography2: '他的使命是通过福音的变革力量帮助人们发现并自信地活出神所赐的目的。他有一个特殊的负担，要接触穆斯林世界，使他们能够理解真神。',
-      prophetBiography3: '他与牧师选择·埃尔-布巴结婚，他们蒙福有孩子和孙子。',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI通过四个战略分支扩展其影响力，每个分支都致力于转变生命和社区',
     },
     common: {
@@ -1600,9 +1850,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'הצטרף למתפללים שמתפללים עבור אומות',
       joinTheArmyBenefit3: 'שנה את החברה דרך עקרונות המלכות',
       joinTheArmyBenefit4: 'חיה את ייעודך הנבואי',
-      prophetBiography1: 'הנביא איסא אל-בובה הוא נשיא המשרדים הבינלאומיים להגעה ביבלית אוונגליסטית (EBOMI). המשרד שלו מלווה במניפסטים של נוכחות וכוח האלוהים, האדון עובד איתו מאשר את דברו עם סימנים הבאים.',
-      prophetBiography2: 'המשימה שלו היא לעזור לאנשים לגלות ולחיות בביטחון את המטרה שנתן להם האלוהים דרך כוח השינוי של הבשורה. יש לו נטל מיוחד להגיע לעולם המוסלמי כדי שיבינו את האלוהים האמיתי.',
-      prophetBiography3: 'הוא נשוי לפסטור צ\'ויס אל-בובה והם מבורכים בילדים ונכדים.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI מרחיבה את השפעתה דרך ארבעה זרועות אסטרטגיות, כל אחת מוקדשת לשינוי חיים וקהילות',
     },
     common: {
@@ -1699,9 +1974,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'Schließen Sie sich Fürbittern an, die für Nationen beten',
       joinTheArmyBenefit3: 'Gesellschaft durch Reichsprinzipien transformieren',
       joinTheArmyBenefit4: 'Leben Sie Ihre prophetische Bestimmung aus',
-      prophetBiography1: 'Prophet Isa El-Buba ist der Präsident der Evangelischen Biblischen Outreach-Ministerien International (EBOMI). Sein Dienst wird von Manifestationen der Gegenwart und Kraft Gottes begleitet, der Herr arbeitet mit ihm und bestätigt Sein Wort mit folgenden Zeichen.',
-      prophetBiography2: 'Seine Mission ist es, Menschen zu helfen, ihren von Gott gegebenen Zweck durch die transformative Kraft des Evangeliums zu entdecken und selbstbewusst zu leben. Er hat eine besondere Last, die muslimische Welt zu erreichen, damit sie den wahren Gott verstehen können.',
-      prophetBiography3: 'Er ist mit Pastorin Choice El-buba verheiratet und sie sind mit Kindern und Enkeln gesegnet.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI erweitert seine Wirkung durch vier strategische Arme, die jeweils dem Transformieren von Leben und Gemeinden gewidmet sind',
     },
     common: {
@@ -1798,9 +2098,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: 'राष्ट्रों के लिए प्रार्थना करने वाले मध्यस्थों में शामिल हों',
       joinTheArmyBenefit3: 'राज्य सिद्धांतों के माध्यम से समाज को बदलें',
       joinTheArmyBenefit4: 'अपनी भविष्यवाणी की नियति को जीएं',
-      prophetBiography1: 'पैगंबर इसा अल-बुबा इवेंजेलिकल बाइबिलिकल आउटरीच मंत्रालय इंटरनेशनल (EBOMI) के अध्यक्ष हैं। उनकी सेवा परमेश्वर की उपस्थिति और शक्ति की अभिव्यक्तियों के साथ है, प्रभु उनके साथ काम कर रहा है जो संकेतों के साथ अपने शब्द की पुष्टि कर रहा है।',
-      prophetBiography2: 'उनका मिशन लोगों को सुसमाचार के रूपांतरकारी शक्ति के माध्यम से अपने परमेश्वर-दिए गए उद्देश्य को खोजने और आत्मविश्वास से जीने में मदद करना है। उनके पास मुस्लिम दुनिया तक पहुंचने का एक विशेष बोझ है ताकि वे सच्चे परमेश्वर को समझ सकें।',
-      prophetBiography3: 'उनकी शादी पास्टर चॉइस अल-बुबा से हुई है और उन्हें बच्चों और पोते-पोतियों से आशीर्वाद मिला है।',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI चार रणनीतिक शाखाओं के माध्यम से अपने प्रभाव का विस्तार करता है, प्रत्येक जीवन और समुदायों को बदलने के लिए समर्पित है',
     },
     common: {
@@ -1897,9 +2222,34 @@ export const translations: Record<Language, Translations> = {
       joinTheArmyBenefit2: '국가를 위해 기도하는 중보자들과 함께하기',
       joinTheArmyBenefit3: '왕국 원칙을 통해 사회를 변화시키기',
       joinTheArmyBenefit4: '당신의 예언적 운명을 살아가기',
-      prophetBiography1: '선지자 이사 엘-부바는 복음주의 성경 전도 국제 사역(EBOMI)의 회장입니다. 그의 사역은 하나님의 임재와 능력의 나타남과 함께하며, 주님께서 그와 함께 일하시며 표적을 따라 그분의 말씀을 확인하십니다.',
-      prophetBiography2: '그의 사명은 복음의 변혁적인 힘을 통해 사람들이 하나님께서 주신 목적을 발견하고 자신 있게 살아가도록 돕는 것입니다. 그는 무슬림 세계에 도달하여 그들이 참 하나님을 이해할 수 있도록 하는 특별한 부담을 가지고 있습니다.',
-      prophetBiography3: '그는 파스터 초이스 엘-부바와 결혼했으며 자녀와 손자들로 축복받았습니다.',
+      prophetBiography1: `Prophet (Dr) Isa El-Buba is a globally recognized prophetic voice, transformational leader, and apostolic reformer. He is the visionary behind Evangelical Biblical Outreach Ministries International (EBOMI), headquartered in Jos, Nigeria—a ministry dedicated to raising "Kingdom Ambassadors" who shape culture, rebuild nations, and manifest Godly influence in every sphere of human existence.
+
+Known for his uncompromising stance on righteousness and his deep prophetic insights, Prophet Isa El-buba has spent over four decades pioneering spiritual and social awakening across the globe.
+
+The Encounter: From Islam to the Cross
+Born in Jos into a devout Muslim family, Prophet Isa’s life took a radical turn in 1982. Following a dramatic, supernatural encounter with Jesus Christ, he was delivered from deep Islamic occult involvement and commissioned into a life of Christian ministry. This powerful conversion remains the bedrock of his message: that the Gospel of Jesus Christ has the power to liberate any soul and transform any nation.
+
+Ministry Philosophy & Global Impact
+Prophet Isa’s ministry is defined by the "Radical Prophetic." His meetings are marked by the tangible presence of God, healing, and precise prophetic proclamations that steer the destinies of individuals and governments alike.
+
+He carries a specific, divine burden for:
+
+The Global Mission: Reaching the Muslim world with the authentic love and truth of Christ.
+
+Spiritual Awakening: Equipping the Body of Christ to move beyond religion into supernatural kingdom assignments.
+
+National Reform: Acting as a "Watchman" over Nigeria and the nations, calling leaders to accountability, justice, and godly governance.
+
+A Catalyst for National Transformation
+Beyond the pulpit, Prophet Isa is a fierce advocate for civic responsibility. He is the convener of the Initiative for a Better and Brighter Nigeria (IBBN). Through this movement, he mobilizes millions of citizens toward nation-building, credible leadership, and the pursuit of a righteous political landscape. His influence bridges the gap between the Church and the State, making him a sought-after voice for national peace and renewal.
+
+Authorship & Global Media
+A prolific communicator, Prophet Isa El-buba reaches millions through his televangelism broadcasts and published works. His books serve as manuals for spiritual warfare, leadership, and prophetic activation, ensuring that his mantle of wisdom is accessible to the next generation of believers worldwide.
+
+Family & Legacy
+Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of strength and a co-laborer in the vision. Together, they are blessed with children and grandchildren who serve alongside them in the ministry. The El-Buba legacy is one of unwavering commitment to truth, spiritual authenticity, and the relentless pursuit of God’s purpose on earth.`,
+      prophetBiography2: '',
+      prophetBiography3: '',
       ourMinistriesDescription: 'EBOMI는 각각 삶과 지역 사회를 변화시키는 데 전념하는 네 가지 전략적 팔을 통해 그 영향력을 확장합니다',
     },
     common: {
