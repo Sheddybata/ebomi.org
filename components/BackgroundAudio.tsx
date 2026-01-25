@@ -106,95 +106,104 @@ export default function BackgroundAudio() {
           }}
         >
           <div
+            className="animate-modal-fade-in"
             style={{
               backgroundColor: 'white',
-              borderRadius: '16px',
-              padding: '32px',
-              maxWidth: '450px',
+              borderRadius: '12px',
+              padding: '40px 32px',
+              maxWidth: '480px',
               width: '100%',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
               textAlign: 'center',
+              border: '2px solid #fee2e2',
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div
-              style={{
-                fontSize: '48px',
-                marginBottom: '16px',
-              }}
-            >
-              🎵
-            </div>
             <h2
               style={{
-                fontSize: '24px',
-                fontWeight: 'bold',
-                color: '#1e40af',
-                marginBottom: '12px',
+                fontSize: '28px',
+                fontWeight: '700',
+                color: '#dc2626',
+                marginBottom: '16px',
+                letterSpacing: '-0.5px',
               }}
             >
-              Enable Background Music?
+              Enable Background Music
             </h2>
             <p
               style={{
                 fontSize: '16px',
-                color: '#4b5563',
-                marginBottom: '24px',
-                lineHeight: '1.6',
+                color: '#6b7280',
+                marginBottom: '32px',
+                lineHeight: '1.7',
+                maxWidth: '400px',
+                margin: '0 auto 32px',
               }}
             >
-              Would you like to enable background music to enhance your experience on EBOMI? The music will play continuously while you browse.
+              Enhance your browsing experience with background music. The music will play continuously while you explore EBOMI.
             </p>
             <div
               style={{
                 display: 'flex',
-                gap: '12px',
+                gap: '16px',
                 justifyContent: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <button
                 onClick={handleAllow}
                 style={{
-                  padding: '12px 32px',
-                  backgroundColor: '#1e40af',
+                  padding: '14px 36px',
+                  backgroundColor: '#dc2626',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
                   fontSize: '16px',
                   fontWeight: '600',
                   cursor: 'pointer',
-                  transition: 'background-color 0.2s',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 6px -1px rgba(220, 38, 38, 0.3)',
+                  minWidth: '140px',
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = '#1e3a8a'
+                  e.currentTarget.style.backgroundColor = '#b91c1c'
+                  e.currentTarget.style.transform = 'translateY(-1px)'
+                  e.currentTarget.style.boxShadow = '0 6px 12px -1px rgba(220, 38, 38, 0.4)'
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor = '#1e40af'
+                  e.currentTarget.style.backgroundColor = '#dc2626'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(220, 38, 38, 0.3)'
                 }}
               >
-                ✓ Allow
+                Allow
               </button>
               <button
                 onClick={handleDeny}
                 style={{
-                  padding: '12px 32px',
-                  backgroundColor: '#e5e7eb',
-                  color: '#374151',
-                  border: 'none',
+                  padding: '14px 36px',
+                  backgroundColor: 'transparent',
+                  color: '#6b7280',
+                  border: '2px solid #e5e7eb',
                   borderRadius: '8px',
                   fontSize: '16px',
                   fontWeight: '600',
                   cursor: 'pointer',
-                  transition: 'background-color 0.2s',
+                  transition: 'all 0.2s ease',
+                  minWidth: '140px',
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = '#d1d5db'
+                  e.currentTarget.style.backgroundColor = '#f9fafb'
+                  e.currentTarget.style.borderColor = '#d1d5db'
+                  e.currentTarget.style.color = '#374151'
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor = '#e5e7eb'
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                  e.currentTarget.style.borderColor = '#e5e7eb'
+                  e.currentTarget.style.color = '#6b7280'
                 }}
               >
-                ✗ Not Now
+                Not Now
               </button>
             </div>
           </div>
