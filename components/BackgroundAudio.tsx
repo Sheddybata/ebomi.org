@@ -4,100 +4,70 @@ import { useEffect, useRef, useState } from 'react'
 
 export default function BackgroundAudio() {
   const audioRef = useRef<HTMLAudioElement>(null)
-  const [hasInteracted, setHasInteracted] = useState(false)
+  const [showPermissionModal, setShowPermissionModal] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
-    const audio = audioRef.current
-    if (!audio) return
-
-    let retryCount = 0
-    const maxRetries = 10
-
-    // Function to attempt playing audio with different strategies
-    const attemptPlay = async () => {
-      try {
-        // Set volume first
+    // Check if user has already given permission
+    const audioPermission = localStorage.getItem('ebomi-audio-permission')
+    
+    if (audioPermission === 'allowed') {
+      // User previously allowed, try to play immediately
+      const audio = audioRef.current
+      if (audio) {
         audio.volume = 0.7
-
-        // Try multiple play strategies
-        if ('mediaSession' in navigator) {
-          // Try with media session
-          await audio.play()
-        } else if ('requestAnimationFrame' in window) {
-          // Try with animation frame
-          await new Promise((resolve, reject) => {
-            requestAnimationFrame(async () => {
-              try {
-                await audio.play()
-                resolve(void 0)
-              } catch (e) {
-                reject(e)
-              }
-            })
+        audio.play()
+          .then(() => {
+            setIsPlaying(true)
+            console.log('Background audio started (previously allowed)')
           })
-        } else {
-          // Standard play attempt
-          await audio.play()
-        }
-
-        setHasInteracted(true)
-        console.log('Background audio started successfully')
-      } catch (error) {
-        console.log(`Audio autoplay attempt ${retryCount + 1} failed:`, error.message)
-
-        if (retryCount < maxRetries) {
-          retryCount++
-          // Retry with exponential backoff
-          setTimeout(attemptPlay, Math.min(1000 * Math.pow(2, retryCount), 10000))
-        } else {
-          console.log('Audio autoplay blocked. Will try on user interaction.')
-        }
+          .catch((error) => {
+            console.log('Failed to autoplay (even with permission):', error)
+            // If it still fails, show the modal
+            setShowPermissionModal(true)
+          })
       }
+    } else if (audioPermission === 'denied') {
+      // User previously denied, don't show modal
+      return
+    } else {
+      // First visit - show permission modal
+      setShowPermissionModal(true)
     }
+  }, [])
 
-    // Try immediately
-    attemptPlay()
-
-    // Also try after a short delay (helps with some browsers)
-    setTimeout(attemptPlay, 100)
-    setTimeout(attemptPlay, 500)
-
-    // Listen for any user interaction to play audio
-    const handleUserInteraction = async () => {
-      if (hasInteracted) return
-
+  const handleAllow = async () => {
+    const audio = audioRef.current
+    if (audio) {
       try {
+        audio.volume = 0.7
         await audio.play()
-        setHasInteracted(true)
-        console.log('Audio started on user interaction')
-
-        // Remove listeners after successful play
-        document.removeEventListener('click', handleUserInteraction)
-        document.removeEventListener('keydown', handleUserInteraction)
-        document.removeEventListener('touchstart', handleUserInteraction)
+        setIsPlaying(true)
+        setShowPermissionModal(false)
+        localStorage.setItem('ebomi-audio-permission', 'allowed')
+        console.log('Background audio started - user allowed')
       } catch (error) {
-        console.log('Failed to play audio on interaction:', error.message)
+        console.error('Failed to play audio:', error)
+        alert('Unable to play audio. Please check your browser settings.')
       }
     }
+  }
 
-    // Add interaction listeners
-    document.addEventListener('click', handleUserInteraction)
-    document.addEventListener('keydown', handleUserInteraction)
-    document.addEventListener('touchstart', handleUserInteraction)
+  const handleDeny = () => {
+    setShowPermissionModal(false)
+    localStorage.setItem('ebomi-audio-permission', 'denied')
+  }
 
-    // Cleanup function
+  // Cleanup on unmount
+  useEffect(() => {
     return () => {
+      const audio = audioRef.current
       if (audio) {
         audio.pause()
         audio.currentTime = 0
       }
-
-      // Remove listeners
-      document.removeEventListener('click', handleUserInteraction)
-      document.removeEventListener('keydown', handleUserInteraction)
-      document.removeEventListener('touchstart', handleUserInteraction)
     }
-  }, [hasInteracted])
+  }, [])
 
   return (
     <>
@@ -107,40 +77,129 @@ export default function BackgroundAudio() {
         preload="auto"
         style={{ display: 'none' }}
         muted={false}
-        volume={0.7}
       >
         <source src="/background sound/ebomi2.mp3" type="audio/mpeg" />
-        <source src="/background sound/ebomi2.mp3" type="audio/wav" />
         Your browser does not support the audio element.
       </audio>
 
-      {/* Fallback play button - hidden but accessible */}
-      <button
-        onClick={() => {
-          const audio = audioRef.current
-          if (audio) {
-            audio.play().catch(console.error)
-            setHasInteracted(true)
-          }
-        }}
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          zIndex: 9999,
-          padding: '10px 15px',
-          background: '#1e40af',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          fontSize: '14px',
-          display: hasInteracted ? 'none' : 'block'
-        }}
-        aria-label="Play background music"
-      >
-        ▶ Play Music
-      </button>
+      {/* Permission Modal */}
+      {showPermissionModal && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000,
+            padding: '20px',
+          }}
+          onClick={(e) => {
+            // Close on backdrop click
+            if (e.target === e.currentTarget) {
+              handleDeny()
+            }
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '16px',
+              padding: '32px',
+              maxWidth: '450px',
+              width: '100%',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+              textAlign: 'center',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              style={{
+                fontSize: '48px',
+                marginBottom: '16px',
+              }}
+            >
+              🎵
+            </div>
+            <h2
+              style={{
+                fontSize: '24px',
+                fontWeight: 'bold',
+                color: '#1e40af',
+                marginBottom: '12px',
+              }}
+            >
+              Enable Background Music?
+            </h2>
+            <p
+              style={{
+                fontSize: '16px',
+                color: '#4b5563',
+                marginBottom: '24px',
+                lineHeight: '1.6',
+              }}
+            >
+              Would you like to enable background music to enhance your experience on EBOMI? The music will play continuously while you browse.
+            </p>
+            <div
+              style={{
+                display: 'flex',
+                gap: '12px',
+                justifyContent: 'center',
+              }}
+            >
+              <button
+                onClick={handleAllow}
+                style={{
+                  padding: '12px 32px',
+                  backgroundColor: '#1e40af',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s',
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = '#1e3a8a'
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = '#1e40af'
+                }}
+              >
+                ✓ Allow
+              </button>
+              <button
+                onClick={handleDeny}
+                style={{
+                  padding: '12px 32px',
+                  backgroundColor: '#e5e7eb',
+                  color: '#374151',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s',
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = '#d1d5db'
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = '#e5e7eb'
+                }}
+              >
+                ✗ Not Now
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
