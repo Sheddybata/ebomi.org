@@ -76,7 +76,7 @@ export default function BackgroundAudio() {
       }
 
       // Strategy 2: Ensure audio source is set and loaded
-      const audioPath = encodeURI('/background sound/ebomi2.mp3')
+      const audioPath = '/background-sound/ebomi2.mp3'
       
       // Always set src to ensure it's correct
       if (!audio.src || !audio.src.includes('ebomi2')) {
@@ -206,8 +206,8 @@ export default function BackgroundAudio() {
   useEffect(() => {
     const audio = audioRef.current
     if (audio) {
-      // Set audio path using URL encoding for spaces
-      const audioPath = encodeURI('/background sound/ebomi2.mp3')
+      // Set audio path
+      const audioPath = '/background-sound/ebomi2.mp3'
       if (!audio.src || audio.src !== audioPath) {
         audio.src = audioPath
       }
@@ -287,8 +287,7 @@ export default function BackgroundAudio() {
           console.log('Audio load started')
         }}
       >
-        <source src="/background%20sound/ebomi2.mp3" type="audio/mpeg" />
-        <source src="/background sound/ebomi2.mp3" type="audio/mpeg" />
+        <source src="/background-sound/ebomi2.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 
