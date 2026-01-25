@@ -38,10 +38,10 @@ export default function BackgroundAudio() {
   }, [])
 
   const handleAllow = async (e?: React.MouseEvent | React.TouchEvent) => {
-    // Prevent event bubbling
+    // Prevent event bubbling but DON'T prevent default - we need the user gesture
     if (e) {
-      e.preventDefault()
       e.stopPropagation()
+      // Don't prevent default - we need the native event for audio unlock
     }
 
     const audio = audioRef.current
@@ -52,41 +52,62 @@ export default function BackgroundAudio() {
     }
 
     setIsLoading(true)
+    console.log('Starting audio playback...')
+    console.log('Audio current src:', audio.src)
+    console.log('Audio ready state:', audio.readyState)
+    console.log('Audio network state:', audio.networkState)
 
     try {
-      // Strategy 1: Unlock audio context (for mobile browsers)
-      if (typeof window !== 'undefined' && 'AudioContext' in window) {
+      // Strategy 1: Unlock audio context IMMEDIATELY (must be in user gesture)
+      if (typeof window !== 'undefined') {
         try {
           const AudioContext = window.AudioContext || (window as any).webkitAudioContext
-          const audioContext = new AudioContext()
-          if (audioContext.state === 'suspended') {
-            await audioContext.resume()
+          if (AudioContext) {
+            const audioContext = new AudioContext()
+            console.log('AudioContext state:', audioContext.state)
+            if (audioContext.state === 'suspended') {
+              const resumeResult = await audioContext.resume()
+              console.log('AudioContext resumed:', resumeResult)
+            }
           }
-        } catch (ctxError) {
-          console.log('AudioContext unlock attempt:', ctxError)
+        } catch (ctxError: any) {
+          console.log('AudioContext unlock attempt:', ctxError.message)
         }
       }
 
-      // Strategy 2: Ensure audio is loaded
-      // Use URL-encoded path to handle spaces properly
+      // Strategy 2: Ensure audio source is set and loaded
       const audioPath = encodeURI('/background sound/ebomi2.mp3')
       
-      if (audio.src !== audioPath || audio.readyState < 2) {
+      // Always set src to ensure it's correct
+      if (!audio.src || !audio.src.includes('ebomi2')) {
+        console.log('Setting audio src to:', audioPath)
         audio.src = audioPath
+      }
+
+      // Set volume and attributes BEFORE loading
+      audio.volume = 0.7
+      audio.muted = false
+      
+      // If not loaded, wait for it
+      if (audio.readyState < 2) {
+        console.log('Audio not ready, loading...')
+        audio.load()
         
         await new Promise((resolve, reject) => {
           const timeout = setTimeout(() => {
-            reject(new Error('Audio loading timeout after 10 seconds'))
-          }, 10000)
+            reject(new Error('Audio loading timeout after 15 seconds'))
+          }, 15000)
           
           const cleanup = () => {
             clearTimeout(timeout)
+            audio.removeEventListener('canplaythrough', onCanPlay)
             audio.removeEventListener('canplay', onCanPlay)
             audio.removeEventListener('error', onError)
             audio.removeEventListener('loadeddata', onCanPlay)
           }
           
           const onCanPlay = () => {
+            console.log('Audio can play - ready state:', audio.readyState)
             cleanup()
             resolve(void 0)
           }
@@ -94,51 +115,38 @@ export default function BackgroundAudio() {
           const onError = (err: Event) => {
             cleanup()
             const error = err as ErrorEvent
-            reject(new Error(`Audio load error: ${error.message || 'Unknown error'}`))
+            console.error('Audio load error event:', error)
+            if (audio.error) {
+              console.error('Audio error object:', {
+                code: audio.error.code,
+                message: audio.error.message
+              })
+            }
+            reject(new Error(`Audio load error: ${error.message || audio.error?.message || 'Unknown error'}`))
           }
           
+          // Try multiple events
+          audio.addEventListener('canplaythrough', onCanPlay, { once: true })
           audio.addEventListener('canplay', onCanPlay, { once: true })
           audio.addEventListener('loadeddata', onCanPlay, { once: true })
           audio.addEventListener('error', onError, { once: true })
-          
-          audio.load()
         })
       }
 
-      // Strategy 3: Set volume and attributes
-      audio.volume = 0.7
-      audio.muted = false
+      console.log('Attempting to play audio...')
+      console.log('Audio ready state before play:', audio.readyState)
       
-      // Strategy 4: Try playing with multiple approaches
-      let playSuccess = false
-      let lastError: any = null
-
-      // Try 1: Direct play
-      try {
-        const playPromise = audio.play()
-        if (playPromise !== undefined) {
-          await playPromise
-          playSuccess = true
-        } else {
-          playSuccess = true
-        }
-      } catch (err: any) {
-        lastError = err
-        console.log('Direct play failed, trying alternative:', err.message)
-        
-        // Try 2: Wait a bit and retry
-        await new Promise(resolve => setTimeout(resolve, 100))
-        try {
-          await audio.play()
-          playSuccess = true
-        } catch (err2: any) {
-          lastError = err2
-          console.log('Retry play failed:', err2.message)
-        }
+      // Strategy 3: Play immediately (must be in user gesture context)
+      const playPromise = audio.play()
+      
+      if (playPromise !== undefined) {
+        await playPromise
+        console.log('Audio play promise resolved successfully')
       }
 
-      if (!playSuccess) {
-        throw lastError || new Error('Unable to play audio after multiple attempts')
+      // Verify it's actually playing
+      if (audio.paused) {
+        throw new Error('Audio element is still paused after play() call')
       }
 
       // Success
@@ -146,22 +154,39 @@ export default function BackgroundAudio() {
       setIsLoading(false)
       setShowPermissionModal(false)
       localStorage.setItem('ebomi-audio-permission', 'allowed')
-      console.log('Background audio started - user allowed')
+      console.log('Background audio started successfully - user allowed')
+      console.log('Audio playing:', !audio.paused)
+      console.log('Audio current time:', audio.currentTime)
+      
     } catch (error: any) {
       setIsLoading(false)
       console.error('Failed to play audio:', error)
+      console.error('Error name:', error.name)
+      console.error('Error message:', error.message)
+      console.error('Audio paused:', audio.paused)
+      console.error('Audio ready state:', audio.readyState)
+      console.error('Audio network state:', audio.networkState)
+      
+      if (audio.error) {
+        console.error('Audio error details:', {
+          code: audio.error.code,
+          message: audio.error.message
+        })
+      }
       
       // Provide more specific error messages
       let errorMessage = 'Unable to play audio. '
       
       if (error.message?.includes('timeout')) {
-        errorMessage += 'The audio file is taking too long to load. Please check your internet connection.'
-      } else if (error.message?.includes('load error')) {
-        errorMessage += 'The audio file could not be loaded. Please refresh the page.'
+        errorMessage += 'The audio file is taking too long to load. Please check your internet connection and try again.'
+      } else if (error.message?.includes('load error') || audio.error?.code === 4) {
+        errorMessage += 'The audio file could not be loaded. The file may be missing or corrupted. Please contact support.'
       } else if (error.name === 'NotAllowedError' || error.name === 'NotSupportedError') {
-        errorMessage += 'Your browser or device is blocking audio playback. Please check your device settings and ensure it\'s not on silent mode.'
+        errorMessage += 'Your browser is blocking audio playback. Please check your browser settings and allow audio for this site.'
+      } else if (error.name === 'AbortError') {
+        errorMessage += 'Audio playback was interrupted. Please try again.'
       } else {
-        errorMessage += 'Please ensure your device is not on silent mode, check your browser settings, and try again.'
+        errorMessage += `Error: ${error.message || error.name || 'Unknown error'}. Please try refreshing the page.`
       }
       
       alert(errorMessage)
@@ -230,20 +255,36 @@ export default function BackgroundAudio() {
         ref={audioRef}
         loop
         preload="auto"
-        style={{ display: 'none' }}
+        style={{ 
+          position: 'absolute',
+          opacity: 0,
+          pointerEvents: 'none',
+          width: '1px',
+          height: '1px',
+          zIndex: -1
+        }}
         muted={false}
         playsInline
-        crossOrigin="anonymous"
+        autoPlay={false}
         onError={(e) => {
           console.error('Audio element error:', e)
           const audio = e.currentTarget
           if (audio.error) {
             console.error('Audio error code:', audio.error.code)
             console.error('Audio error message:', audio.error.message)
+            console.error('Audio network state:', audio.networkState)
+            console.error('Audio ready state:', audio.readyState)
           }
         }}
         onLoadedData={() => {
           console.log('Audio loaded successfully')
+          console.log('Audio duration:', audioRef.current?.duration)
+        }}
+        onCanPlay={() => {
+          console.log('Audio can play - ready state:', audioRef.current?.readyState)
+        }}
+        onLoadStart={() => {
+          console.log('Audio load started')
         }}
       >
         <source src="/background%20sound/ebomi2.mp3" type="audio/mpeg" />
@@ -330,19 +371,24 @@ export default function BackgroundAudio() {
               }}
             >
               <button
-                onClick={(e) => !isLoading && handleAllow(e)}
-                onTouchStart={(e) => {
-                  if (isLoading) {
-                    e.preventDefault()
-                    return
+                onClick={(e) => {
+                  if (!isLoading) {
+                    handleAllow(e)
                   }
-                  e.preventDefault()
-                  e.stopPropagation()
-                  e.currentTarget.style.backgroundColor = '#b91c1c'
-                  handleAllow(e)
                 }}
                 onTouchEnd={(e) => {
+                  if (isLoading) {
+                    return
+                  }
+                  e.stopPropagation()
                   e.currentTarget.style.backgroundColor = '#dc2626'
+                  // Use touchEnd for better mobile compatibility
+                  handleAllow(e)
+                }}
+                onTouchStart={(e) => {
+                  if (!isLoading) {
+                    e.currentTarget.style.backgroundColor = '#b91c1c'
+                  }
                 }}
                 disabled={isLoading}
                 style={{
