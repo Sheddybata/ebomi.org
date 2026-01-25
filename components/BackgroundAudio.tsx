@@ -88,55 +88,61 @@ export default function BackgroundAudio() {
       audio.volume = 0.7
       audio.muted = false
       
-      // If not loaded, wait for it
-      if (audio.readyState < 2) {
-        console.log('Audio not ready, loading...')
-        audio.load()
-        
-        await new Promise((resolve, reject) => {
-          const timeout = setTimeout(() => {
-            reject(new Error('Audio loading timeout after 15 seconds'))
-          }, 15000)
-          
-          const cleanup = () => {
-            clearTimeout(timeout)
-            audio.removeEventListener('canplaythrough', onCanPlay)
-            audio.removeEventListener('canplay', onCanPlay)
-            audio.removeEventListener('error', onError)
-            audio.removeEventListener('loadeddata', onCanPlay)
-          }
-          
-          const onCanPlay = () => {
-            console.log('Audio can play - ready state:', audio.readyState)
-            cleanup()
-            resolve(void 0)
-          }
-          
-          const onError = (err: Event) => {
-            cleanup()
-            const error = err as ErrorEvent
-            console.error('Audio load error event:', error)
-            if (audio.error) {
-              console.error('Audio error object:', {
-                code: audio.error.code,
-                message: audio.error.message
-              })
-            }
-            reject(new Error(`Audio load error: ${error.message || audio.error?.message || 'Unknown error'}`))
-          }
-          
-          // Try multiple events
-          audio.addEventListener('canplaythrough', onCanPlay, { once: true })
-          audio.addEventListener('canplay', onCanPlay, { once: true })
-          audio.addEventListener('loadeddata', onCanPlay, { once: true })
-          audio.addEventListener('error', onError, { once: true })
-        })
-      }
-
-      console.log('Attempting to play audio...')
-      console.log('Audio ready state before play:', audio.readyState)
+      // Wait for audio to be fully loaded and ready to play
+      console.log('Loading audio file...')
+      audio.load()
       
-      // Strategy 3: Play immediately (must be in user gesture context)
+      // Wait for canplaythrough - ensures enough data is loaded to play through without stopping
+      await new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          reject(new Error('Audio loading timeout after 20 seconds'))
+        }, 20000)
+        
+        const cleanup = () => {
+          clearTimeout(timeout)
+          audio.removeEventListener('canplaythrough', onReady)
+          audio.removeEventListener('canplay', onReady)
+          audio.removeEventListener('error', onError)
+          audio.removeEventListener('loadeddata', onReady)
+        }
+        
+        const onReady = () => {
+          console.log('Audio is ready to play - ready state:', audio.readyState)
+          console.log('Audio duration:', audio.duration, 'seconds')
+          cleanup()
+          resolve(void 0)
+        }
+        
+        const onError = (err: Event) => {
+          cleanup()
+          const error = err as ErrorEvent
+          console.error('Audio load error event:', error)
+          if (audio.error) {
+            console.error('Audio error object:', {
+              code: audio.error.code,
+              message: audio.error.message
+            })
+          }
+          reject(new Error(`Audio load error: ${error.message || audio.error?.message || 'Unknown error'}`))
+        }
+        
+        // Wait for canplaythrough (best for smooth playback) or canplay as fallback
+        if (audio.readyState >= 3) {
+          // Already loaded enough
+          cleanup()
+          resolve(void 0)
+        } else {
+          audio.addEventListener('canplaythrough', onReady, { once: true })
+          audio.addEventListener('canplay', onReady, { once: true })
+          audio.addEventListener('loadeddata', onReady, { once: true })
+          audio.addEventListener('error', onError, { once: true })
+        }
+      })
+
+      console.log('Audio file loaded and ready. Starting playback...')
+      console.log('Audio ready state:', audio.readyState)
+      
+      // Now play the audio (must be in user gesture context)
       const playPromise = audio.play()
       
       if (playPromise !== undefined) {
@@ -144,19 +150,23 @@ export default function BackgroundAudio() {
         console.log('Audio play promise resolved successfully')
       }
 
-      // Verify it's actually playing
+      // Wait a moment and verify it's actually playing
+      await new Promise(resolve => setTimeout(resolve, 100))
+      
       if (audio.paused) {
         throw new Error('Audio element is still paused after play() call')
       }
 
-      // Success
+      // Success - audio is playing!
+      console.log('Background audio started successfully!')
+      console.log('Audio playing:', !audio.paused)
+      console.log('Audio current time:', audio.currentTime)
+      
+      // Close modal and save permission
       setIsPlaying(true)
       setIsLoading(false)
       setShowPermissionModal(false)
       localStorage.setItem('ebomi-audio-permission', 'allowed')
-      console.log('Background audio started successfully - user allowed')
-      console.log('Audio playing:', !audio.paused)
-      console.log('Audio current time:', audio.currentTime)
       
     } catch (error: any) {
       setIsLoading(false)
@@ -422,7 +432,7 @@ export default function BackgroundAudio() {
                   e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(220, 38, 38, 0.3)'
                 }}
               >
-                {isLoading ? 'Loading...' : 'Allow'}
+                {isLoading ? 'Loading Audio...' : 'Allow'}
               </button>
               <button
                 onClick={(e) => handleDeny(e)}
