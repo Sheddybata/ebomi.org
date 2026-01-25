@@ -6,7 +6,6 @@ export default function BackgroundAudio() {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [showPermissionModal, setShowPermissionModal] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     // Check if user has already given permission
@@ -37,170 +36,113 @@ export default function BackgroundAudio() {
     }
   }, [])
 
-  const handleAllow = async (e?: React.MouseEvent | React.TouchEvent) => {
+  const handleAllow = (e?: React.MouseEvent | React.TouchEvent) => {
     // Prevent event bubbling but DON'T prevent default - we need the user gesture
     if (e) {
       e.stopPropagation()
       // Don't prevent default - we need the native event for audio unlock
     }
 
-    const audio = audioRef.current
-    if (!audio) {
-      console.error('Audio ref not available')
-      alert('Audio player not initialized. Please refresh the page.')
-      return
-    }
+    // Close modal immediately and save permission
+    setShowPermissionModal(false)
+    localStorage.setItem('ebomi-audio-permission', 'allowed')
 
-    setIsLoading(true)
-    console.log('Starting audio playback...')
-    console.log('Audio current src:', audio.src)
-    console.log('Audio ready state:', audio.readyState)
-    console.log('Audio network state:', audio.networkState)
+    // Handle audio loading and playing in the background (async, non-blocking)
+    const loadAndPlayAudio = async () => {
+      const audio = audioRef.current
+      if (!audio) {
+        console.error('Audio ref not available')
+        return
+      }
 
-    try {
-      // Strategy 1: Unlock audio context IMMEDIATELY (must be in user gesture)
-      if (typeof window !== 'undefined') {
-        try {
-          const AudioContext = window.AudioContext || (window as any).webkitAudioContext
-          if (AudioContext) {
-            const audioContext = new AudioContext()
-            console.log('AudioContext state:', audioContext.state)
-            if (audioContext.state === 'suspended') {
-              const resumeResult = await audioContext.resume()
-              console.log('AudioContext resumed:', resumeResult)
+      try {
+        // Strategy 1: Unlock audio context IMMEDIATELY (must be in user gesture)
+        if (typeof window !== 'undefined') {
+          try {
+            const AudioContext = window.AudioContext || (window as any).webkitAudioContext
+            if (AudioContext) {
+              const audioContext = new AudioContext()
+              if (audioContext.state === 'suspended') {
+                await audioContext.resume()
+              }
             }
+          } catch (ctxError: any) {
+            console.log('AudioContext unlock attempt:', ctxError.message)
           }
-        } catch (ctxError: any) {
-          console.log('AudioContext unlock attempt:', ctxError.message)
         }
-      }
 
-      // Strategy 2: Ensure audio source is set and loaded
-      const audioPath = '/background-sound/ebomi2.mp3'
-      
-      // Always set src to ensure it's correct
-      if (!audio.src || !audio.src.includes('ebomi2')) {
-        console.log('Setting audio src to:', audioPath)
-        audio.src = audioPath
-      }
+        // Strategy 2: Ensure audio source is set
+        const audioPath = '/background-sound/ebomi2.mp3'
+        
+        if (!audio.src || !audio.src.includes('ebomi2')) {
+          audio.src = audioPath
+        }
 
-      // Set volume and attributes BEFORE loading
-      audio.volume = 0.7
-      audio.muted = false
-      
-      // Wait for audio to be fully loaded and ready to play
-      console.log('Loading audio file...')
-      audio.load()
-      
-      // Wait for canplaythrough - ensures enough data is loaded to play through without stopping
-      await new Promise((resolve, reject) => {
-        const timeout = setTimeout(() => {
-          reject(new Error('Audio loading timeout after 20 seconds'))
-        }, 20000)
+        // Set volume and attributes
+        audio.volume = 0.7
+        audio.muted = false
         
-        const cleanup = () => {
-          clearTimeout(timeout)
-          audio.removeEventListener('canplaythrough', onReady)
-          audio.removeEventListener('canplay', onReady)
-          audio.removeEventListener('error', onError)
-          audio.removeEventListener('loadeddata', onReady)
-        }
+        // Load audio
+        audio.load()
         
-        const onReady = () => {
-          console.log('Audio is ready to play - ready state:', audio.readyState)
-          console.log('Audio duration:', audio.duration, 'seconds')
-          cleanup()
-          resolve(void 0)
-        }
-        
-        const onError = (err: Event) => {
-          cleanup()
-          const error = err as ErrorEvent
-          console.error('Audio load error event:', error)
-          if (audio.error) {
-            console.error('Audio error object:', {
-              code: audio.error.code,
-              message: audio.error.message
-            })
+        // Wait for audio to be ready (in background)
+        await new Promise((resolve, reject) => {
+          const timeout = setTimeout(() => {
+            reject(new Error('Audio loading timeout'))
+          }, 20000)
+          
+          const cleanup = () => {
+            clearTimeout(timeout)
+            audio.removeEventListener('canplaythrough', onReady)
+            audio.removeEventListener('canplay', onReady)
+            audio.removeEventListener('error', onError)
+            audio.removeEventListener('loadeddata', onReady)
           }
-          reject(new Error(`Audio load error: ${error.message || audio.error?.message || 'Unknown error'}`))
-        }
-        
-        // Wait for canplaythrough (best for smooth playback) or canplay as fallback
-        if (audio.readyState >= 3) {
-          // Already loaded enough
-          cleanup()
-          resolve(void 0)
-        } else {
-          audio.addEventListener('canplaythrough', onReady, { once: true })
-          audio.addEventListener('canplay', onReady, { once: true })
-          audio.addEventListener('loadeddata', onReady, { once: true })
-          audio.addEventListener('error', onError, { once: true })
-        }
-      })
-
-      console.log('Audio file loaded and ready. Starting playback...')
-      console.log('Audio ready state:', audio.readyState)
-      
-      // Now play the audio (must be in user gesture context)
-      const playPromise = audio.play()
-      
-      if (playPromise !== undefined) {
-        await playPromise
-        console.log('Audio play promise resolved successfully')
-      }
-
-      // Wait a moment and verify it's actually playing
-      await new Promise(resolve => setTimeout(resolve, 100))
-      
-      if (audio.paused) {
-        throw new Error('Audio element is still paused after play() call')
-      }
-
-      // Success - audio is playing!
-      console.log('Background audio started successfully!')
-      console.log('Audio playing:', !audio.paused)
-      console.log('Audio current time:', audio.currentTime)
-      
-      // Close modal and save permission
-      setIsPlaying(true)
-      setIsLoading(false)
-      setShowPermissionModal(false)
-      localStorage.setItem('ebomi-audio-permission', 'allowed')
-      
-    } catch (error: any) {
-      setIsLoading(false)
-      console.error('Failed to play audio:', error)
-      console.error('Error name:', error.name)
-      console.error('Error message:', error.message)
-      console.error('Audio paused:', audio.paused)
-      console.error('Audio ready state:', audio.readyState)
-      console.error('Audio network state:', audio.networkState)
-      
-      if (audio.error) {
-        console.error('Audio error details:', {
-          code: audio.error.code,
-          message: audio.error.message
+          
+          const onReady = () => {
+            cleanup()
+            resolve(void 0)
+          }
+          
+          const onError = (err: Event) => {
+            cleanup()
+            const error = err as ErrorEvent
+            reject(new Error(`Audio load error: ${error.message || audio.error?.message || 'Unknown error'}`))
+          }
+          
+          if (audio.readyState >= 3) {
+            cleanup()
+            resolve(void 0)
+          } else {
+            audio.addEventListener('canplaythrough', onReady, { once: true })
+            audio.addEventListener('canplay', onReady, { once: true })
+            audio.addEventListener('loadeddata', onReady, { once: true })
+            audio.addEventListener('error', onError, { once: true })
+          }
         })
+
+        // Play audio
+        const playPromise = audio.play()
+        if (playPromise !== undefined) {
+          await playPromise
+        }
+
+        // Verify it's playing
+        await new Promise(resolve => setTimeout(resolve, 100))
+        
+        if (!audio.paused) {
+          setIsPlaying(true)
+          console.log('Background audio started successfully!')
+        }
+        
+      } catch (error: any) {
+        console.error('Failed to play audio in background:', error)
+        // Don't show alert - just log the error silently
       }
-      
-      // Provide more specific error messages
-      let errorMessage = 'Unable to play audio. '
-      
-      if (error.message?.includes('timeout')) {
-        errorMessage += 'The audio file is taking too long to load. Please check your internet connection and try again.'
-      } else if (error.message?.includes('load error') || audio.error?.code === 4) {
-        errorMessage += 'The audio file could not be loaded. The file may be missing or corrupted. Please contact support.'
-      } else if (error.name === 'NotAllowedError' || error.name === 'NotSupportedError') {
-        errorMessage += 'Your browser is blocking audio playback. Please check your browser settings and allow audio for this site.'
-      } else if (error.name === 'AbortError') {
-        errorMessage += 'Audio playback was interrupted. Please try again.'
-      } else {
-        errorMessage += `Error: ${error.message || error.name || 'Unknown error'}. Please try refreshing the page.`
-      }
-      
-      alert(errorMessage)
     }
+
+    // Start loading and playing audio in the background
+    loadAndPlayAudio()
   }
 
   const handleDeny = (e?: React.MouseEvent | React.TouchEvent) => {
@@ -380,37 +322,26 @@ export default function BackgroundAudio() {
               }}
             >
               <button
-                onClick={(e) => {
-                  if (!isLoading) {
-                    handleAllow(e)
-                  }
-                }}
+                onClick={(e) => handleAllow(e)}
                 onTouchEnd={(e) => {
-                  if (isLoading) {
-                    return
-                  }
                   e.stopPropagation()
                   e.currentTarget.style.backgroundColor = '#dc2626'
-                  // Use touchEnd for better mobile compatibility
                   handleAllow(e)
                 }}
                 onTouchStart={(e) => {
-                  if (!isLoading) {
-                    e.currentTarget.style.backgroundColor = '#b91c1c'
-                  }
+                  e.currentTarget.style.backgroundColor = '#b91c1c'
                 }}
-                disabled={isLoading}
                 style={{
                   padding: '14px 36px',
-                  backgroundColor: isLoading ? '#9ca3af' : '#dc2626',
+                  backgroundColor: '#dc2626',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
                   fontSize: '16px',
                   fontWeight: '600',
-                  cursor: isLoading ? 'not-allowed' : 'pointer',
+                  cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  boxShadow: isLoading ? 'none' : '0 4px 6px -1px rgba(220, 38, 38, 0.3)',
+                  boxShadow: '0 4px 6px -1px rgba(220, 38, 38, 0.3)',
                   minWidth: '140px',
                   minHeight: '48px',
                   touchAction: 'manipulation',
@@ -419,7 +350,6 @@ export default function BackgroundAudio() {
                   WebkitUserSelect: 'none',
                   position: 'relative',
                   zIndex: 1,
-                  opacity: isLoading ? 0.7 : 1,
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.backgroundColor = '#b91c1c'
@@ -432,7 +362,7 @@ export default function BackgroundAudio() {
                   e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(220, 38, 38, 0.3)'
                 }}
               >
-                {isLoading ? 'Loading Audio...' : 'Allow'}
+                Allow
               </button>
               <button
                 onClick={(e) => handleDeny(e)}
