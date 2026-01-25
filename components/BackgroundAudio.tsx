@@ -6,6 +6,7 @@ export default function BackgroundAudio() {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [showPermissionModal, setShowPermissionModal] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     // Check if user has already given permission
@@ -36,24 +37,73 @@ export default function BackgroundAudio() {
     }
   }, [])
 
-  const handleAllow = async () => {
+  const handleAllow = async (e?: React.MouseEvent | React.TouchEvent) => {
+    // Prevent event bubbling
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+
     const audio = audioRef.current
-    if (audio) {
-      try {
-        audio.volume = 0.7
-        await audio.play()
-        setIsPlaying(true)
-        setShowPermissionModal(false)
-        localStorage.setItem('ebomi-audio-permission', 'allowed')
-        console.log('Background audio started - user allowed')
-      } catch (error) {
-        console.error('Failed to play audio:', error)
-        alert('Unable to play audio. Please check your browser settings.')
+    if (!audio) {
+      console.error('Audio ref not available')
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      // Ensure audio is loaded
+      if (audio.readyState < 2) {
+        await new Promise((resolve, reject) => {
+          const timeout = setTimeout(() => {
+            reject(new Error('Audio loading timeout'))
+          }, 5000)
+          
+          audio.addEventListener('canplay', () => {
+            clearTimeout(timeout)
+            resolve(void 0)
+          }, { once: true })
+          
+          audio.addEventListener('error', (err) => {
+            clearTimeout(timeout)
+            reject(err)
+          }, { once: true })
+          
+          audio.load()
+        })
       }
+
+      // Set volume before playing
+      audio.volume = 0.7
+      
+      // Play audio
+      const playPromise = audio.play()
+      
+      if (playPromise !== undefined) {
+        await playPromise
+      }
+
+      // Success
+      setIsPlaying(true)
+      setIsLoading(false)
+      setShowPermissionModal(false)
+      localStorage.setItem('ebomi-audio-permission', 'allowed')
+      console.log('Background audio started - user allowed')
+    } catch (error: any) {
+      setIsLoading(false)
+      console.error('Failed to play audio:', error)
+      console.log('Audio play failed. Error:', error.message || error)
+      // Show user-friendly error
+      alert('Unable to play audio. Please ensure your device is not on silent mode and try again.')
     }
   }
 
-  const handleDeny = () => {
+  const handleDeny = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
     setShowPermissionModal(false)
     localStorage.setItem('ebomi-audio-permission', 'denied')
   }
@@ -77,6 +127,8 @@ export default function BackgroundAudio() {
         preload="auto"
         style={{ display: 'none' }}
         muted={false}
+        playsInline
+        crossOrigin="anonymous"
       >
         <source src="/background sound/ebomi2.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
@@ -101,7 +153,13 @@ export default function BackgroundAudio() {
           onClick={(e) => {
             // Close on backdrop click
             if (e.target === e.currentTarget) {
-              handleDeny()
+              handleDeny(e)
+            }
+          }}
+          onTouchStart={(e) => {
+            // Close on backdrop touch
+            if (e.target === e.currentTarget) {
+              handleDeny(e)
             }
           }}
         >
@@ -116,8 +174,12 @@ export default function BackgroundAudio() {
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
               textAlign: 'center',
               border: '2px solid #fee2e2',
+              position: 'relative',
+              zIndex: 10001,
+              touchAction: 'manipulation',
             }}
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
           >
             <h2
               style={{
@@ -151,19 +213,41 @@ export default function BackgroundAudio() {
               }}
             >
               <button
-                onClick={handleAllow}
+                onClick={(e) => !isLoading && handleAllow(e)}
+                onTouchStart={(e) => {
+                  if (isLoading) {
+                    e.preventDefault()
+                    return
+                  }
+                  e.preventDefault()
+                  e.stopPropagation()
+                  e.currentTarget.style.backgroundColor = '#b91c1c'
+                  handleAllow(e)
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.backgroundColor = '#dc2626'
+                }}
+                disabled={isLoading}
                 style={{
                   padding: '14px 36px',
-                  backgroundColor: '#dc2626',
+                  backgroundColor: isLoading ? '#9ca3af' : '#dc2626',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
                   fontSize: '16px',
                   fontWeight: '600',
-                  cursor: 'pointer',
+                  cursor: isLoading ? 'not-allowed' : 'pointer',
                   transition: 'all 0.2s ease',
-                  boxShadow: '0 4px 6px -1px rgba(220, 38, 38, 0.3)',
+                  boxShadow: isLoading ? 'none' : '0 4px 6px -1px rgba(220, 38, 38, 0.3)',
                   minWidth: '140px',
+                  minHeight: '48px',
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                  userSelect: 'none',
+                  WebkitUserSelect: 'none',
+                  position: 'relative',
+                  zIndex: 1,
+                  opacity: isLoading ? 0.7 : 1,
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.backgroundColor = '#b91c1c'
@@ -176,10 +260,19 @@ export default function BackgroundAudio() {
                   e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(220, 38, 38, 0.3)'
                 }}
               >
-                Allow
+                {isLoading ? 'Loading...' : 'Allow'}
               </button>
               <button
-                onClick={handleDeny}
+                onClick={(e) => handleDeny(e)}
+                onTouchStart={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  e.currentTarget.style.backgroundColor = '#f9fafb'
+                  handleDeny(e)
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                }}
                 style={{
                   padding: '14px 36px',
                   backgroundColor: 'transparent',
@@ -191,6 +284,13 @@ export default function BackgroundAudio() {
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
                   minWidth: '140px',
+                  minHeight: '48px',
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                  userSelect: 'none',
+                  WebkitUserSelect: 'none',
+                  position: 'relative',
+                  zIndex: 1,
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.backgroundColor = '#f9fafb'
