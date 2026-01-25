@@ -47,41 +47,98 @@ export default function BackgroundAudio() {
     const audio = audioRef.current
     if (!audio) {
       console.error('Audio ref not available')
+      alert('Audio player not initialized. Please refresh the page.')
       return
     }
 
     setIsLoading(true)
 
     try {
-      // Ensure audio is loaded
-      if (audio.readyState < 2) {
+      // Strategy 1: Unlock audio context (for mobile browsers)
+      if (typeof window !== 'undefined' && 'AudioContext' in window) {
+        try {
+          const AudioContext = window.AudioContext || (window as any).webkitAudioContext
+          const audioContext = new AudioContext()
+          if (audioContext.state === 'suspended') {
+            await audioContext.resume()
+          }
+        } catch (ctxError) {
+          console.log('AudioContext unlock attempt:', ctxError)
+        }
+      }
+
+      // Strategy 2: Ensure audio is loaded
+      // Use URL-encoded path to handle spaces properly
+      const audioPath = encodeURI('/background sound/ebomi2.mp3')
+      
+      if (audio.src !== audioPath || audio.readyState < 2) {
+        audio.src = audioPath
+        
         await new Promise((resolve, reject) => {
           const timeout = setTimeout(() => {
-            reject(new Error('Audio loading timeout'))
-          }, 5000)
+            reject(new Error('Audio loading timeout after 10 seconds'))
+          }, 10000)
           
-          audio.addEventListener('canplay', () => {
+          const cleanup = () => {
             clearTimeout(timeout)
+            audio.removeEventListener('canplay', onCanPlay)
+            audio.removeEventListener('error', onError)
+            audio.removeEventListener('loadeddata', onCanPlay)
+          }
+          
+          const onCanPlay = () => {
+            cleanup()
             resolve(void 0)
-          }, { once: true })
+          }
           
-          audio.addEventListener('error', (err) => {
-            clearTimeout(timeout)
-            reject(err)
-          }, { once: true })
+          const onError = (err: Event) => {
+            cleanup()
+            const error = err as ErrorEvent
+            reject(new Error(`Audio load error: ${error.message || 'Unknown error'}`))
+          }
+          
+          audio.addEventListener('canplay', onCanPlay, { once: true })
+          audio.addEventListener('loadeddata', onCanPlay, { once: true })
+          audio.addEventListener('error', onError, { once: true })
           
           audio.load()
         })
       }
 
-      // Set volume before playing
+      // Strategy 3: Set volume and attributes
       audio.volume = 0.7
+      audio.muted = false
       
-      // Play audio
-      const playPromise = audio.play()
-      
-      if (playPromise !== undefined) {
-        await playPromise
+      // Strategy 4: Try playing with multiple approaches
+      let playSuccess = false
+      let lastError: any = null
+
+      // Try 1: Direct play
+      try {
+        const playPromise = audio.play()
+        if (playPromise !== undefined) {
+          await playPromise
+          playSuccess = true
+        } else {
+          playSuccess = true
+        }
+      } catch (err: any) {
+        lastError = err
+        console.log('Direct play failed, trying alternative:', err.message)
+        
+        // Try 2: Wait a bit and retry
+        await new Promise(resolve => setTimeout(resolve, 100))
+        try {
+          await audio.play()
+          playSuccess = true
+        } catch (err2: any) {
+          lastError = err2
+          console.log('Retry play failed:', err2.message)
+        }
+      }
+
+      if (!playSuccess) {
+        throw lastError || new Error('Unable to play audio after multiple attempts')
       }
 
       // Success
@@ -93,9 +150,21 @@ export default function BackgroundAudio() {
     } catch (error: any) {
       setIsLoading(false)
       console.error('Failed to play audio:', error)
-      console.log('Audio play failed. Error:', error.message || error)
-      // Show user-friendly error
-      alert('Unable to play audio. Please ensure your device is not on silent mode and try again.')
+      
+      // Provide more specific error messages
+      let errorMessage = 'Unable to play audio. '
+      
+      if (error.message?.includes('timeout')) {
+        errorMessage += 'The audio file is taking too long to load. Please check your internet connection.'
+      } else if (error.message?.includes('load error')) {
+        errorMessage += 'The audio file could not be loaded. Please refresh the page.'
+      } else if (error.name === 'NotAllowedError' || error.name === 'NotSupportedError') {
+        errorMessage += 'Your browser or device is blocking audio playback. Please check your device settings and ensure it\'s not on silent mode.'
+      } else {
+        errorMessage += 'Please ensure your device is not on silent mode, check your browser settings, and try again.'
+      }
+      
+      alert(errorMessage)
     }
   }
 
@@ -107,6 +176,42 @@ export default function BackgroundAudio() {
     setShowPermissionModal(false)
     localStorage.setItem('ebomi-audio-permission', 'denied')
   }
+
+  // Initialize audio element on mount
+  useEffect(() => {
+    const audio = audioRef.current
+    if (audio) {
+      // Set audio path using URL encoding for spaces
+      const audioPath = encodeURI('/background sound/ebomi2.mp3')
+      if (!audio.src || audio.src !== audioPath) {
+        audio.src = audioPath
+      }
+      
+      // Set default attributes
+      audio.volume = 0.7
+      audio.muted = false
+      
+      // Log audio state for debugging
+      audio.addEventListener('loadstart', () => {
+        console.log('Audio loading started')
+      })
+      
+      audio.addEventListener('canplay', () => {
+        console.log('Audio can play')
+      })
+      
+      audio.addEventListener('error', (e) => {
+        const error = e as ErrorEvent
+        console.error('Audio error:', error.message || 'Unknown audio error')
+        if (audio.error) {
+          console.error('Audio error details:', {
+            code: audio.error.code,
+            message: audio.error.message
+          })
+        }
+      })
+    }
+  }, [])
 
   // Cleanup on unmount
   useEffect(() => {
@@ -129,7 +234,19 @@ export default function BackgroundAudio() {
         muted={false}
         playsInline
         crossOrigin="anonymous"
+        onError={(e) => {
+          console.error('Audio element error:', e)
+          const audio = e.currentTarget
+          if (audio.error) {
+            console.error('Audio error code:', audio.error.code)
+            console.error('Audio error message:', audio.error.message)
+          }
+        }}
+        onLoadedData={() => {
+          console.log('Audio loaded successfully')
+        }}
       >
+        <source src="/background%20sound/ebomi2.mp3" type="audio/mpeg" />
         <source src="/background sound/ebomi2.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
