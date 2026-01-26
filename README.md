@@ -14,13 +14,14 @@ Evangelical Biblical Outreach Ministries International - A modern, responsive we
 
 ### Pages
 
-1. **Home** - Hero slideshow, upcoming events, ministry arms, books, recent programs
-2. **Give** - Floating button with modal for account details
-3. **Upcoming Programs** - Event listings
-4. **Download Centre** - Sermons and resources
-5. **Branches** - Searchable directory of church locations
-6. **Join Us** - Prayer army information and registration
-7. **Library** - Prophet's books collection
+1. **Home** - Hero slideshow, upcoming events, ministry arms, books, recent programs, gallery preview
+2. **Gallery** - Photo gallery with pagination, automatically loads images from public/gallery
+3. **Give** - Floating button with modal for account details
+4. **Upcoming Programs** - Event listings
+5. **Download Centre** - Sermons and resources
+6. **Branches** - Searchable directory of church locations
+7. **Join Us** - Prayer army information and registration
+8. **Library** - Prophet's books collection
 
 ### Key Features
 
