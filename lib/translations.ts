@@ -99,9 +99,11 @@ export interface Translations {
     home: string
     aboutUs: string
     branches: string
+    gallery: string
     library: string
     resources: string
     joinUs: string
+    visitTemple: string
   }
   
   // Home Page
@@ -291,9 +293,11 @@ export const translations: Record<Language, Translations> = {
       home: 'Home',
       aboutUs: 'About Us',
       branches: 'EBOMI Branches',
+      gallery: 'Gallery',
       library: 'Library',
       resources: 'Resources',
       joinUs: 'Join Us',
+      visitTemple: 'Visit EBOMI',
     },
     home: {
       welcomeHome: 'WELCOME HOME',
@@ -499,9 +503,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'Accueil',
       aboutUs: 'À propos',
       branches: 'Branches EBOMI',
+      gallery: 'Galerie',
       library: 'Bibliothèque',
       resources: 'Ressources',
       joinUs: 'Rejoignez-nous',
+      visitTemple: 'Visitez EBOMI',
     },
     home: {
       welcomeHome: 'BIENVENUE À LA MAISON',
@@ -707,9 +713,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'Inicio',
       aboutUs: 'Acerca de nosotros',
       branches: 'Ramas EBOMI',
+      gallery: 'Galería',
       library: 'Biblioteca',
       resources: 'Recursos',
       joinUs: 'Únete a nosotros',
+      visitTemple: 'Visita EBOMI',
     },
     home: {
       welcomeHome: 'BIENVENIDO A CASA',
@@ -915,9 +923,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'Início',
       aboutUs: 'Sobre nós',
       branches: 'Ramos EBOMI',
+      gallery: 'Galeria',
       library: 'Biblioteca',
       resources: 'Recursos',
       joinUs: 'Junte-se a nós',
+      visitTemple: 'Visite EBOMI',
     },
     home: {
       welcomeHome: 'BEM-VINDO AO LAR',
@@ -1039,9 +1049,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'Gida',
       aboutUs: 'Game da mu',
       branches: 'Rassan EBOMI',
+      gallery: 'Hotuna',
       library: 'Laburare',
       resources: 'Albarkatu',
       joinUs: 'Ku shiga tare da mu',
+      visitTemple: 'Ziyarci EBOMI',
     },
     home: {
       welcomeHome: 'BARKA DA GIDA',
@@ -1163,9 +1175,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'Ile',
       aboutUs: 'Nipa wa',
       branches: 'Awọn ẹka EBOMI',
+      gallery: 'Awọn fọto',
       library: 'Ile-ikawe',
       resources: 'Awọn ohun elo',
       joinUs: 'Darapọ mọ wa',
+      visitTemple: 'Wọ EBOMI',
     },
     home: {
       welcomeHome: 'KAABO SI ILE',
@@ -1287,9 +1301,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'Ụlọ',
       aboutUs: 'Banyere anyị',
       branches: 'Alaka EBOMI',
+      gallery: 'Ihe osise',
       library: 'Ọbá akwụkwọ',
       resources: 'Akụrụngwa',
       joinUs: 'Sonye anyị',
+      visitTemple: 'Gaa na EBOMI',
     },
     home: {
       welcomeHome: 'NNABATA N\'ỤLỌ',
@@ -1411,9 +1427,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'Galle',
       aboutUs: 'E hoore amen',
       branches: 'Laamorɗe EBOMI',
+      gallery: 'Njaajeendi',
       library: 'Dawre',
       resources: 'Jokkondirɗe',
       joinUs: 'Naat e amen',
+      visitTemple: 'Yah e EBOMI',
     },
     home: {
       welcomeHome: 'JAMMINGOL E GALLE',
@@ -1535,9 +1553,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'الرئيسية',
       aboutUs: 'من نحن',
       branches: 'فروع إيبومي',
+      gallery: 'المعرض',
       library: 'المكتبة',
       resources: 'الموارد',
       joinUs: 'انضم إلينا',
+      visitTemple: 'زيارة إيبومي',
     },
     home: {
       welcomeHome: 'مرحباً بك في البيت',
@@ -1659,9 +1679,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: '首页',
       aboutUs: '关于我们',
       branches: 'EBOMI 分会',
+      gallery: '画廊',
       library: '图书馆',
       resources: '资源',
       joinUs: '加入我们',
+      visitTemple: '参观 EBOMI',
     },
     home: {
       welcomeHome: '欢迎回家',
@@ -1783,9 +1805,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'בית',
       aboutUs: 'אודותינו',
       branches: 'סניפי EBOMI',
+      gallery: 'גלריה',
       library: 'ספרייה',
       resources: 'משאבים',
       joinUs: 'הצטרף אלינו',
+      visitTemple: 'בקר ב-EBOMI',
     },
     home: {
       welcomeHome: 'ברוך הבא הביתה',
@@ -1907,9 +1931,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'Startseite',
       aboutUs: 'Über uns',
       branches: 'EBOMI Zweigstellen',
+      gallery: 'Galerie',
       library: 'Bibliothek',
       resources: 'Ressourcen',
       joinUs: 'Tritt uns bei',
+      visitTemple: 'Besuchen Sie EBOMI',
     },
     home: {
       welcomeHome: 'WILLKOMMEN ZU HAUSE',
@@ -2031,9 +2057,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: 'होम',
       aboutUs: 'हमारे बारे में',
       branches: 'EBOMI शाखाएं',
+      gallery: 'गैलरी',
       library: 'पुस्तकालय',
       resources: 'संसाधन',
       joinUs: 'हमसे जुड़ें',
+      visitTemple: 'EBOMI पर जाएं',
     },
     home: {
       welcomeHome: 'घर में स्वागत है',
@@ -2155,9 +2183,11 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       home: '홈',
       aboutUs: '소개',
       branches: 'EBOMI 지부',
+      gallery: '갤러리',
       library: '도서관',
       resources: '자료',
       joinUs: '함께하기',
+      visitTemple: 'EBOMI 방문',
     },
     home: {
       welcomeHome: '집에 오신 것을 환영합니다',

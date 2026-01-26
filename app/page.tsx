@@ -12,6 +12,7 @@ import BackToTop from '@/components/BackToTop'
 import PullToRefresh from '@/components/PullToRefresh'
 import ImageSkeleton from '@/components/ImageSkeleton'
 import HorizontalScroll from '@/components/HorizontalScroll'
+import GalleryPreview from '@/components/GalleryPreview'
 
 // Lazy load heavy components
 const GiveButton = dynamic(() => import('@/components/GiveButton'), {
@@ -109,6 +110,10 @@ export default function Home() {
     '/hero slideshow/11.jpg',
     '/hero slideshow/12.jpg',
     '/hero slideshow/13.jpg',
+    '/hero slideshow/pastorjerry.jpg',
+    '/hero slideshow/hebew.jpg',
+    '/hero slideshow/new.jpg',
+    '/hero slideshow/ne.jpg',
   ]
 
   // Auto-play slideshow
@@ -117,7 +122,7 @@ export default function Home() {
       if (!isTransitioning) {
         setCurrentSlide((prev) => (prev + 1) % heroImages.length)
       }
-    }, 3000) // Change slide every 3 seconds (faster)
+    }, 2500) // Change slide every 2.5 seconds (faster)
 
     return () => clearInterval(interval)
   }, [isTransitioning, heroImages.length])
@@ -191,13 +196,22 @@ export default function Home() {
 
   // Recent Programs Images
   const recentProgramsImages = [
+    '/recent programs/recent.jpg', // First image
+    '/recent programs/exodusnight.jpg',
+    '/recent programs/takingover.jpg',
+    '/recent programs/fireonthealter.jpg',
+    '/recent programs/prayerrally.jpg',
+    '/recent programs/timewithjesus.jpg',
+    '/recent programs/gatheringofchampions.jpg',
+    '/recent programs/h.jpg',
+    '/recent programs/7.jpg',
+    '/recent programs/6.jpg',
+    // Rest of the images
     '/recent programs/1.jpg',
     '/recent programs/2.jpg',
     '/recent programs/3.jpg',
     '/recent programs/4.jpg',
     '/recent programs/5.jpg',
-    '/recent programs/6.jpg',
-    '/recent programs/7.jpg',
     '/recent programs/8.jpg',
     '/recent programs/9.jpg',
     '/recent programs/10.jpg',
@@ -208,22 +222,15 @@ export default function Home() {
     '/recent programs/carolservice.jpg',
     '/recent programs/d.jpg',
     '/recent programs/ers.jpg',
-    '/recent programs/exodusnight.jpg',
-    '/recent programs/fireonthealter.jpg',
-    '/recent programs/gatheringofchampions.jpg',
     '/recent programs/gf.jpg',
-    '/recent programs/h.jpg',
     '/recent programs/j.jpg',
     '/recent programs/nb.jpg',
     '/recent programs/pastorsappreciation.jpg',
-    '/recent programs/prayerrally.jpg',
     '/recent programs/q.jpg',
     '/recent programs/rd.jpg',
     '/recent programs/rdf.jpg',
     '/recent programs/s.jpg',
     '/recent programs/t7r.jpg',
-    '/recent programs/takingover.jpg',
-    '/recent programs/timewithjesus.jpg',
     '/recent programs/yobepropheticvisitation.jpeg',
   ]
 
@@ -1278,6 +1285,118 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Virtual Tour Section - EBOMI Temple and Towers */}
+      <section id="tour" className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-navy-dark via-navy to-navy-light overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Header */}
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-full mb-3 sm:mb-4 border border-white/20">
+              <span className="text-white font-semibold uppercase tracking-wider text-xs sm:text-sm">Virtual Tour</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 px-2">
+              Visit EBOMI Temple and Towers
+            </h2>
+            <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-3xl mx-auto px-2">
+              Take a virtual journey through our sacred spaces and facilities
+            </p>
+            <div className="w-16 sm:w-20 h-1 bg-gold mx-auto mt-4 sm:mt-6"></div>
+          </div>
+
+          {/* YouTube Video Container - Full Responsive */}
+          <div className="relative w-full mb-6 sm:mb-8 md:mb-10">
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-gold/30 bg-black">
+              {/* Responsive YouTube Iframe */}
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src="https://www.youtube.com/embed/0xfxvb2bkBo?si=SO0NTPuM1pa2EMw7"
+                title="EBOMI Temple and Towers Virtual Tour"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                loading="lazy"
+              />
+              
+              {/* Decorative Overlay on Hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/20 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            </div>
+          </div>
+
+          {/* Call to Action Button */}
+          <div className="text-center">
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=EBOMI+Temple+and+Towers+No1+Kashim+Ibrahim+Street+Jos+Plateau+State+Nigeria"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center space-x-3 px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/15 hover:border-white/50 transition-all duration-300 shadow-2xl hover:shadow-white/20 hover:scale-105 text-base sm:text-lg md:text-xl group touch-manipulation min-h-[56px]"
+            >
+              <MapPin className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0 group-hover:scale-110 transition-transform" />
+              <span>Visit EBOMI Temple and Towers</span>
+              <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0 group-hover:translate-x-1 group-hover:scale-110 transition-transform" />
+            </a>
+          </div>
+
+          {/* Additional Info Cards */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-10 md:mt-12">
+            {/* Location Card */}
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
+              <div className="flex items-start space-x-3 sm:space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center border border-white/30">
+                    <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-white font-bold text-sm sm:text-base mb-2">Location</h3>
+                  <p className="text-white/80 text-xs sm:text-sm leading-relaxed">
+                    No1 Kashim Ibrahim Street, Jos, Plateau State Nigeria
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Facilities Card */}
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
+              <div className="flex items-start space-x-3 sm:space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center border border-white/30">
+                    <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-white font-bold text-sm sm:text-base mb-2">Facilities</h3>
+                  <p className="text-white/80 text-xs sm:text-sm leading-relaxed">
+                    Temple, Towers, and modern facilities for worship and ministry
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Experience Card */}
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 sm:col-span-2 lg:col-span-1">
+              <div className="flex items-start space-x-3 sm:space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center border border-white/30">
+                    <Play className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-white font-bold text-sm sm:text-base mb-2">Virtual Experience</h3>
+                  <p className="text-white/80 text-xs sm:text-sm leading-relaxed">
+                    Explore our sacred spaces from anywhere in the world
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* EBOMI Arms Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1431,6 +1550,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Gallery Preview Section */}
+      <GalleryPreview limit={15} />
 
       {/* Prophet's Books Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">

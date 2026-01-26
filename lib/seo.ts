@@ -25,8 +25,15 @@ export function generateSEOMetadata({
     description,
     keywords: [
       'EBOMI',
+      'ebomi',
+      'abomi',
+      'EBOMI.org',
+      'ebomi.org',
+      'abomi.org',
       'Evangelical Biblical Outreach Ministries International',
       'Prophet Isa El-Buba',
+      'Isa El-Buba',
+      'Prophet Isa El Buba',
       'Christian Ministry',
       'Prayer',
       'Intercession',
@@ -37,6 +44,21 @@ export function generateSEOMetadata({
       'Worship',
       'Sermons',
       'Teachings',
+      'Prophetic Ministry',
+      'Revival',
+      'Global Revival Congress',
+      'EBOMI Temple',
+      'EBOMI Towers',
+      'Jos Nigeria',
+      'Plateau State',
+      'Christian Church Nigeria',
+      'Ministry Nigeria',
+      'Prophetic Monday',
+      'Gathering of Champions',
+      'EBOMI TV',
+      'ebomi.tv',
+      'Prayer Army',
+      'Intercessors',
     ],
     authors: [{ name: 'EBOMI' }],
     creator: 'EBOMI',
@@ -100,10 +122,13 @@ export function generateStructuredData({
     email: 'ebomiglobal@gmail.com',
   },
   sameAs = [
+    'https://www.youtube.com/@EBOMIGlobal',
     'https://www.youtube.com/c/ProphetIsaElBuba',
     'https://web.facebook.com/officialisaelbuba',
     'https://www.instagram.com/isaelbuba',
     'https://x.com/isaelbuba',
+    'https://ebomi.tv',
+    'https://isaelbuba.com',
   ],
 }: {
   type?: string
@@ -123,6 +148,7 @@ export function generateStructuredData({
       description,
       url,
       logo,
+      alternateName: ['EBOMI', 'ebomi', 'abomi', 'Evangelical Biblical Outreach Ministries International'],
       address: {
         '@type': 'PostalAddress',
         ...address,
@@ -132,6 +158,15 @@ export function generateStructuredData({
         ...contactPoint,
       },
       sameAs,
+      foundingDate: '1990',
+      founder: {
+        '@type': 'Person',
+        name: 'Prophet Isa El-Buba',
+      },
+      areaServed: {
+        '@type': 'Place',
+        name: 'Global',
+      },
     }
   }
 

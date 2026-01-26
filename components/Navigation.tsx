@@ -11,9 +11,11 @@ const navLinks = [
   { href: '/', key: 'home' as const },
   { href: '/upcoming-programs', key: 'aboutUs' as const },
   { href: '/branches', key: 'branches' as const },
+  { href: '/gallery', key: 'gallery' as const },
   { href: '/library', key: 'library' as const },
   { href: '/download-centre', key: 'resources' as const },
   { href: '/join-us', key: 'joinUs' as const },
+  { href: '/#tour', key: 'visitTemple' as const },
 ]
 
 export default function Navigation() {
@@ -28,6 +30,19 @@ export default function Navigation() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Handle smooth scroll for anchor links
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.includes('#')) {
+      const hash = href.split('#')[1]
+      const element = document.getElementById(hash)
+      if (element) {
+        e.preventDefault()
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        setIsOpen(false)
+      }
+    }
+  }
 
   return (
     <nav
@@ -59,6 +74,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleAnchorClick(e, link.href)}
                 className="text-white hover:text-white/80 font-medium transition-colors relative group"
               >
                 {t.nav[link.key]}
@@ -92,7 +108,12 @@ export default function Navigation() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    handleAnchorClick(e, link.href)
+                    if (!link.href.includes('#')) {
+                      setIsOpen(false)
+                    }
+                  }}
                   className="block px-4 py-3.5 text-white hover:text-white/90 hover:bg-white/10 rounded-lg transition-all min-h-[44px] touch-manipulation active:bg-white/20"
                 >
                   {t.nav[link.key]}
@@ -101,9 +122,10 @@ export default function Navigation() {
               {/* Close button at bottom */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full mt-2 px-4 py-3.5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all min-h-[44px] touch-manipulation text-left"
+                className="w-full mt-2 px-4 py-3.5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all min-h-[44px] touch-manipulation flex items-center justify-between"
               >
-                Close Menu
+                <span>Close Menu</span>
+                <X size={20} className="flex-shrink-0" />
               </button>
             </div>
           </>
