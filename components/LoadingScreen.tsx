@@ -8,25 +8,14 @@ interface LoadingScreenProps {
 }
 
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [isExiting, setIsExiting] = useState(false)
   const startTimeRef = useRef<number>(Date.now())
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  // Ministry Arms Logos
-  const ministryLogos = [
-    '/arms/tanjuriel.png',
-    '/arms/ibbn.png',
-    '/arms/DISEF.png',
-    '/arms/school.png',
-  ]
 
   // Critical images to preload
   const criticalImages = [
     '/ebomilogo.png',
     '/hero slideshow/1.jpg',
     '/hero slideshow/4.jpg',
-    ...ministryLogos,
     '/aboutus.jpg',
     '/ebomitvsection.png',
   ]
@@ -35,23 +24,19 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     // Preload images with better error handling
     const loadImage = (src: string) => {
       return new Promise<void>((resolve) => {
-        // Use Next.js Image optimization for better performance
         const img = new window.Image()
         img.onload = () => resolve()
         img.onerror = () => resolve() // Continue even if image fails
-        // Use absolute path for proper loading
         img.src = src.startsWith('/') ? src : `/${src}`
       })
     }
 
     // Load all images in parallel
     Promise.all(criticalImages.map(loadImage)).then(() => {
-      // Ensure minimum 5 seconds display time and at least one full cycle of logos
+      // Ensure minimum 2 seconds display time for smooth experience
       const elapsed = Date.now() - startTimeRef.current
-      const minDisplayTime = 5000 // 5 seconds
-      const minCycleTime = ministryLogos.length * 1500 // Time to see all logos
-      const requiredTime = Math.max(minDisplayTime, minCycleTime)
-      const remainingTime = Math.max(0, requiredTime - elapsed)
+      const minDisplayTime = 2000 // 2 seconds
+      const remainingTime = Math.max(0, minDisplayTime - elapsed)
       
       setTimeout(() => {
         // Start fade-out animation
@@ -62,57 +47,48 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         }, 500) // Match fade-out duration
       }, remainingTime)
     })
-  }, [onComplete, ministryLogos.length])
-
-  // Auto-rotate logos with smooth transitions
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % ministryLogos.length)
-    }, 1500) // Change every 1.5 seconds
-
-    return () => clearInterval(interval)
-  }, [ministryLogos.length])
+  }, [onComplete])
 
   return (
     <div 
-      ref={containerRef}
-      className={`fixed inset-0 z-[9999] bg-white flex items-center justify-center overflow-hidden transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[9999] bg-gradient-to-br from-navy via-navy-light to-navy-dark flex items-center justify-center overflow-hidden transition-opacity duration-500 ${
         isExiting ? 'opacity-0' : 'opacity-100'
       }`}
       aria-label="Loading screen"
       role="status"
     >
-      <div className="relative z-10 flex items-center justify-center">
-        {/* Logo Carousel */}
-        <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
-          {ministryLogos.map((logo, index) => {
-            const isActive = index === currentSlide
-            
-            return (
-              <div
-                key={index}
-                className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${
-                  isActive
-                    ? 'opacity-100 scale-100'
-                    : 'opacity-0 scale-95 pointer-events-none'
-                }`}
-                aria-hidden={!isActive}
-              >
-                <div className="relative w-full h-full flex items-center justify-center p-8 sm:p-12 md:p-16">
-                  <div className="relative w-full h-full drop-shadow-lg">
-                    <Image
-                      src={logo}
-                      alt={`${index === 0 ? 'Tanjuriel Corporations' : index === 1 ? 'IBBN' : index === 2 ? 'DISEF Foundation' : 'EBOMI Group of Schools'} logo`}
-                      fill
-                      className="object-contain transition-transform duration-300"
-                      priority={isActive}
-                      sizes="(max-width: 640px) 256px, (max-width: 768px) 320px, 384px"
-                    />
-                  </div>
-                </div>
-              </div>
-            )
-          })}
+      <div className="relative z-10 flex flex-col items-center justify-center">
+        {/* Animated EBOMI Logo */}
+        <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80">
+          {/* Pulsing glow effect */}
+          <div className="absolute inset-0 bg-gold/20 rounded-full animate-pulse blur-2xl"></div>
+          
+          {/* Rotating ring */}
+          <div className="absolute inset-0 border-4 border-gold/30 rounded-full animate-spin" style={{ animationDuration: '3s' }}></div>
+          <div className="absolute inset-2 border-4 border-gold/20 rounded-full animate-spin" style={{ animationDuration: '4s', animationDirection: 'reverse' }}></div>
+          
+          {/* Logo with bounce animation */}
+          <div className="relative w-full h-full flex items-center justify-center">
+            <div className="relative w-full h-full p-8 sm:p-12 md:p-16">
+              <Image
+                src="/ebomilogo.png"
+                alt="EBOMI Logo"
+                fill
+                className="object-contain drop-shadow-2xl animate-bounce-slow"
+                priority
+                sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, 320px"
+              />
+            </div>
+          </div>
+        </div>
+        
+        {/* Loading text */}
+        <div className="mt-8 sm:mt-10 md:mt-12">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-gold rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+            <div className="w-2 h-2 bg-gold rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            <div className="w-2 h-2 bg-gold rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+          </div>
         </div>
       </div>
     </div>
