@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { X, Copy, Check, DollarSign } from 'lucide-react'
 
 interface GiveModalProps {
@@ -10,6 +10,8 @@ interface GiveModalProps {
 
 export default function GiveModal({ isOpen, onClose }: GiveModalProps) {
   const [copiedField, setCopiedField] = useState<string | null>(null)
+  const modalRef = useRef<HTMLDivElement>(null)
+  const backdropRef = useRef<HTMLDivElement>(null)
 
   const copyToClipboard = async (text: string, field: string) => {
     try {
@@ -21,11 +23,50 @@ export default function GiveModal({ isOpen, onClose }: GiveModalProps) {
     }
   }
 
+  // Handle click outside to close
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (
+        backdropRef.current &&
+        modalRef.current &&
+        event.target === backdropRef.current
+      ) {
+        onClose()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('touchstart', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [isOpen, onClose])
+
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div 
+      ref={backdropRef}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      onClick={(e) => {
+        // Close if clicking directly on backdrop
+        if (e.target === backdropRef.current) {
+          onClose()
+        }
+      }}
+    >
+      <div 
+        ref={modalRef}
+        className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => {
+          // Prevent closing when clicking inside modal
+          e.stopPropagation()
+        }}
+      >
         {/* Close Button */}
         <button
           onClick={onClose}

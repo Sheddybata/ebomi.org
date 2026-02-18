@@ -1,13 +1,16 @@
 'use client'
 
+import { useState } from 'react'
 import { Heart, Sprout, Building2, Users, Shield, Lock } from 'lucide-react'
 import Link from 'next/link'
 import { useLanguage } from '@/lib/LanguageContext'
+import GiveModal from '@/components/GiveModal'
 
 // Giving tiers will be created dynamically using translations
 
 export default function GivePage() {
   const { t } = useLanguage()
+  const [isModalOpen, setIsModalOpen] = useState(false)
   
   return (
     <div className="pt-20 min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -66,7 +69,10 @@ export default function GivePage() {
                     <span className="text-gray-700">{t.give.titheBenefit3}</span>
                   </li>
                 </ul>
-                <button className="w-full py-3 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition-colors">
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full py-3 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition-colors touch-manipulation min-h-[44px]"
+                >
                   {t.give.giveButton} {t.give.tithe}
                 </button>
               </div>
@@ -94,7 +100,10 @@ export default function GivePage() {
                     <span className="text-gray-700">{t.give.seedBenefit3}</span>
                   </li>
                 </ul>
-                <button className="w-full py-3 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition-colors">
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full py-3 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition-colors touch-manipulation min-h-[44px]"
+                >
                   {t.give.giveButton} {t.give.seed}
                 </button>
               </div>
@@ -122,7 +131,10 @@ export default function GivePage() {
                     <span className="text-gray-700">{t.give.projectBenefit3}</span>
                   </li>
                 </ul>
-                <button className="w-full py-3 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition-colors">
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full py-3 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition-colors touch-manipulation min-h-[44px]"
+                >
                   {t.give.giveButton} {t.give.project}
                 </button>
               </div>
@@ -158,7 +170,10 @@ export default function GivePage() {
                     <span>{t.give.partnerBenefit3}</span>
                   </li>
                 </ul>
-                <button className="px-8 py-4 bg-gold text-navy-dark font-bold rounded-lg hover:bg-gold-light transition-colors">
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="px-8 py-4 bg-gold text-navy-dark font-bold rounded-lg hover:bg-gold-light transition-colors touch-manipulation min-h-[44px]"
+                >
                   {t.give.becomePartner}
                 </button>
               </div>
@@ -184,6 +199,9 @@ export default function GivePage() {
           </div>
         </div>
       </section>
+      
+      {/* Give Modal */}
+      <GiveModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }

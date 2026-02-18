@@ -13,6 +13,7 @@ import PullToRefresh from '@/components/PullToRefresh'
 import ImageSkeleton from '@/components/ImageSkeleton'
 import HorizontalScroll from '@/components/HorizontalScroll'
 import GalleryPreview from '@/components/GalleryPreview'
+import TempleVideoPlayer from '@/components/TempleVideoPlayer'
 
 // Lazy load heavy components
 const GiveButton = dynamic(() => import('@/components/GiveButton'), {
@@ -1308,23 +1309,20 @@ export default function Home() {
             <div className="w-16 sm:w-20 h-1 bg-gold mx-auto mt-4 sm:mt-6"></div>
           </div>
 
-          {/* YouTube Video Container - Full Responsive */}
+          {/* Video Player Container - Full Responsive */}
           <div className="relative w-full mb-6 sm:mb-8 md:mb-10">
-            <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-gold/30 bg-black">
-              {/* Responsive YouTube Iframe */}
-              <iframe
-                className="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/0xfxvb2bkBo?si=SO0NTPuM1pa2EMw7"
-                title="EBOMI Temple and Towers Virtual Tour"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                loading="lazy"
-              />
-              
-              {/* Decorative Overlay on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/20 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-            </div>
+            <TempleVideoPlayer
+              videos={[
+                {
+                  src: '/Explore temple/dronetemple.mp4',
+                  title: 'Drone Tour of EBOMI Temple and Towers'
+                },
+                {
+                  src: '/Explore temple/exploretemple.mp4',
+                  title: 'Explore EBOMI Temple and Towers'
+                }
+              ]}
+            />
           </div>
 
           {/* Call to Action Button */}
