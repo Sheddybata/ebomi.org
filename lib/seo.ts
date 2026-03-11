@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { LOGO_PATH } from './constants'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ebomi.org'
 const siteName = 'EBOMI - Evangelical Biblical Outreach Ministries International'
@@ -8,7 +9,7 @@ export function generateSEOMetadata({
   title,
   description = defaultDescription,
   path = '',
-  image = '/ebomilogo.png',
+  image = LOGO_PATH,
   type = 'website',
 }: {
   title?: string
@@ -109,7 +110,7 @@ export function generateStructuredData({
   name = siteName,
   description = defaultDescription,
   url = siteUrl,
-  logo = `${siteUrl}/ebomilogo.png`,
+  logo = `${siteUrl}${LOGO_PATH}`,
   address = {
     streetAddress: 'No1 Kashim Ibrahim Street',
     addressLocality: 'Jos',

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { LOGO_PATH } from '@/lib/constants'
 import Image from 'next/image'
 import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react'
 import { useLanguage } from '@/lib/LanguageContext'
@@ -25,7 +26,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center space-x-3 mb-4 group">
               <div className="relative w-12 h-12 flex-shrink-0">
                 <img
-                  src="/ebomilogo.png"
+                  src={LOGO_PATH}
                   alt="EBOMI Logo"
                   className="w-full h-full object-contain group-hover:opacity-80 transition-opacity"
                 />
@@ -54,6 +55,11 @@ export default function Footer() {
               <li>
                 <Link href="/branches" className="text-gray-300 hover:text-gold transition-colors text-sm">
                   {t.nav.branches}
+                </Link>
+              </li>
+              <li>
+                <Link href="/store" className="text-gray-300 hover:text-gold transition-colors text-sm">
+                  {t.nav.store}
                 </Link>
               </li>
               <li>

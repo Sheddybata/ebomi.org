@@ -14,6 +14,8 @@ import ImageSkeleton from '@/components/ImageSkeleton'
 import HorizontalScroll from '@/components/HorizontalScroll'
 import GalleryPreview from '@/components/GalleryPreview'
 import TempleVideoPlayer from '@/components/TempleVideoPlayer'
+import ProductCard from '@/components/ProductCard'
+import { storeProducts } from '@/lib/storeProducts'
 
 // Lazy load heavy components
 const GiveButton = dynamic(() => import('@/components/GiveButton'), {
@@ -191,7 +193,7 @@ export default function Home() {
     date: 'Monday 30th March to Friday 4th April 2026',
     location: 'EBOMI Temple and Towers. No1 Kashim Ibrahim Street, Jos, Plateau State Nigeria.',
     registrationLink: 'https://docs.google.com/forms/d/e/1FAIpQLSdWZQZOk0eQBukdeQ2o0m4SoLZk0htj8nvVMt9iezWD7EaDbQ/viewform',
-    image: '/upcoming program/globalcongress.jpg',
+    image: '/upcoming program/globalcongress.jpeg',
     startDate: new Date('2026-03-30T08:00:00'), // March 30, 2026 at 8 AM
   }
 
@@ -406,9 +408,9 @@ export default function Home() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
-            {/* Left Side - Image */}
-            <div className="relative group order-2 lg:order-1">
-              <div className="relative w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-xl">
+            {/* Left Side - Image (first on mobile, larger) */}
+            <div className="relative group order-1 lg:order-1">
+              <div className="relative w-full max-w-md sm:max-w-none mx-auto aspect-[3/4] sm:aspect-[4/3] flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl">
                 <Image
                   src={featuredEvent.image}
                   alt={featuredEvent.title}
@@ -423,7 +425,7 @@ export default function Home() {
             </div>
 
             {/* Right Side - Content */}
-            <div className="text-white space-y-4 sm:space-y-6 order-1 lg:order-2">
+            <div className="text-white space-y-4 sm:space-y-6 order-2 lg:order-2">
               {/* Theme */}
               <div>
                 <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-lg mb-3 sm:mb-4 border border-white/20">
@@ -656,17 +658,32 @@ export default function Home() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy-dark px-2">Recent Programs</h2>
           </div>
 
-          {/* Horizontal Scrollable Container */}
+          {/* Horizontal Scrollable Container (native scroll for smooth mobile & desktop) */}
           <div className="relative">
-            <HorizontalScroll
-              scrollRef={recentProgramsRef}
-              onScroll={(scrollLeft) => {
-                setRecentProgramsScrollLeft(scrollLeft)
+            {/* Scroll buttons for tablet/desktop */}
+            <button
+              type="button"
+              onClick={() => scroll(recentProgramsRef, 'left', setRecentProgramsScrollLeft)}
+              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+              aria-label="Scroll recent programs left"
+            >
+              <ChevronLeft className="w-5 h-5 text-navy" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scroll(recentProgramsRef, 'right', setRecentProgramsScrollLeft)}
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+              aria-label="Scroll recent programs right"
+            >
+              <ChevronRight className="w-5 h-5 text-navy" />
+            </button>
+
+            <div
+              ref={recentProgramsRef}
+              onScroll={(e) => {
+                setRecentProgramsScrollLeft((e.currentTarget as HTMLDivElement).scrollLeft)
               }}
-              autoScroll={true}
-              scrollSpeed={0.5}
-              pauseOnHover={true}
-              pauseOnTouch={true}
+              className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-hide horizontal-scroll-touch"
             >
               {recentProgramsImages.map((image, index) => (
                 <div
@@ -681,7 +698,7 @@ export default function Home() {
                   />
                 </div>
               ))}
-            </HorizontalScroll>
+            </div>
             {/* Scroll Indicator */}
             <div className="flex justify-center gap-1.5 mt-4">
               {Array.from({ length: Math.min(10, Math.ceil(recentProgramsImages.length / 3)) }).map((_, index) => {
@@ -1741,6 +1758,46 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* EBOMI Store Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy-dark mb-4 px-2">
+              {t.home.storeTitle}
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-3 sm:mb-4 px-2">
+              {t.home.storeSubtitle}
+            </p>
+            <div className="w-16 sm:w-20 h-1 bg-gold mx-auto" />
+          </div>
+
+          {/* Products Grid - Compact cards for homepage */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 mb-8 sm:mb-12">
+            {storeProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                compact
+                buyNowLabel={t.home.buyNow}
+              />
+            ))}
+          </div>
+
+          {/* View All Products Link */}
+          <div className="text-center">
+            <Link
+              href="/store"
+              className="inline-flex items-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-navy text-white font-bold rounded-lg hover:bg-navy-light active:bg-navy-dark transition-all duration-300 transform hover:scale-105 shadow-lg touch-manipulation min-h-[44px] text-sm sm:text-base"
+            >
+              <span>{t.home.viewAllProducts}</span>
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <BackToTop />
     </div>
     </PullToRefresh>

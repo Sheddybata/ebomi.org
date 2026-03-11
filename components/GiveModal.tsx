@@ -153,10 +153,10 @@ export default function GiveModal({ isOpen, onClose }: GiveModalProps) {
           </div>
 
           {/* Dollar Account */}
-          <div className="mb-6 p-6 bg-gradient-to-br from-gold/10 to-gold/5 rounded-xl border border-gold/20">
+          <div className="mb-6 p-6 bg-gradient-to-br from-navy/5 to-navy/10 rounded-xl border border-navy/20">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-gold rounded-full flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-navy-dark" />
+              <div className="w-12 h-12 bg-navy rounded-full flex items-center justify-center">
+                <DollarSign className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-navy-dark">Dollar Account</h3>
             </div>

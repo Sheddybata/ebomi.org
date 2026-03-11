@@ -4,6 +4,7 @@ import './globals.css'
 import Providers from '@/components/Providers'
 import BackgroundAudio from '@/components/BackgroundAudio'
 import { generateSEOMetadata, generateStructuredData } from '@/lib/seo'
+import { LOGO_PATH } from '@/lib/constants'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,16 +15,16 @@ export const metadata: Metadata = {
   }),
   icons: {
     icon: [
-      { url: '/ebomilogo.png', sizes: 'any' },
-      { url: '/ebomilogo.png', sizes: '16x16', type: 'image/png' },
-      { url: '/ebomilogo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/ebomilogo.png', sizes: '48x48', type: 'image/png' },
+      { url: LOGO_PATH, sizes: 'any' },
+      { url: LOGO_PATH, sizes: '16x16', type: 'image/png' },
+      { url: LOGO_PATH, sizes: '32x32', type: 'image/png' },
+      { url: LOGO_PATH, sizes: '48x48', type: 'image/png' },
     ],
     apple: [
-      { url: '/ebomilogo.png', sizes: '180x180', type: 'image/png' },
+      { url: LOGO_PATH, sizes: '180x180', type: 'image/png' },
     ],
     shortcut: [
-      { url: '/ebomilogo.png' },
+      { url: LOGO_PATH },
     ],
   },
   manifest: '/site.webmanifest',

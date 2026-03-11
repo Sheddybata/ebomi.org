@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { LOGO_PATH } from '@/lib/constants'
 
 interface LoadingScreenProps {
   onComplete: () => void
@@ -11,14 +12,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [isExiting, setIsExiting] = useState(false)
   const startTimeRef = useRef<number>(Date.now())
 
-  // Critical images to preload
-  const criticalImages = [
-    '/ebomilogo.png',
-    '/hero slideshow/1.jpg',
-    '/hero slideshow/4.jpg',
-    '/aboutus.jpg',
-    '/ebomitvsection.png',
-  ]
+  // Only preload the logo so the site appears quickly
+  const criticalImages = [LOGO_PATH]
 
   useEffect(() => {
     // Preload images with better error handling
@@ -31,13 +26,13 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       })
     }
 
-    // Load all images in parallel
+    // Load logo, then hide quickly
     Promise.all(criticalImages.map(loadImage)).then(() => {
-      // Ensure minimum 2 seconds display time for smooth experience
+      // Shorter minimum display time for faster perceived load
       const elapsed = Date.now() - startTimeRef.current
-      const minDisplayTime = 2000 // 2 seconds
+      const minDisplayTime = 700 // 0.7 seconds
       const remainingTime = Math.max(0, minDisplayTime - elapsed)
-      
+
       setTimeout(() => {
         // Start fade-out animation
         setIsExiting(true)
@@ -71,7 +66,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           <div className="relative w-full h-full flex items-center justify-center">
             <div className="relative w-full h-full p-8 sm:p-12 md:p-16">
               <Image
-                src="/ebomilogo.png"
+                src={LOGO_PATH}
                 alt="EBOMI Logo"
                 fill
                 className="object-contain drop-shadow-2xl animate-bounce-slow"

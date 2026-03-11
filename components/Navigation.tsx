@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { LOGO_PATH } from '@/lib/constants'
 import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { useLanguage } from '@/lib/LanguageContext'
@@ -13,6 +14,7 @@ const navLinks = [
   { href: '/branches', key: 'branches' as const },
   { href: '/gallery', key: 'gallery' as const },
   { href: '/library', key: 'library' as const },
+  { href: '/store', key: 'store' as const },
   { href: '/download-centre', key: 'resources' as const },
   { href: '/join-us', key: 'joinUs' as const },
   { href: '/#tour', key: 'visitTemple' as const },
@@ -58,7 +60,7 @@ export default function Navigation() {
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative w-12 h-12 md:w-14 md:h-14 flex-shrink-0">
               <img
-                src="/ebomilogo.png"
+                src={LOGO_PATH}
                 alt="EBOMI Logo"
                 className="w-full h-full object-contain group-hover:opacity-80 transition-opacity"
               />

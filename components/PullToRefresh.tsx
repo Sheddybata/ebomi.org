@@ -85,9 +85,10 @@ export default function PullToRefresh({ onRefresh, children }: PullToRefreshProp
       {/* Pull to refresh indicator */}
       {shouldShowIndicator && (
         <div
-          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-navy/80 backdrop-blur-md transition-all duration-300"
+          className="fixed top-12 left-3 sm:left-4 z-50 flex items-center justify-start bg-navy/80 backdrop-blur-md rounded-2xl shadow-lg px-4 sm:px-5 transition-all duration-300"
           style={{
-            height: `${Math.min(pullDistance, MAX_PULL)}px`,
+            minHeight: 56,
+            height: `${Math.min(Math.max(pullDistance, 56), MAX_PULL)}px`,
             opacity: pullProgress,
             transform: `translateY(${Math.min(pullDistance - 60, 0)}px)`,
           }}
