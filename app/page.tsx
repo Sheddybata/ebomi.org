@@ -186,7 +186,7 @@ export default function Home() {
     }
   }
 
-  // Global Revival Congress 2026 - Single featured event
+  // Global Revival Congress 2026 - featured event (concluded after April 2026)
   const featuredEvent = {
     title: 'Global Revival Congress (2026)',
     theme: 'The Rising Remnants',
@@ -196,6 +196,7 @@ export default function Home() {
     image: '/upcoming program/globalcongress.jpeg',
     startDate: new Date('2026-03-30T08:00:00'), // March 30, 2026 at 8 AM
   }
+  const featuredCongressHasEnded = true
 
   // Recent Programs Images
   const recentProgramsImages = [
@@ -399,7 +400,9 @@ export default function Home() {
           {/* Header */}
           <div className="text-center mb-8 sm:mb-12">
             <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-full mb-3 sm:mb-4 border border-white/20">
-              <span className="text-white font-semibold uppercase tracking-wider text-xs sm:text-sm">{t.home.upcomingEvent}</span>
+              <span className="text-white font-semibold uppercase tracking-wider text-xs sm:text-sm">
+                {featuredCongressHasEnded ? t.home.recentEventBadge : t.home.upcomingEvent}
+              </span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 px-2">Global Revival Congress</h2>
             <div className="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
@@ -460,34 +463,73 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Countdown Timer */}
-              <CountdownTimer targetDate={featuredEvent.startDate} />
-
-              {/* Register Button */}
-              <a
-                href={featuredEvent.registrationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block group touch-manipulation"
-              >
-                <div className="relative overflow-hidden rounded-xl bg-white/10 backdrop-blur-md border-2 border-white/30 p-[2px] group-hover:border-white/50 group-active:border-white/60 group-hover:shadow-lg group-hover:shadow-white/20 transition-all duration-300">
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative bg-white/5 rounded-xl px-6 sm:px-8 py-4 sm:py-5 text-center backdrop-blur-sm min-h-[56px] flex items-center justify-center group-hover:bg-white/10 transition-colors duration-300">
-                    <div className="flex items-center justify-center space-x-2 sm:space-x-3">
-                      <span className="text-white font-bold text-base sm:text-lg md:text-xl group-hover:tracking-wide transition-all">{t.home.registerNow}</span>
-                      <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
+              {featuredCongressHasEnded ? (
+                <>
+                  <p className="text-white/90 text-base sm:text-lg leading-relaxed bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20">
+                    {t.home.globalRevivalCongressPastNote}
+                  </p>
+                  <div className="pt-2">
+                    <p className="text-white/90 font-semibold text-sm sm:text-base mb-3 uppercase tracking-wide">
+                      Watch the sessions here
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <a
+                        href="https://ebomi.tv"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white/15 hover:bg-white/25 border border-white/30 rounded-xl text-white font-bold transition-colors touch-manipulation min-h-[48px]"
+                      >
+                        <Radio className="w-5 h-5 flex-shrink-0" />
+                        <span>{t.home.ebomiTv}</span>
+                      </a>
+                      <a
+                        href="https://www.youtube.com/@ProphetIsaElBuba"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white/15 hover:bg-white/25 border border-white/30 rounded-xl text-white font-bold transition-colors touch-manipulation min-h-[48px]"
+                      >
+                        <Youtube className="w-5 h-5 flex-shrink-0" />
+                        <span>YouTube</span>
+                      </a>
+                      <a
+                        href="https://web.facebook.com/officialisaelbuba"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white/15 hover:bg-white/25 border border-white/30 rounded-xl text-white font-bold transition-colors touch-manipulation min-h-[48px]"
+                      >
+                        <Facebook className="w-5 h-5 flex-shrink-0" />
+                        <span>Facebook</span>
+                      </a>
                     </div>
                   </div>
-                </div>
-              </a>
-
-              {/* Decorative Elements */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-2 sm:pt-4">
-                <div className="w-2 h-2 bg-gold rounded-full animate-pulse"></div>
-                <div className="w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                <div className="w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                <span className="text-white/70 text-xs sm:text-sm ml-1">{t.home.limitedSeats}</span>
-              </div>
+                </>
+              ) : (
+                <>
+                  <CountdownTimer targetDate={featuredEvent.startDate} />
+                  <a
+                    href={featuredEvent.registrationLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block group touch-manipulation"
+                  >
+                    <div className="relative overflow-hidden rounded-xl bg-white/10 backdrop-blur-md border-2 border-white/30 p-[2px] group-hover:border-white/50 group-active:border-white/60 group-hover:shadow-lg group-hover:shadow-white/20 transition-all duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="relative bg-white/5 rounded-xl px-6 sm:px-8 py-4 sm:py-5 text-center backdrop-blur-sm min-h-[56px] flex items-center justify-center group-hover:bg-white/10 transition-colors duration-300">
+                        <div className="flex items-center justify-center space-x-2 sm:space-x-3">
+                          <span className="text-white font-bold text-base sm:text-lg md:text-xl group-hover:tracking-wide transition-all">{t.home.registerNow}</span>
+                          <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-2 sm:pt-4">
+                    <div className="w-2 h-2 bg-gold rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                    <span className="text-white/70 text-xs sm:text-sm ml-1">{t.home.limitedSeats}</span>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
