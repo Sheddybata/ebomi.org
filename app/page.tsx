@@ -186,21 +186,39 @@ export default function Home() {
     }
   }
 
-  // Global Revival Congress 2026 - featured event (concluded after April 2026)
+  // Featured upcoming program
   const featuredEvent = {
-    title: 'Global Revival Congress (2026)',
-    theme: 'The Rising Remnants',
-    date: 'Monday 30th March to Friday 4th April 2026',
-    location: 'EBOMI Temple and Towers. No1 Kashim Ibrahim Street, Jos, Plateau State Nigeria.',
-    registrationLink: 'https://docs.google.com/forms/d/e/1FAIpQLSdWZQZOk0eQBukdeQ2o0m4SoLZk0htj8nvVMt9iezWD7EaDbQ/viewform',
-    image: '/upcoming program/globalcongress.jpeg',
-    startDate: new Date('2026-03-30T08:00:00'), // March 30, 2026 at 8 AM
+    title: 'Bamenda Fire Conference',
+    theme: 'Revival Sessions',
+    date: 'Monday 20th April to Friday 24th April 2026',
+    locations: [
+      'REVIVAL COMPLEX CATHEDRAL Behind HIMS University, below the Catholic Co-Cathédral, Molyko New Layout.',
+      'GRACE FAITH MISSIONS Opposite the New Government Reference Hospital Muea, Reference Hospital Muea.',
+      'ESPLANADE OF THE OMNISPORT STADIUM, BUEA.',
+    ],
+    registrationLink: '',
+    images: [
+      '/upcoming program/bamenda.jpeg',
+      '/upcoming program/bamenda1.jpeg',
+      '/upcoming program/bamenda2.jpeg',
+    ],
+    startDate: new Date('2026-04-20T08:00:00'),
   }
-  const featuredCongressHasEnded = true
+  const featuredCongressHasEnded = false
+  const [featuredImageIndex, setFeaturedImageIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFeaturedImageIndex((prev) => (prev + 1) % featuredEvent.images.length)
+    }, 3500)
+
+    return () => clearInterval(interval)
+  }, [featuredEvent.images.length])
 
   // Recent Programs Images
   const recentProgramsImages = [
     '/recent programs/recent.jpg', // First image
+    '/upcoming program/globalcongress.jpeg',
     '/recent programs/exodusnight.jpg',
     '/recent programs/takingover.jpg',
     '/recent programs/fireonthealter.jpg',
@@ -404,7 +422,7 @@ export default function Home() {
                 {featuredCongressHasEnded ? t.home.recentEventBadge : t.home.upcomingEvent}
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 px-2">Global Revival Congress</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 px-2">{featuredEvent.title}</h2>
             <div className="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
               <span className="text-white text-base sm:text-lg md:text-xl font-semibold">2026</span>
             </div>
@@ -414,16 +432,38 @@ export default function Home() {
             {/* Left Side - Image (first on mobile, larger) */}
             <div className="relative group order-1 lg:order-1">
               <div className="relative w-full max-w-md sm:max-w-none mx-auto aspect-[3/4] sm:aspect-[4/3] flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl">
-                <Image
-                  src={featuredEvent.image}
-                  alt={featuredEvent.title}
-                  fill
-                  className="object-contain group-hover:scale-105 transition-all duration-700 ease-out"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority
-                  unoptimized
-                />
+                {featuredEvent.images.map((image, index) => (
+                  <div
+                    key={image}
+                    className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                      index === featuredImageIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  >
+                    <Image
+                      src={image}
+                      alt={`${featuredEvent.title} ${index + 1}`}
+                      fill
+                      className="object-contain bg-black/10 group-hover:scale-105 transition-all duration-700 ease-out"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      priority={index === 0}
+                      unoptimized
+                    />
+                  </div>
+                ))}
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
+                  {featuredEvent.images.map((_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => setFeaturedImageIndex(index)}
+                      className={`h-1.5 rounded-full transition-all ${
+                        index === featuredImageIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/50'
+                      }`}
+                      aria-label={`View program image ${index + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -459,7 +499,13 @@ export default function Home() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-white font-semibold text-xs sm:text-sm uppercase tracking-wider mb-1">{t.home.location}</div>
-                  <div className="text-white text-sm sm:text-base md:text-lg break-words">{featuredEvent.location}</div>
+                  <div className="text-white text-sm sm:text-base md:text-lg break-words space-y-2">
+                    {featuredEvent.locations.map((venue, index) => (
+                      <p key={index} className="leading-relaxed">
+                        <span className="font-semibold">Venue {index + 1}:</span> {venue}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -506,22 +552,24 @@ export default function Home() {
               ) : (
                 <>
                   <CountdownTimer targetDate={featuredEvent.startDate} />
-                  <a
-                    href={featuredEvent.registrationLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block group touch-manipulation"
-                  >
-                    <div className="relative overflow-hidden rounded-xl bg-white/10 backdrop-blur-md border-2 border-white/30 p-[2px] group-hover:border-white/50 group-active:border-white/60 group-hover:shadow-lg group-hover:shadow-white/20 transition-all duration-300">
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="relative bg-white/5 rounded-xl px-6 sm:px-8 py-4 sm:py-5 text-center backdrop-blur-sm min-h-[56px] flex items-center justify-center group-hover:bg-white/10 transition-colors duration-300">
-                        <div className="flex items-center justify-center space-x-2 sm:space-x-3">
-                          <span className="text-white font-bold text-base sm:text-lg md:text-xl group-hover:tracking-wide transition-all">{t.home.registerNow}</span>
-                          <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
+                  {featuredEvent.registrationLink && (
+                    <a
+                      href={featuredEvent.registrationLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block group touch-manipulation"
+                    >
+                      <div className="relative overflow-hidden rounded-xl bg-white/10 backdrop-blur-md border-2 border-white/30 p-[2px] group-hover:border-white/50 group-active:border-white/60 group-hover:shadow-lg group-hover:shadow-white/20 transition-all duration-300">
+                        <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div className="relative bg-white/5 rounded-xl px-6 sm:px-8 py-4 sm:py-5 text-center backdrop-blur-sm min-h-[56px] flex items-center justify-center group-hover:bg-white/10 transition-colors duration-300">
+                          <div className="flex items-center justify-center space-x-2 sm:space-x-3">
+                            <span className="text-white font-bold text-base sm:text-lg md:text-xl group-hover:tracking-wide transition-all">{t.home.registerNow}</span>
+                            <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </a>
+                    </a>
+                  )}
                   <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-2 sm:pt-4">
                     <div className="w-2 h-2 bg-gold rounded-full animate-pulse"></div>
                     <div className="w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
