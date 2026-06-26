@@ -16,32 +16,37 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const criticalImages = [LOGO_PATH]
 
   useEffect(() => {
-    // Preload images with better error handling
+    let completed = false
+    const fadeDuration = 500
+    const minDisplayTime = 700
+    const maxDisplayTime = 3000
+
+    const dismiss = () => {
+      if (completed) return
+      completed = true
+      setIsExiting(true)
+      setTimeout(onComplete, fadeDuration)
+    }
+
+    // Always reveal the site within 3 seconds, even on slow networks
+    const maxTimeout = setTimeout(dismiss, maxDisplayTime)
+
     const loadImage = (src: string) => {
       return new Promise<void>((resolve) => {
         const img = new window.Image()
         img.onload = () => resolve()
-        img.onerror = () => resolve() // Continue even if image fails
+        img.onerror = () => resolve()
         img.src = src.startsWith('/') ? src : `/${src}`
       })
     }
 
-    // Load logo, then hide quickly
     Promise.all(criticalImages.map(loadImage)).then(() => {
-      // Shorter minimum display time for faster perceived load
       const elapsed = Date.now() - startTimeRef.current
-      const minDisplayTime = 700 // 0.7 seconds
       const remainingTime = Math.max(0, minDisplayTime - elapsed)
-
-      setTimeout(() => {
-        // Start fade-out animation
-        setIsExiting(true)
-        // Complete after fade animation
-        setTimeout(() => {
-          onComplete()
-        }, 500) // Match fade-out duration
-      }, remainingTime)
+      setTimeout(dismiss, remainingTime)
     })
+
+    return () => clearTimeout(maxTimeout)
   }, [onComplete])
 
   return (

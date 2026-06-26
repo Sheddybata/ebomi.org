@@ -15,7 +15,9 @@ import HorizontalScroll from '@/components/HorizontalScroll'
 import GalleryPreview from '@/components/GalleryPreview'
 import TempleVideoPlayer from '@/components/TempleVideoPlayer'
 import ProductCard from '@/components/ProductCard'
+import BookCard from '@/components/BookCard'
 import { storeProducts } from '@/lib/storeProducts'
+import { featuredBooks } from '@/lib/books'
 
 // Lazy load heavy components
 const GiveButton = dynamic(() => import('@/components/GiveButton'), {
@@ -1697,166 +1699,10 @@ export default function Home() {
           </div>
 
           {/* Books Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 mb-8 sm:mb-12">
-            {/* Book 1: Burning Mantles */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group cursor-pointer">
-              <a
-                href="https://drisaelbuba.selar.com/1pml035a77"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-navy/5 to-navy/10 overflow-hidden">
-                  <div className="relative w-full h-full p-2 sm:p-3 md:p-4 flex items-center justify-center">
-                    <Image
-                      src="/books/burningmantles.jpeg"
-                      alt="Burning mantles: The Call, the Cost, and the Fire of a True Prophet"
-                      width={150}
-                      height={220}
-                      className="object-contain w-auto h-full rounded-lg shadow-xl group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-3 sm:p-4">
-                  <h3 className="text-xs sm:text-sm font-bold text-navy-dark mb-2 line-clamp-2 leading-tight">
-                    Burning mantles: The Call, the Cost, and the Fire of a True Prophet
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">Read Now</span>
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-gold group-hover:translate-x-1 transition-transform flex-shrink-0" />
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            {/* Book 2: Wealth Creation */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group cursor-pointer">
-              <a
-                href="https://drisaelbuba.selar.com/26h34nj3j4"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-navy/5 to-navy/10 overflow-hidden">
-                  <div className="relative w-full h-full p-2 sm:p-3 md:p-4 flex items-center justify-center">
-                    <Image
-                      src="/books/wealthcreation.jpeg"
-                      alt="Anointing for Wealth Creation and Distribution"
-                      width={150}
-                      height={220}
-                      className="object-contain w-auto h-full rounded-lg shadow-xl group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-3 sm:p-4">
-                  <h3 className="text-xs sm:text-sm font-bold text-navy-dark mb-2 line-clamp-2 leading-tight">
-                    Anointing for Wealth Creation and Distribution
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">Read Now</span>
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-gold group-hover:translate-x-1 transition-transform flex-shrink-0" />
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            {/* Book 3: The Call to Genuine Love & Revival */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group cursor-pointer">
-              <a
-                href="https://drisaelbuba.selar.com/74ax21711o"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-navy/5 to-navy/10 overflow-hidden">
-                  <div className="relative w-full h-full p-2 sm:p-3 md:p-4 flex items-center justify-center">
-                    <Image
-                      src="/books/thecalltogenuineloverevival.jpeg"
-                      alt="The Call to Genuine Love & Revival"
-                      width={150}
-                      height={220}
-                      className="object-contain w-auto h-full rounded-lg shadow-xl group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-3 sm:p-4">
-                  <h3 className="text-xs sm:text-sm font-bold text-navy-dark mb-2 line-clamp-2 leading-tight">
-                    The Call to Genuine Love & Revival
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">Read Now</span>
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-gold group-hover:translate-x-1 transition-transform flex-shrink-0" />
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            {/* Book 4: Following the Leader's Spirit */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group cursor-pointer">
-              <a
-                href="https://drisaelbuba.selar.com/3371u14zjp"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-navy/5 to-navy/10 overflow-hidden">
-                  <div className="relative w-full h-full p-2 sm:p-3 md:p-4 flex items-center justify-center">
-                    <Image
-                      src="/books/followingtheleaderspirit.jpeg"
-                      alt="Following the Leader's Spirit"
-                      width={150}
-                      height={220}
-                      className="object-contain w-auto h-full rounded-lg shadow-xl group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-3 sm:p-4">
-                  <h3 className="text-xs sm:text-sm font-bold text-navy-dark mb-2 line-clamp-2 leading-tight">
-                    Following the Leader's Spirit
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">Read Now</span>
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-gold group-hover:translate-x-1 transition-transform flex-shrink-0" />
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            {/* Book 5: Sustaining Generational Fire */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group cursor-pointer">
-              <a
-                href="https://drisaelbuba.selar.com/84464178c6"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-navy/5 to-navy/10 overflow-hidden">
-                  <div className="relative w-full h-full p-2 sm:p-3 md:p-4 flex items-center justify-center">
-                    <Image
-                      src="/books/sustaininggenerationalfire.jpeg"
-                      alt="Sustaining Generational Fire"
-                      width={150}
-                      height={220}
-                      className="object-contain w-auto h-full rounded-lg shadow-xl group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-3 sm:p-4">
-                  <h3 className="text-xs sm:text-sm font-bold text-navy-dark mb-2 line-clamp-2 leading-tight">
-                    Sustaining Generational Fire
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">Read Now</span>
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-gold group-hover:translate-x-1 transition-transform flex-shrink-0" />
-                  </div>
-                </div>
-              </a>
-            </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 mb-8 sm:mb-12">
+            {featuredBooks.map((book) => (
+              <BookCard key={book.id} book={book} compact orderLabel="Order" />
+            ))}
           </div>
 
           {/* View All Books Link */}
