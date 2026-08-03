@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Clock, ChevronLeft, ChevronRight, MapPin, Play, Radio, Users, Globe, Handshake, Building2, Music, Pointer, Facebook, Youtube, ExternalLink, BookOpen, Calendar } from 'lucide-react'
-import CountdownTimer from '@/components/CountdownTimer'
+import { ArrowRight, Clock, ChevronLeft, ChevronRight, MapPin, Play, Radio, Users, Globe, Handshake, Building2, Music, Pointer, Facebook, Youtube, ExternalLink, BookOpen } from 'lucide-react'
 import { useRef, useState, useEffect } from 'react'
 import { useLanguage } from '@/lib/LanguageContext'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
@@ -188,33 +187,10 @@ export default function Home() {
     }
   }
 
-  const featuredEvent = {
-    title: 'Business and Leadership Summit 2026',
-    theme: 'Foundation for Kingdom Wealth – Building From Bottom Up',
-    hosts: 'Prophet Dr. Isa & Choice El-Buba',
-    date: 'July 27th – 31st, 2026 (5 Days)',
-    time: 'Morning Session: 8:00 AM Daily | Evening Session: 4:00 PM Daily',
-    locations: [
-      'EBOMI Temples & Towers, No. 1A Kashim Ibrahim Street, Jos, Plateau State, Nigeria.',
-    ],
-    registrationLink: 'https://docs.google.com/forms/d/e/1FAIpQLSdfk_QKod_sOQOtz2-P4lNA_oYYXB6dZZCFIl-qp4vOgdheSA/viewform?usp=header',
-    images: ['/upcoming program/newprogram.jpeg'],
-    startDate: new Date('2026-07-27T08:00:00'),
-  }
-  const featuredCongressHasEnded = false
-  const [featuredImageIndex, setFeaturedImageIndex] = useState(0)
-
-  useEffect(() => {
-    if (featuredEvent.images.length <= 1) return
-    const interval = setInterval(() => {
-      setFeaturedImageIndex((prev) => (prev + 1) % featuredEvent.images.length)
-    }, 3500)
-    return () => clearInterval(interval)
-  }, [featuredEvent.images.length])
-
   // Recent Programs Images
   const recentProgramsImages = [
     '/recent programs/recent.jpg', // First image
+    '/upcoming program/newprogram.jpeg',
     '/upcoming program/bamenda.jpeg',
     '/upcoming program/bamenda1.jpeg',
     '/upcoming program/bamenda2.jpeg',
@@ -401,208 +377,6 @@ export default function Home() {
                   {t.home.welcomeMessage}
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Upcoming Events Section - Business and Leadership Summit 2026 */}
-      <section className="relative py-12 sm:py-16 md:py-20 lg:py-32 bg-gradient-to-br from-navy-dark via-navy to-navy-light overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-8 sm:mb-12">
-            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-full mb-3 sm:mb-4 border border-white/20">
-              <span className="text-white font-semibold uppercase tracking-wider text-xs sm:text-sm">
-                {featuredCongressHasEnded ? t.home.recentEventBadge : t.home.upcomingEvent}
-              </span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 px-2">{featuredEvent.title}</h2>
-            <div className="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-              <span className="text-white text-base sm:text-lg md:text-xl font-semibold">2026</span>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
-            <div className="relative group order-1 lg:order-1">
-              <div className="relative w-full max-w-md sm:max-w-none mx-auto aspect-[3/4] sm:aspect-[4/3] flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl">
-                {featuredEvent.images.map((image, index) => (
-                  <div
-                    key={image}
-                    className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-                      index === featuredImageIndex ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  >
-                    <Image
-                      src={image}
-                      alt={`${featuredEvent.title} ${index + 1}`}
-                      fill
-                      className="object-contain bg-black/10 group-hover:scale-105 transition-all duration-700 ease-out"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      priority={index === 0}
-                      unoptimized
-                    />
-                  </div>
-                ))}
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                {featuredEvent.images.length > 1 && (
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
-                    {featuredEvent.images.map((_, index) => (
-                      <button
-                        key={index}
-                        type="button"
-                        onClick={() => setFeaturedImageIndex(index)}
-                        className={`h-1.5 rounded-full transition-all ${
-                          index === featuredImageIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/50'
-                        }`}
-                        aria-label={`View program image ${index + 1}`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="text-white space-y-4 sm:space-y-6 order-2 lg:order-2">
-              <div>
-                <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-lg mb-3 sm:mb-4 border border-white/20">
-                  <span className="text-white font-semibold text-xs sm:text-sm uppercase tracking-wider">{t.home.theme}</span>
-                </div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">{featuredEvent.theme}</h3>
-              </div>
-
-              <div className="flex items-start space-x-3 sm:space-x-4 bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center border border-white/30">
-                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-white font-semibold text-xs sm:text-sm uppercase tracking-wider mb-1">Hosts</div>
-                  <div className="text-white text-base sm:text-lg md:text-xl font-medium break-words">{featuredEvent.hosts}</div>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3 sm:space-x-4 bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center border border-white/30">
-                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-white font-semibold text-xs sm:text-sm uppercase tracking-wider mb-1">{t.home.date}</div>
-                  <div className="text-white text-base sm:text-lg md:text-xl font-medium break-words">{featuredEvent.date}</div>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3 sm:space-x-4 bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center border border-white/30">
-                    <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-white font-semibold text-xs sm:text-sm uppercase tracking-wider mb-1">Time</div>
-                  <div className="text-white text-sm sm:text-base md:text-lg break-words">{featuredEvent.time}</div>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3 sm:space-x-4 bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center border border-white/30">
-                    <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-white font-semibold text-xs sm:text-sm uppercase tracking-wider mb-1">{t.home.location}</div>
-                  <div className="text-white text-sm sm:text-base md:text-lg break-words space-y-2">
-                    {featuredEvent.locations.map((venue, index) => (
-                      <p key={index} className="leading-relaxed">
-                        {featuredEvent.locations.length > 1 ? (
-                          <>
-                            <span className="font-semibold">Venue {index + 1}:</span> {venue}
-                          </>
-                        ) : (
-                          venue
-                        )}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {featuredCongressHasEnded ? (
-                <>
-                  <p className="text-white/90 text-base sm:text-lg leading-relaxed bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20">
-                    {t.home.globalRevivalCongressPastNote}
-                  </p>
-                  <div className="pt-2">
-                    <p className="text-white/90 font-semibold text-sm sm:text-base mb-3 uppercase tracking-wide">
-                      Watch the sessions here
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <a
-                        href="https://ebomi.tv"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white/15 hover:bg-white/25 border border-white/30 rounded-xl text-white font-bold transition-colors touch-manipulation min-h-[48px]"
-                      >
-                        <Radio className="w-5 h-5 flex-shrink-0" />
-                        <span>{t.home.ebomiTv}</span>
-                      </a>
-                      <a
-                        href="https://www.youtube.com/@ProphetIsaElBuba"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white/15 hover:bg-white/25 border border-white/30 rounded-xl text-white font-bold transition-colors touch-manipulation min-h-[48px]"
-                      >
-                        <Youtube className="w-5 h-5 flex-shrink-0" />
-                        <span>YouTube</span>
-                      </a>
-                      <a
-                        href="https://web.facebook.com/officialisaelbuba"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white/15 hover:bg-white/25 border border-white/30 rounded-xl text-white font-bold transition-colors touch-manipulation min-h-[48px]"
-                      >
-                        <Facebook className="w-5 h-5 flex-shrink-0" />
-                        <span>Facebook</span>
-                      </a>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <CountdownTimer targetDate={featuredEvent.startDate} />
-                  {featuredEvent.registrationLink && (
-                    <a
-                      href={featuredEvent.registrationLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block group touch-manipulation"
-                    >
-                      <div className="relative overflow-hidden rounded-xl bg-white/10 backdrop-blur-md border-2 border-white/30 p-[2px] group-hover:border-white/50 group-active:border-white/60 group-hover:shadow-lg group-hover:shadow-white/20 transition-all duration-300">
-                        <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div className="relative bg-white/5 rounded-xl px-6 sm:px-8 py-4 sm:py-5 text-center backdrop-blur-sm min-h-[56px] flex items-center justify-center group-hover:bg-white/10 transition-colors duration-300">
-                          <div className="flex items-center justify-center space-x-2 sm:space-x-3">
-                            <span className="text-white font-bold text-base sm:text-lg md:text-xl group-hover:tracking-wide transition-all">{t.home.registerNow}</span>
-                            <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  )}
-                  <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-2 sm:pt-4">
-                    <div className="w-2 h-2 bg-gold rounded-full animate-pulse"></div>
-                    <div className="w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                    <div className="w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                    <span className="text-white/70 text-xs sm:text-sm ml-1">{t.home.limitedSeats}</span>
-                  </div>
-                </>
-              )}
             </div>
           </div>
         </div>
