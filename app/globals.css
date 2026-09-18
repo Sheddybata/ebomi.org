@@ -194,3 +194,53 @@
   }
 }
 
+@media print {
+  @page {
+    size: A4;
+    margin: 8mm;
+  }
+
+  html,
+  body {
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  nav,
+  footer,
+  header {
+    display: none !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print-tags-page {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6mm !important;
+    justify-items: center;
+    align-items: start;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .print-tags-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .conference-tag {
+    width: 90mm !important;
+    height: 128mm !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+

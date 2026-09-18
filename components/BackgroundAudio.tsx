@@ -1,13 +1,19 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 export default function BackgroundAudio() {
+  const pathname = usePathname()
   const audioRef = useRef<HTMLAudioElement>(null)
   const [showPermissionModal, setShowPermissionModal] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
 
+  const isAdmin = pathname?.startsWith('/admin')
+
   useEffect(() => {
+    if (isAdmin) return
+
     // Check if user has already given permission
     const audioPermission = localStorage.getItem('ebomi-audio-permission')
     
@@ -34,7 +40,7 @@ export default function BackgroundAudio() {
       // First visit - show permission modal
       setShowPermissionModal(true)
     }
-  }, [])
+  }, [isAdmin])
 
   const handleAllow = (e?: React.MouseEvent | React.TouchEvent) => {
     // Prevent event bubbling but DON'T prevent default - we need the user gesture
@@ -200,6 +206,8 @@ export default function BackgroundAudio() {
       }
     }
   }, [])
+
+  if (isAdmin) return null
 
   return (
     <>

@@ -6,6 +6,7 @@ import Footer from './Footer'
 import LoadingScreen from './LoadingScreen'
 import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 // Lazy load GiveButton (not critical for initial render)
 const GiveButton = dynamic(() => import('./GiveButton'), {
@@ -13,12 +14,19 @@ const GiveButton = dynamic(() => import('./GiveButton'), {
 })
 
 export default function Providers({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
+  const isAdmin = pathname?.startsWith('/admin')
   const [isLoading, setIsLoading] = useState(true)
   const [hasLoaded, setHasLoaded] = useState(false)
 
-  // Only show loading screen on initial page load
+  // Only show loading screen on initial public page load — skip it on admin
   useEffect(() => {
-    // Check if we've already loaded before (session storage)
+    if (isAdmin) {
+      setIsLoading(false)
+      setHasLoaded(true)
+      return
+    }
+
     const hasLoadedBefore = sessionStorage.getItem('ebomi_loaded')
     
     if (hasLoadedBefore) {
@@ -27,9 +35,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       return
     }
 
-    // On first load, show loading screen
     setIsLoading(true)
-  }, [])
+  }, [isAdmin])
 
   const handleLoadingComplete = () => {
     setIsLoading(false)
@@ -40,14 +47,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <LanguageProvider>
-      {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
-      <div className={isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}>
-        <Navigation />
-        <main className="min-h-screen">
+      {isLoading && !isAdmin && <LoadingScreen onComplete={handleLoadingComplete} />}
+      <div className={isLoading && !isAdmin ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}>
+        {!isAdmin && <Navigation />}
+        <main className={isAdmin ? undefined : 'min-h-screen'}>
           {children}
         </main>
-        <Footer />
-        <GiveButton />
+        {!isAdmin && <Footer />}
+        {!isAdmin && <GiveButton />}
       </div>
     </LanguageProvider>
   )
