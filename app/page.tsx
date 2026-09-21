@@ -189,8 +189,8 @@ export default function Home() {
   }
 
   const featuredEvent = {
-    title: 'National Congress Dominion Mandate',
-    theme: 'Reclaiming the Mountain of Influence',
+    title: 'National Congress 2026',
+    theme: 'Dominion Mandate: Reclaiming the Mountain of Influence',
     date: '23rd November – 27th November 2026',
     locations: [
       'EBOMI Temple and Towers, No. 1A Kashim Ibrahim Street, Jos, Plateau State, Nigeria.',

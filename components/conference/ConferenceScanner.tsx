@@ -4,11 +4,12 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Html5Qrcode } from 'html5-qrcode'
 import type { ConferenceRegistrationRecord, ScanAction } from '@/lib/conference/types'
 import ScanFeedbackPopup, { type ScanPopupState } from '@/components/conference/ScanFeedbackPopup'
-import { adminInputClass } from '@/lib/conference/formStyles'
+import MealGrid from '@/components/conference/MealGrid'
+import { adminInputClass, adminSelectClass } from '@/lib/conference/formStyles'
+import { formatCongressDay, scanDateOptions, todayInLagos } from '@/lib/conference/mealDates'
 
 const ACTIONS: { value: ScanAction; label: string }[] = [
   { value: 'check_in', label: 'Check-in' },
-  { value: 'breakfast', label: 'Breakfast' },
   { value: 'lunch', label: 'Lunch' },
   { value: 'dinner', label: 'Dinner' },
 ]
@@ -19,15 +20,22 @@ function popupFromResult(
   action: ScanAction,
   ok: boolean,
   errorMessage: string | undefined,
-  registration: ConferenceRegistrationRecord | null
+  registration: ConferenceRegistrationRecord | null,
+  mealDate?: string
 ): ScanPopupState {
   const name = registration?.name
+  const dayLabel = mealDate ? formatCongressDay(mealDate) : undefined
 
   if (ok) {
     if (action === 'check_in') {
       return { type: 'success', title: 'Checked-in', message: 'Successful', name }
     }
-    return { type: 'success', title: 'Successful', message: 'Meal collected successfully', name }
+    return {
+      type: 'success',
+      title: 'Successful',
+      message: dayLabel ? `Meal collected for ${dayLabel}` : 'Meal collected successfully',
+      name,
+    }
   }
 
   if (errorMessage?.toLowerCase().includes('already checked in')) {
@@ -38,7 +46,7 @@ function popupFromResult(
     return {
       type: 'warning',
       title: 'Meal has been collected',
-      message: 'Ticket has been used.',
+      message: dayLabel ? `Ticket already used for ${dayLabel}.` : 'Ticket has been used.',
       name,
     }
   }
@@ -78,6 +86,7 @@ async function stopScannerSafely(scanner: Html5Qrcode | null) {
 
 export default function ConferenceScanner() {
   const [action, setAction] = useState<ScanAction>('check_in')
+  const [mealDate, setMealDate] = useState(todayInLagos)
   const [manualId, setManualId] = useState('')
   const [scanning, setScanning] = useState(false)
   const [cameraError, setCameraError] = useState<string | null>(null)
@@ -86,8 +95,10 @@ export default function ConferenceScanner() {
   const busyRef = useRef(false)
   const lastScanRef = useRef<{ id: string; at: number } | null>(null)
   const actionRef = useRef(action)
+  const mealDateRef = useRef(mealDate)
   const processScanRef = useRef<(id: string) => void>(() => {})
   actionRef.current = action
+  mealDateRef.current = mealDate
 
   const dismissPopup = useCallback(() => setPopup(null), [])
 
@@ -111,20 +122,32 @@ export default function ConferenceScanner() {
       const response = await fetch('/api/conference/scan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ registrationId: id, action: actionRef.current }),
+        body: JSON.stringify({
+          registrationId: id,
+          action: actionRef.current,
+          mealDate: mealDateRef.current,
+        }),
       })
       const result = await response.json()
 
       if (response.ok) {
         setLastRegistration(result.registration)
         setManualId('')
-        setPopup(popupFromResult(actionRef.current, true, undefined, result.registration))
+        setPopup(popupFromResult(actionRef.current, true, undefined, result.registration, mealDateRef.current))
         if (typeof navigator !== 'undefined' && navigator.vibrate) {
           navigator.vibrate(200)
         }
       } else {
         if (result.registration) setLastRegistration(result.registration)
-        setPopup(popupFromResult(actionRef.current, false, result.error, result.registration ?? null))
+        setPopup(
+          popupFromResult(
+            actionRef.current,
+            false,
+            result.error,
+            result.registration ?? null,
+            mealDateRef.current
+          )
+        )
         if (typeof navigator !== 'undefined' && navigator.vibrate) {
           navigator.vibrate([100, 80, 100])
         }
@@ -217,7 +240,7 @@ export default function ConferenceScanner() {
         participant&apos;s badge QR code.
       </p>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div className="grid grid-cols-3 gap-2">
         {ACTIONS.map(({ value, label }) => (
           <button
             key={value}
@@ -233,6 +256,27 @@ export default function ConferenceScanner() {
           </button>
         ))}
       </div>
+
+      {action !== 'check_in' && (
+        <div className="flex flex-wrap items-center gap-3 bg-white border border-gray-200 rounded-lg p-3">
+          <label htmlFor="meal-date" className="text-sm font-semibold text-navy-dark">
+            Meal day
+          </label>
+          <select
+            id="meal-date"
+            value={mealDate}
+            onChange={(e) => setMealDate(e.target.value)}
+            className={adminSelectClass}
+          >
+            {scanDateOptions().map((date) => (
+              <option key={date} value={date}>
+                {formatCongressDay(date)}
+                {date === todayInLagos() ? ' (today)' : ''}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <div className="rounded-2xl border-2 border-navy/20 overflow-hidden bg-black">
         <div id={SCANNER_REGION_ID} className="w-full min-h-[220px]" />
@@ -275,11 +319,11 @@ export default function ConferenceScanner() {
             {lastRegistration.state} · {lastRegistration.affiliation}
           </p>
           <p className="text-xs font-mono mt-2 text-gray-700">{lastRegistration.registrationId}</p>
-          <div className="mt-3 flex flex-wrap gap-2 text-xs">
+          <div className="mt-3">
             <StatusPill label="Checked in" active={lastRegistration.checkedIn} />
-            <StatusPill label="Breakfast" active={!!lastRegistration.breakfastAt} />
-            <StatusPill label="Lunch" active={!!lastRegistration.lunchAt} />
-            <StatusPill label="Dinner" active={!!lastRegistration.dinnerAt} />
+          </div>
+          <div className="mt-3">
+            <MealGrid meals={lastRegistration.meals} />
           </div>
         </div>
       )}

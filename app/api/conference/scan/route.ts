@@ -2,17 +2,17 @@ import { NextResponse } from 'next/server'
 import { requireAdminAuth } from '@/lib/conference/adminAuth'
 import { applyConferenceScan, getConferenceRegistrationById } from '@/lib/conference/db'
 import type { ScanAction } from '@/lib/conference/types'
+import { isValidMealDate, todayInLagos } from '@/lib/conference/mealDates'
 
-const VALID_ACTIONS: ScanAction[] = ['check_in', 'breakfast', 'lunch', 'dinner']
+const VALID_ACTIONS: ScanAction[] = ['check_in', 'lunch', 'dinner']
 
-function scanMessage(action: ScanAction): string {
+function scanMessage(action: ScanAction, mealDate?: string): string {
   switch (action) {
     case 'check_in':
       return 'Checked-in successfully'
-    case 'breakfast':
     case 'lunch':
     case 'dinner':
-      return 'Successful'
+      return mealDate ? `Successful for ${mealDate}` : 'Successful'
   }
 }
 
@@ -25,6 +25,10 @@ export async function POST(request: Request) {
     const body = await request.json()
     registrationId = typeof body.registrationId === 'string' ? body.registrationId.trim() : ''
     const action = body.action as ScanAction
+    const mealDate =
+      typeof body.mealDate === 'string' && isValidMealDate(body.mealDate)
+        ? body.mealDate
+        : todayInLagos()
 
     if (!registrationId) {
       return NextResponse.json({ error: 'Registration ID is required.' }, { status: 400 })
@@ -33,12 +37,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid scan action.' }, { status: 400 })
     }
 
-    const registration = await applyConferenceScan(registrationId, action)
+    const registration = await applyConferenceScan(registrationId, action, mealDate)
 
     return NextResponse.json({
       success: true,
       action,
-      message: scanMessage(action),
+      mealDate: action === 'check_in' ? null : mealDate,
+      message: scanMessage(action, mealDate),
       registration,
     })
   } catch (err) {

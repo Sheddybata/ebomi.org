@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 
     if (message === 'DUPLICATE_REGISTRATION') {
       return NextResponse.json(
-        { error: 'This email is already registered for this conference.' },
+        { error: 'This phone number or email is already registered for this conference.' },
         { status: 409 }
       )
     }

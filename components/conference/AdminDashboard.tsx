@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { adminSelectClass } from '@/lib/conference/formStyles'
 import { filterByRegistrationDate, formatRegistrationDate } from '@/lib/conference/dateFilter'
 import RegistrationDateFilter from '@/components/conference/RegistrationDateFilter'
+import MealGrid from '@/components/conference/MealGrid'
+import { formatCongressDay } from '@/lib/conference/mealDates'
 import type { ConferenceRegistrationRecord, ConferenceStats } from '@/lib/conference/types'
 
 export default function AdminDashboard() {
@@ -57,13 +59,23 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-8">
       {stats && (
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-          <StatCard label="Registered" value={stats.total} />
-          <StatCard label="Checked In" value={stats.checkedIn} />
-          <StatCard label="Need Feeding" value={stats.needsFeeding} />
-          <StatCard label="Need Accommodation" value={stats.needsAccommodation} />
-          <StatCard label="Need Ride Home" value={stats.needsRideHome} />
-        </div>
+        <>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <StatCard label="Registered" value={stats.total} />
+            <StatCard label="Checked In" value={stats.checkedIn} />
+            <StatCard label="Need Feeding" value={stats.needsFeeding} />
+            <StatCard label="Need Accommodation" value={stats.needsAccommodation} />
+          </div>
+          <div>
+            <h3 className="font-bold text-navy-dark mb-3">
+              Meals today · {formatCongressDay(stats.mealsToday.date)}
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              <StatCard label="Lunch" value={stats.mealsToday.lunch} />
+              <StatCard label="Dinner" value={stats.mealsToday.dinner} />
+            </div>
+          </div>
+        </>
       )}
 
       <div className="grid lg:grid-cols-2 gap-6">
@@ -94,6 +106,33 @@ export default function AdminDashboard() {
           </div>
         </Panel>
       </div>
+
+      {stats && (
+        <Panel title="Meals by day">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left text-gray-500 border-b border-gray-200">
+                  <th className="py-2 pr-4">Day</th>
+                  <th className="py-2 pr-4">Lunch</th>
+                  <th className="py-2">Dinner</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stats.mealsByDay.map((day) => (
+                  <tr key={day.date} className="border-b border-gray-100">
+                    <td className="py-2 pr-4 font-medium text-navy-dark">
+                      {formatCongressDay(day.date)}
+                    </td>
+                    <td className="py-2 pr-4 text-navy-dark">{day.lunch}</td>
+                    <td className="py-2 text-navy-dark">{day.dinner}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Panel>
+      )}
 
       <Panel
         title="All Registrants"
@@ -134,7 +173,9 @@ export default function AdminDashboard() {
               <tr className="border-b border-gray-200 text-left text-gray-500">
                 <th className="py-2 pr-4">Name</th>
                 <th className="py-2 pr-4">Registered</th>
+                <th className="py-2 pr-4">Phone</th>
                 <th className="py-2 pr-4">State</th>
+                <th className="py-2 pr-4">Church</th>
                 <th className="py-2 pr-4">Affiliation</th>
                 <th className="py-2 pr-4">ID</th>
                 <th className="py-2 pr-4">Check-in</th>
@@ -148,7 +189,9 @@ export default function AdminDashboard() {
                   <td className="py-3 pr-4 text-navy-dark whitespace-nowrap">
                     {formatRegistrationDate(reg.createdAt)}
                   </td>
+                  <td className="py-3 pr-4 text-navy-dark whitespace-nowrap">{reg.phone}</td>
                   <td className="py-3 pr-4 text-navy-dark">{reg.state}</td>
+                  <td className="py-3 pr-4 text-navy-dark">{reg.churchDenomination}</td>
                   <td className="py-3 pr-4 text-navy-dark">{reg.affiliation}</td>
                   <td className="py-3 pr-4 font-mono text-xs text-navy-dark">{reg.registrationId}</td>
                   <td className="py-3 pr-4">
@@ -158,9 +201,8 @@ export default function AdminDashboard() {
                       <span className="text-gray-400">No</span>
                     )}
                   </td>
-                  <td className="py-3 text-xs text-gray-600">
-                    B:{reg.breakfastAt ? '✓' : '–'} L:{reg.lunchAt ? '✓' : '–'} D:
-                    {reg.dinnerAt ? '✓' : '–'}
+                  <td className="py-3">
+                    <MealGrid meals={reg.meals} />
                   </td>
                 </tr>
               ))}

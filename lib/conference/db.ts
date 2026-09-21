@@ -1,4 +1,10 @@
-import type { ConferenceRegistrationInput, ConferenceRegistrationRecord, ScanAction } from './types'
+import type {
+  ConferenceRegistrationInput,
+  ConferenceRegistrationRecord,
+  MealScanRecord,
+  MealType,
+  ScanAction,
+} from './types'
 import { generateRegistrationId } from './registrationId'
 import {
   applyLocalScan,
@@ -6,7 +12,13 @@ import {
   listLocalRegistrations,
   saveLocalConferenceRegistration,
 } from './localStore'
-import { mapSupabaseRow, type SupabaseRegistrationRow } from './mapRecord'
+import {
+  mapMealScanRow,
+  mapSupabaseRow,
+  type SupabaseMealScanRow,
+  type SupabaseRegistrationRow,
+} from './mapRecord'
+import { todayInLagos } from './mealDates'
 
 function getSupabaseConfig() {
   const url = process.env.SUPABASE_URL
@@ -33,6 +45,43 @@ export function isConferenceDatabaseConfigured(): boolean {
   return getSupabaseConfig() !== null
 }
 
+async function registrationAlreadyExists(
+  config: { url: string; serviceRoleKey: string },
+  input: ConferenceRegistrationInput
+): Promise<boolean> {
+  const quotedPhone = `"${input.phone.replace(/"/g, '')}"`
+  const phoneParams = new URLSearchParams({
+    conference_slug: `eq.${input.conferenceSlug}`,
+    phone: `eq.${quotedPhone}`,
+    select: 'registration_id',
+    limit: '1',
+  })
+  const phoneResponse = await fetch(
+    `${config.url}/rest/v1/conference_registrations?${phoneParams}`,
+    { headers: supabaseHeaders(config), cache: 'no-store' }
+  )
+  if (phoneResponse.ok) {
+    const rows = (await phoneResponse.json()) as { registration_id: string }[]
+    if (rows.length > 0) return true
+  }
+
+  if (!input.email) return false
+
+  const emailParams = new URLSearchParams({
+    conference_slug: `eq.${input.conferenceSlug}`,
+    email: `eq.${input.email}`,
+    select: 'registration_id',
+    limit: '1',
+  })
+  const emailResponse = await fetch(
+    `${config.url}/rest/v1/conference_registrations?${emailParams}`,
+    { headers: supabaseHeaders(config), cache: 'no-store' }
+  )
+  if (!emailResponse.ok) return false
+  const emailRows = (await emailResponse.json()) as { registration_id: string }[]
+  return emailRows.length > 0
+}
+
 export async function saveConferenceRegistration(
   input: ConferenceRegistrationInput
 ): Promise<{ registrationId: string }> {
@@ -43,6 +92,10 @@ export async function saveConferenceRegistration(
   const config = getSupabaseConfig()
   if (!config) {
     throw new Error('DATABASE_NOT_CONFIGURED')
+  }
+
+  if (await registrationAlreadyExists(config, input)) {
+    throw new Error('DUPLICATE_REGISTRATION')
   }
 
   const registrationId = generateRegistrationId()
@@ -57,11 +110,13 @@ export async function saveConferenceRegistration(
       phone: input.phone,
       email: input.email,
       state: input.state,
+      residential_address: input.residentialAddress,
+      church_denomination: input.churchDenomination,
       affiliation: input.affiliation,
       occupation: input.occupation,
       needs_accommodation: input.needsAccommodation,
       needs_feeding: input.needsFeeding,
-      needs_ride_home: input.needsRideHome,
+      needs_ride_home: false,
       heard_about: input.heardAbout,
       checked_in: false,
     }),
@@ -117,7 +172,51 @@ export async function listConferenceRegistrations(
     if (batch.length < pageSize) break
   }
 
-  return rows.map(mapSupabaseRow)
+  const mealsById = await listMealScans(rows.map((row) => row.registration_id))
+  return attachMeals(rows, mealsById)
+}
+
+async function listMealScans(registrationIds: string[]): Promise<Map<string, MealScanRecord[]>> {
+  const grouped = new Map<string, MealScanRecord[]>()
+  if (registrationIds.length === 0) return grouped
+
+  const config = getSupabaseConfig()
+  if (!config) return grouped
+
+  const pageSize = 200
+  for (let i = 0; i < registrationIds.length; i += pageSize) {
+    const batch = registrationIds.slice(i, i + pageSize)
+    const quoted = batch.map((id) => `"${id.replace(/"/g, '')}"`).join(',')
+    const params = new URLSearchParams({
+      registration_id: `in.(${quoted})`,
+      select: 'registration_id,meal_type,meal_date,scanned_at',
+    })
+
+    const response = await fetch(`${config.url}/rest/v1/conference_meal_scans?${params}`, {
+      headers: supabaseHeaders(config),
+      cache: 'no-store',
+    })
+
+    if (!response.ok) {
+      return grouped
+    }
+
+    const rows = (await response.json()) as SupabaseMealScanRow[]
+    for (const row of rows) {
+      const current = grouped.get(row.registration_id) ?? []
+      current.push(mapMealScanRow(row))
+      grouped.set(row.registration_id, current)
+    }
+  }
+
+  return grouped
+}
+
+function attachMeals(
+  rows: SupabaseRegistrationRow[],
+  mealsById: Map<string, MealScanRecord[]>
+): ConferenceRegistrationRecord[] {
+  return rows.map((row) => mapSupabaseRow(row, mealsById.get(row.registration_id) ?? []))
 }
 
 export async function getConferenceRegistrationById(
@@ -147,15 +246,18 @@ export async function getConferenceRegistrationById(
   }
 
   const rows = (await response.json()) as SupabaseRegistrationRow[]
-  return rows[0] ? mapSupabaseRow(rows[0]) : null
+  if (!rows[0]) return null
+  const mealsById = await listMealScans([registrationId])
+  return mapSupabaseRow(rows[0], mealsById.get(registrationId) ?? [])
 }
 
 export async function applyConferenceScan(
   registrationId: string,
-  action: ScanAction
+  action: ScanAction,
+  mealDate = todayInLagos()
 ): Promise<ConferenceRegistrationRecord> {
   if (useLocalStore()) {
-    return applyLocalScan(registrationId, action)
+    return applyLocalScan(registrationId, action, mealDate)
   }
 
   const config = getSupabaseConfig()
@@ -168,38 +270,49 @@ export async function applyConferenceScan(
     throw new Error('NOT_FOUND')
   }
 
-  const now = new Date().toISOString()
-  const update: Record<string, string | boolean> = {}
-
   if (action === 'check_in') {
     if (existing.checkedIn) throw new Error('ALREADY_CHECKED_IN')
-    update.checked_in = true
-    update.checked_in_at = now
-  } else if (action === 'breakfast') {
-    if (existing.breakfastAt) throw new Error('MEAL_ALREADY_RECORDED')
-    update.breakfast_at = now
-  } else if (action === 'lunch') {
-    if (existing.lunchAt) throw new Error('MEAL_ALREADY_RECORDED')
-    update.lunch_at = now
-  } else if (action === 'dinner') {
-    if (existing.dinnerAt) throw new Error('MEAL_ALREADY_RECORDED')
-    update.dinner_at = now
+
+    const params = new URLSearchParams({
+      registration_id: `eq.${registrationId}`,
+    })
+    const response = await fetch(`${config.url}/rest/v1/conference_registrations?${params}`, {
+      method: 'PATCH',
+      headers: supabaseHeaders(config, 'return=representation'),
+      body: JSON.stringify({
+        checked_in: true,
+        checked_in_at: new Date().toISOString(),
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Database error: ${response.status}`)
+    }
+  } else {
+    const mealType = action as MealType
+    const response = await fetch(`${config.url}/rest/v1/conference_meal_scans`, {
+      method: 'POST',
+      headers: supabaseHeaders(config, 'return=representation'),
+      body: JSON.stringify({
+        registration_id: registrationId,
+        meal_type: mealType,
+        meal_date: mealDate,
+      }),
+    })
+
+    if (response.status === 409) {
+      throw new Error('MEAL_ALREADY_RECORDED')
+    }
+    if (!response.ok) {
+      const errorText = await response.text()
+      if (errorText.toLowerCase().includes('duplicate') || errorText.includes('23505')) {
+        throw new Error('MEAL_ALREADY_RECORDED')
+      }
+      throw new Error(`Database error: ${response.status}`)
+    }
   }
 
-  const params = new URLSearchParams({
-    registration_id: `eq.${registrationId}`,
-  })
-
-  const response = await fetch(`${config.url}/rest/v1/conference_registrations?${params}`, {
-    method: 'PATCH',
-    headers: supabaseHeaders(config, 'return=representation'),
-    body: JSON.stringify(update),
-  })
-
-  if (!response.ok) {
-    throw new Error(`Database error: ${response.status}`)
-  }
-
-  const rows = (await response.json()) as SupabaseRegistrationRow[]
-  return mapSupabaseRow(rows[0])
+  const updated = await getConferenceRegistrationById(registrationId)
+  if (!updated) throw new Error('NOT_FOUND')
+  return updated
 }

@@ -9,6 +9,8 @@ import {
   OCCUPATION_OPTIONS,
   YES_NO_OPTIONS,
 } from '@/lib/conference/config'
+import { COUNTRY_DIAL_CODES } from '@/lib/conference/dialCodes'
+import PhoneCountryInput from '@/components/conference/PhoneCountryInput'
 
 function yesNoToBoolean(value: string): boolean | null {
   if (value === 'Yes') return true
@@ -23,14 +25,16 @@ export default function RegistrationForm() {
 
   const [form, setForm] = useState({
     name: '',
-    phone: '',
+    countryIso: 'NG',
+    nationalNumber: '',
     email: '',
     state: '',
+    residentialAddress: '',
+    churchDenomination: '',
     affiliation: '',
     occupation: '',
     needsAccommodation: '',
     needsFeeding: '',
-    needsRideHome: '',
     heardAbout: '',
   })
 
@@ -46,7 +50,8 @@ export default function RegistrationForm() {
 
     const needsAccommodation = yesNoToBoolean(form.needsAccommodation)
     const needsFeeding = yesNoToBoolean(form.needsFeeding)
-    const needsRideHome = yesNoToBoolean(form.needsRideHome)
+    const countryDial =
+      COUNTRY_DIAL_CODES.find((country) => country.iso === form.countryIso)?.dial ?? '+234'
 
     try {
       const response = await fetch('/api/conference/register', {
@@ -55,14 +60,16 @@ export default function RegistrationForm() {
         body: JSON.stringify({
           conferenceSlug: NATIONAL_CONGRESS_2026.slug,
           name: form.name,
-          phone: form.phone,
+          countryDial,
+          nationalNumber: form.nationalNumber,
           email: form.email,
           state: form.state,
+          residentialAddress: form.residentialAddress,
+          churchDenomination: form.churchDenomination,
           affiliation: form.affiliation,
           occupation: form.occupation,
           needsAccommodation,
           needsFeeding,
-          needsRideHome,
           heardAbout: form.heardAbout,
         }),
       })
@@ -112,6 +119,7 @@ export default function RegistrationForm() {
             onChange={(e) => updateField('name', e.target.value)}
             className={inputClass}
             placeholder="Enter your full name"
+            autoComplete="name"
           />
         </div>
 
@@ -119,35 +127,32 @@ export default function RegistrationForm() {
           <label htmlFor="phone" className={labelClass}>
             Phone Number <span className="text-navy">*</span>
           </label>
-          <input
-            id="phone"
-            type="tel"
-            required
-            value={form.phone}
-            onChange={(e) => updateField('phone', e.target.value)}
-            className={inputClass}
-            placeholder="WhatsApp preferred"
+          <PhoneCountryInput
+            countryIso={form.countryIso}
+            nationalNumber={form.nationalNumber}
+            onCountryChange={(iso) => updateField('countryIso', iso)}
+            onNumberChange={(value) => updateField('nationalNumber', value)}
           />
         </div>
 
         <div>
           <label htmlFor="email" className={labelClass}>
-            Email <span className="text-navy">*</span>
+            Email <span className="font-normal text-gray-500">(optional)</span>
           </label>
           <input
             id="email"
             type="email"
-            required
             value={form.email}
             onChange={(e) => updateField('email', e.target.value)}
             className={inputClass}
             placeholder="your@email.com"
+            autoComplete="email"
           />
         </div>
 
         <div>
           <label htmlFor="state" className={labelClass}>
-            State <span className="text-navy">*</span>
+            State / Region <span className="text-navy">*</span>
           </label>
           <input
             id="state"
@@ -156,9 +161,41 @@ export default function RegistrationForm() {
             value={form.state}
             onChange={(e) => updateField('state', e.target.value)}
             className={inputClass}
-            placeholder="Your state"
+            placeholder="Your state or region"
+            autoComplete="address-level1"
           />
         </div>
+      </div>
+
+      <div>
+        <label htmlFor="residentialAddress" className={labelClass}>
+          Residential Address <span className="text-navy">*</span>
+        </label>
+        <textarea
+          id="residentialAddress"
+          required
+          rows={3}
+          value={form.residentialAddress}
+          onChange={(e) => updateField('residentialAddress', e.target.value)}
+          className={`${inputClass} min-h-[96px] resize-y`}
+          placeholder="Street, city, and any landmark"
+          autoComplete="street-address"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="churchDenomination" className={labelClass}>
+          Church / Denomination you attend <span className="text-navy">*</span>
+        </label>
+        <input
+          id="churchDenomination"
+          type="text"
+          required
+          value={form.churchDenomination}
+          onChange={(e) => updateField('churchDenomination', e.target.value)}
+          className={inputClass}
+          placeholder="e.g. Assemblies of God, Catholic, Redeemed, etc."
+        />
       </div>
 
       <fieldset className={fieldsetClass}>
@@ -219,15 +256,6 @@ export default function RegistrationForm() {
         name="needsFeeding"
         value={form.needsFeeding}
         onChange={(value) => updateField('needsFeeding', value)}
-        optionClass={optionClass}
-        labelClass={labelClass}
-      />
-
-      <YesNoField
-        label="Will you need a ride back home during the summit?"
-        name="needsRideHome"
-        value={form.needsRideHome}
-        onChange={(value) => updateField('needsRideHome', value)}
         optionClass={optionClass}
         labelClass={labelClass}
       />
