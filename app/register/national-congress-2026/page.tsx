@@ -34,9 +34,12 @@ export default function NationalCongressRegisterPage() {
               <p className="text-gold font-semibold uppercase tracking-wider text-sm mb-2">
                 Conference Registration
               </p>
-              <h1 className="text-2xl sm:text-4xl font-bold mb-4 leading-snug">
-                {NATIONAL_CONGRESS_2026.title} theme: {NATIONAL_CONGRESS_2026.theme}
+              <h1 className="text-2xl sm:text-4xl font-bold mb-2 leading-snug">
+                {NATIONAL_CONGRESS_2026.title}
               </h1>
+              <p className="text-lg sm:text-xl text-white/90 mb-4 leading-snug">
+                Theme: {NATIONAL_CONGRESS_2026.theme}
+              </p>
               <div className="space-y-2 text-white/80 text-sm sm:text-base">
                 <p className="flex items-start gap-2">
                   <Calendar className="w-4 h-4 mt-1 flex-shrink-0" />
