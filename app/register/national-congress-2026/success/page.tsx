@@ -10,7 +10,7 @@ export default function RegistrationSuccessPage({
   const registrationId = searchParams.id
 
   return (
-    <div className="pt-20 min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center">
+    <div className="pt-20 min-h-screen bg-canvas flex items-center">
       <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 sm:p-10">
           <CheckCircle className="w-16 h-16 text-gold mx-auto mb-6" />

@@ -213,11 +213,11 @@ export default function GlobalSearch() {
       {/* Search Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center space-x-2 px-3 py-2 bg-white text-navy hover:bg-white/90 font-light transition-all rounded-lg shadow-lg min-h-[44px] min-w-[44px] touch-manipulation"
+        className="flex items-center space-x-2 px-3 py-2 bg-white text-ink hover:bg-stone-100 font-medium transition-all rounded-full border border-stone-200 min-h-[40px] min-w-[40px] touch-manipulation"
         aria-label="Search"
       >
-        <Search className="w-4 h-4 text-navy" />
-        <span className="hidden sm:inline text-sm font-light text-navy">Search</span>
+        <Search className="w-4 h-4 text-ink/70" />
+        <span className="hidden sm:inline text-sm text-ink/80">Search</span>
       </button>
 
       {/* Search Modal */}

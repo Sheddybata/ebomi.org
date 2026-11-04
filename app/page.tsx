@@ -405,24 +405,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Upcoming Events Section - National Congress Dominion Mandate */}
-      <section className="relative py-12 sm:py-16 md:py-20 lg:py-32 bg-gradient-to-br from-navy-dark via-navy to-navy-light overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
+{/* Upcoming Events Section - National Congress Dominion Mandate */}
+      <section className="relative py-16 sm:py-20 md:py-24 bg-canvas overflow-hidden">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-8 sm:mb-12">
-            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-full mb-3 sm:mb-4 border border-white/20">
-              <span className="text-white font-semibold uppercase tracking-wider text-xs sm:text-sm">
+            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white rounded-full mb-3 sm:mb-4 border border-stone-200">
+              <span className="text-navy font-semibold uppercase tracking-wider text-xs sm:text-sm">
                 {featuredCongressHasEnded ? t.home.recentEventBadge : t.home.upcomingEvent}
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 px-2">{featuredEvent.title}</h2>
-            <div className="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-              <span className="text-white text-base sm:text-lg md:text-xl font-semibold">2026</span>
-            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-ink mb-3 sm:mb-4 px-2">{featuredEvent.title}</h2>
+            <p className="text-muted text-base sm:text-lg">Theme: {featuredEvent.theme}</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
@@ -465,35 +459,28 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="text-white space-y-4 sm:space-y-6 order-2 lg:order-2">
-              <div>
-                <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-lg mb-3 sm:mb-4 border border-white/20">
-                  <span className="text-white font-semibold text-xs sm:text-sm uppercase tracking-wider">{t.home.theme}</span>
-                </div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">{featuredEvent.theme}</h3>
-              </div>
-
-              <div className="flex items-start space-x-3 sm:space-x-4 bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20">
+            <div className="text-ink space-y-4 sm:space-y-6 order-2 lg:order-2">
+              <div className="flex items-start space-x-3 sm:space-x-4 bg-white rounded-xl p-4 sm:p-6 border border-stone-200">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center border border-white/30">
-                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-canvas rounded-lg flex items-center justify-center border border-stone-200">
+                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-navy" />
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-white font-semibold text-xs sm:text-sm uppercase tracking-wider mb-1">{t.home.date}</div>
-                  <div className="text-white text-base sm:text-lg md:text-xl font-medium break-words">{featuredEvent.date}</div>
+                  <div className="text-muted font-semibold text-xs sm:text-sm uppercase tracking-wider mb-1">{t.home.date}</div>
+                  <div className="text-ink text-base sm:text-lg md:text-xl font-medium break-words">{featuredEvent.date}</div>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-3 sm:space-x-4 bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20">
+              <div className="flex items-start space-x-3 sm:space-x-4 bg-white rounded-xl p-4 sm:p-6 border border-stone-200">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center border border-white/30">
-                    <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-canvas rounded-lg flex items-center justify-center border border-stone-200">
+                    <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-navy" />
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-white font-semibold text-xs sm:text-sm uppercase tracking-wider mb-1">{t.home.location}</div>
-                  <div className="text-white text-sm sm:text-base md:text-lg break-words space-y-2">
+                  <div className="text-muted font-semibold text-xs sm:text-sm uppercase tracking-wider mb-1">{t.home.location}</div>
+                  <div className="text-ink text-sm sm:text-base md:text-lg break-words space-y-2">
                     {featuredEvent.locations.map((venue, index) => (
                       <p key={index} className="leading-relaxed">
                         {featuredEvent.locations.length > 1 ? (
@@ -516,17 +503,10 @@ export default function Home() {
                     featuredEvent.registrationLink.startsWith('/') ? (
                       <Link
                         href={featuredEvent.registrationLink}
-                        className="block group touch-manipulation"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-8 py-4 text-white font-semibold hover:bg-navy-dark transition-colors min-h-[56px]"
                       >
-                        <div className="relative overflow-hidden rounded-xl bg-white/10 backdrop-blur-md border-2 border-white/30 p-[2px] group-hover:border-white/50 group-active:border-white/60 group-hover:shadow-lg group-hover:shadow-white/20 transition-all duration-300">
-                          <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                          <div className="relative bg-white/5 rounded-xl px-6 sm:px-8 py-4 sm:py-5 text-center backdrop-blur-sm min-h-[56px] flex items-center justify-center group-hover:bg-white/10 transition-colors duration-300">
-                            <div className="flex items-center justify-center space-x-2 sm:space-x-3">
-                              <span className="text-white font-bold text-base sm:text-lg md:text-xl group-hover:tracking-wide transition-all">{t.home.registerNow}</span>
-                              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
-                            </div>
-                          </div>
-                        </div>
+                        <span>{t.home.registerNow}</span>
+                        <ArrowRight className="w-5 h-5 flex-shrink-0" />
                       </Link>
                     ) : (
                     <a
@@ -551,7 +531,7 @@ export default function Home() {
                     <div className="w-2 h-2 bg-gold rounded-full animate-pulse"></div>
                     <div className="w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
                     <div className="w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                    <span className="text-white/70 text-xs sm:text-sm ml-1">{t.home.limitedSeats}</span>
+                    <span className="text-muted text-xs sm:text-sm ml-1">{t.home.limitedSeats}</span>
                   </div>
                 </>
               )}
@@ -560,77 +540,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Prophetic Mondays Section */}
-      <section className="py-12 sm:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-navy-dark mb-2 px-2">{t.home.propheticMondays}</h2>
-            <p className="text-gray-600 text-xs sm:text-sm md:text-base">{t.home.swipeToView}</p>
-          </div>
-
-          {/* Horizontal Scrollable Container */}
-          <div className="relative">
-            <HorizontalScroll
-              scrollRef={propheticMondaysRef}
-              onScroll={(scrollLeft) => {
-                setPropheticScrollLeft(scrollLeft)
-              }}
-              pauseOnHover={false}
-              pauseOnTouch={false}
-              autoScroll={false}
-            >
-              <div className="flex-shrink-0 w-[90vw] sm:w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] group snap-start rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <img
-                  src="/prophetic mondays/1.jpg"
-                  alt="Prophetic Monday 1"
-                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-500 ease-out"
-                  loading="lazy"
-                />
-              </div>
-              <div className="flex-shrink-0 w-[90vw] sm:w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] group snap-start rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <img
-                  src="/prophetic mondays/2.jpg"
-                  alt="Prophetic Monday 2"
-                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-500 ease-out"
-                  loading="lazy"
-                />
-              </div>
-              <div className="flex-shrink-0 w-[90vw] sm:w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] group snap-start rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <img
-                  src="/prophetic mondays/3.jpg"
-                  alt="Prophetic Monday 3"
-                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-500 ease-out"
-                  loading="lazy"
-                />
-              </div>
-            </HorizontalScroll>
-            {/* Scroll Indicator */}
-            <div className="flex justify-center gap-2 mt-4">
-              {[0, 1, 2].map((index) => {
-                const maxScroll = propheticMondaysRef.current
-                  ? propheticMondaysRef.current.scrollWidth - propheticMondaysRef.current.clientWidth
-                  : 1
-                const scrollProgress = maxScroll > 0
-                  ? (propheticScrollLeft / maxScroll) * 2
-                  : 0
-                const isActive = Math.abs(scrollProgress - index) < 0.5
-                return (
-                  <div
-                    key={index}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      isActive ? 'w-8 bg-navy' : 'w-1.5 bg-gray-300'
-                    }`}
-                  />
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* EBOMI.tv Streaming Section */}
+{/* EBOMI.tv Streaming Section */}
       <section className="py-12 sm:py-16 bg-gradient-to-br from-blue-600 via-red-600 to-blue-800 relative overflow-hidden">
-        {/* Animated Background Elements */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-96 h-96 bg-red-500 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
@@ -718,79 +629,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Recent Programs Section - Horizontal Scrollable Gallery */}
-      <section className="py-12 sm:py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy-dark px-2">Recent Programs</h2>
-          </div>
-
-          {/* Horizontal Scrollable Container (native scroll for smooth mobile & desktop) */}
-          <div className="relative">
-            {/* Scroll buttons for tablet/desktop */}
-            <button
-              type="button"
-              onClick={() => scroll(recentProgramsRef, 'left', setRecentProgramsScrollLeft)}
-              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-              aria-label="Scroll recent programs left"
-            >
-              <ChevronLeft className="w-5 h-5 text-navy" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scroll(recentProgramsRef, 'right', setRecentProgramsScrollLeft)}
-              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-              aria-label="Scroll recent programs right"
-            >
-              <ChevronRight className="w-5 h-5 text-navy" />
-            </button>
-
-            <div
-              ref={recentProgramsRef}
-              onScroll={(e) => {
-                setRecentProgramsScrollLeft((e.currentTarget as HTMLDivElement).scrollLeft)
-              }}
-              className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-hide horizontal-scroll-touch"
-            >
-              {recentProgramsImages.map((image, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 w-[90vw] sm:w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] group snap-start rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <img
-                    src={image}
-                    alt={`Program ${index + 1}`}
-                    className="w-full h-full object-contain group-hover:scale-105 transition-all duration-500 ease-out"
-                    loading={index < 3 ? "eager" : "lazy"}
-                  />
-                </div>
-              ))}
-            </div>
-            {/* Scroll Indicator */}
-            <div className="flex justify-center gap-1.5 mt-4">
-              {Array.from({ length: Math.min(10, Math.ceil(recentProgramsImages.length / 3)) }).map((_, index) => {
-                const maxScroll = recentProgramsRef.current
-                  ? recentProgramsRef.current.scrollWidth - recentProgramsRef.current.clientWidth
-                  : 1
-                const scrollProgress = maxScroll > 0
-                  ? (recentProgramsScrollLeft / maxScroll) * (Math.min(10, Math.ceil(recentProgramsImages.length / 3)) - 1)
-                  : 0
-                const isActive = Math.abs(scrollProgress - index) < 0.5
-                return (
-                  <div
-                    key={index}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      isActive ? 'w-6 bg-navy' : 'w-1.5 bg-gray-300'
-                    }`}
-                  />
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Us Section */}
+{/* About Us Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Welcome Note */}
@@ -1005,89 +844,134 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimony Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <Image
-            src="/testimony.jpg"
-            alt="Testimonies"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
-          {/* Strong Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-navy/90 via-navy/85 to-navy/90"></div>
-        </div>
+{/* Meet the Prophet Section */}
+      <section key={`prophet-section-${language}`} className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`grid md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center ${isRTL ? 'md:grid-flow-col-dense' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
+            {/* Image Section */}
+            <div className={`relative w-full ${isRTL ? 'order-2 md:order-2' : 'order-2 md:order-1'} md:sticky md:top-24`}>
+              <div className="relative aspect-[4/5] md:aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl group">
+                {/* Background gradient to prevent white space */}
+                <div className="absolute inset-0 bg-gradient-to-br from-navy/10 via-navy/5 to-gold/5"></div>
+                <Image
+                  src="/abouttheprophet.png"
+                  alt="Prophet Isa El-Buba"
+                  fill
+                  className="object-cover object-center rounded-2xl group-hover:scale-105 transition-transform duration-700 relative z-10"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 40vw"
+                  priority
+                />
+                {/* Decorative border effect */}
+                <div className="absolute inset-0 border-4 border-gold/20 rounded-2xl pointer-events-none z-20"></div>
+                {/* Decorative overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl pointer-events-none z-30"></div>
+              </div>
+            </div>
 
-        {/* Content with Glassmorphism */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-16 border border-white/20 shadow-2xl">
-            <div className="text-center max-w-4xl mx-auto">
-              {/* Heading */}
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                {t.home.shareTestimony}
-              </h2>
-
-              {/* Description */}
-              <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
-                {t.home.testimonyDescription}
-              </p>
-
-              {/* Benefits */}
-              <div className="grid md:grid-cols-3 gap-6 mb-10">
-                {/* Inspire Others Card */}
-                <div className="group relative bg-gradient-to-br from-gold/20 via-gold/10 to-transparent backdrop-blur-md rounded-2xl p-8 border border-gold/30 hover:border-gold/50 transition-all duration-300 hover:shadow-2xl hover:shadow-gold/20 hover:-translate-y-1">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl"></div>
-                  <div className="relative z-10">
-                    <h3 className="text-white font-bold text-xl mb-3">{t.home.inspireOthers}</h3>
-                    <p className="text-white/90 leading-relaxed">{t.home.inspireDescription}</p>
-                  </div>
-                </div>
-
-                {/* Glorify God Card */}
-                <div className="group relative bg-gradient-to-br from-blue-500/20 via-blue-400/10 to-transparent backdrop-blur-md rounded-2xl p-8 border border-blue-400/30 hover:border-blue-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-1">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
-                  <div className="relative z-10">
-                    <h3 className="text-white font-bold text-xl mb-3">{t.home.glorifyGod}</h3>
-                    <p className="text-white/90 leading-relaxed">{t.home.glorifyDescription}</p>
-                  </div>
-                </div>
-
-                {/* Build Faith Card */}
-                <div className="group relative bg-gradient-to-br from-purple-500/20 via-purple-400/10 to-transparent backdrop-blur-md rounded-2xl p-8 border border-purple-400/30 hover:border-purple-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
-                  <div className="relative z-10">
-                    <h3 className="text-white font-bold text-xl mb-3">{t.home.buildFaith}</h3>
-                    <p className="text-white/90 leading-relaxed">{t.home.buildFaithDescription}</p>
-                  </div>
-                </div>
+            {/* Content Section */}
+            <div className={`space-y-5 md:space-y-6 ${isRTL ? 'order-1 md:order-1' : 'order-1 md:order-2'} ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+              <div>
+                <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-navy-dark mb-4 md:mb-6 ${isRTL ? 'text-right' : 'text-left'}`}>
+                  {t.home.meetTheProphet}
+                </h2>
+                <div className={`${isRTL ? 'mr-0 ml-auto' : 'ml-0 mr-auto'} w-16 sm:w-20 h-1 bg-gold mb-6 md:mb-8`}></div>
               </div>
 
-              {/* Call to Action */}
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScuZ0Kvi4NaukWv-a6HzaIMfaZwX2D6KPTwyRacarqVeSLBiA/viewform"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-3 px-10 py-5 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/15 hover:border-white/50 transition-all duration-300 shadow-2xl hover:shadow-white/20 hover:scale-105 text-lg md:text-xl"
+              <div 
+                key={`biography-${language}`}
+                className={`text-gray-700 leading-relaxed text-base sm:text-lg whitespace-pre-line break-words hyphens-auto ${isRTL ? 'text-right' : 'text-left'}`} 
+                dir={isRTL ? 'rtl' : 'ltr'}
               >
-                <Pointer className="w-6 h-6" />
-                <span>{t.home.shareTestimony}</span>
-                <ArrowRight className="w-6 h-6" />
-              </a>
+                {renderBiographyWithBoldHeadings(biographyText, language)}
+              </div>
 
-              {/* Additional Text */}
-              <p className="text-white/70 text-sm mt-6">
-                Your testimony will be reviewed and may be featured on our platform to bless others
-              </p>
+              {/* Learn More Button */}
+              <div className="pt-2 md:pt-4">
+                <a
+                  href="https://isaelbuba.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-navy text-white font-bold rounded-lg hover:bg-navy-light transition-colors text-sm sm:text-base"
+                >
+                  <span>{t.common.learnMore}</span>
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Join Us in Worship - Service Times Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">
+{/* Prophetic Mondays Section */}
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-navy-dark mb-2 px-2">{t.home.propheticMondays}</h2>
+            <p className="text-gray-600 text-xs sm:text-sm md:text-base">{t.home.swipeToView}</p>
+          </div>
+
+          {/* Horizontal Scrollable Container */}
+          <div className="relative">
+            <HorizontalScroll
+              scrollRef={propheticMondaysRef}
+              onScroll={(scrollLeft) => {
+                setPropheticScrollLeft(scrollLeft)
+              }}
+              pauseOnHover={false}
+              pauseOnTouch={false}
+              autoScroll={false}
+            >
+              <div className="flex-shrink-0 w-[90vw] sm:w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] group snap-start rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img
+                  src="/prophetic mondays/1.jpg"
+                  alt="Prophetic Monday 1"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-500 ease-out"
+                  loading="lazy"
+                />
+              </div>
+              <div className="flex-shrink-0 w-[90vw] sm:w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] group snap-start rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img
+                  src="/prophetic mondays/2.jpg"
+                  alt="Prophetic Monday 2"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-500 ease-out"
+                  loading="lazy"
+                />
+              </div>
+              <div className="flex-shrink-0 w-[90vw] sm:w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] group snap-start rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img
+                  src="/prophetic mondays/3.jpg"
+                  alt="Prophetic Monday 3"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-500 ease-out"
+                  loading="lazy"
+                />
+              </div>
+            </HorizontalScroll>
+            {/* Scroll Indicator */}
+            <div className="flex justify-center gap-2 mt-4">
+              {[0, 1, 2].map((index) => {
+                const maxScroll = propheticMondaysRef.current
+                  ? propheticMondaysRef.current.scrollWidth - propheticMondaysRef.current.clientWidth
+                  : 1
+                const scrollProgress = maxScroll > 0
+                  ? (propheticScrollLeft / maxScroll) * 2
+                  : 0
+                const isActive = Math.abs(scrollProgress - index) < 0.5
+                return (
+                  <div
+                    key={index}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      isActive ? 'w-8 bg-navy' : 'w-1.5 bg-gray-300'
+                    }`}
+                  />
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+{/* Join Us in Worship - Service Times Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-10 sm:mb-12 md:mb-16">
@@ -1312,71 +1196,80 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Meet the Prophet Section */}
-      <section key={`prophet-section-${language}`} className="py-12 sm:py-16 md:py-20 bg-white">
+{/* Recent Programs Section - Horizontal Scrollable Gallery */}
+      <section className="py-12 sm:py-16 bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`grid md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center ${isRTL ? 'md:grid-flow-col-dense' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
-            {/* Image Section */}
-            <div className={`relative w-full ${isRTL ? 'order-2 md:order-2' : 'order-2 md:order-1'} md:sticky md:top-24`}>
-              <div className="relative aspect-[4/5] md:aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl group">
-                {/* Background gradient to prevent white space */}
-                <div className="absolute inset-0 bg-gradient-to-br from-navy/10 via-navy/5 to-gold/5"></div>
-                <Image
-                  src="/abouttheprophet.png"
-                  alt="Prophet Isa El-Buba"
-                  fill
-                  className="object-cover object-center rounded-2xl group-hover:scale-105 transition-transform duration-700 relative z-10"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 40vw"
-                  priority
-                />
-                {/* Decorative border effect */}
-                <div className="absolute inset-0 border-4 border-gold/20 rounded-2xl pointer-events-none z-20"></div>
-                {/* Decorative overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl pointer-events-none z-30"></div>
-              </div>
-            </div>
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy-dark px-2">Recent Programs</h2>
+          </div>
 
-            {/* Content Section */}
-            <div className={`space-y-5 md:space-y-6 ${isRTL ? 'order-1 md:order-1' : 'order-1 md:order-2'} ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-              <div>
-                <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-navy-dark mb-4 md:mb-6 ${isRTL ? 'text-right' : 'text-left'}`}>
-                  {t.home.meetTheProphet}
-                </h2>
-                <div className={`${isRTL ? 'mr-0 ml-auto' : 'ml-0 mr-auto'} w-16 sm:w-20 h-1 bg-gold mb-6 md:mb-8`}></div>
-              </div>
+          {/* Horizontal Scrollable Container (native scroll for smooth mobile & desktop) */}
+          <div className="relative">
+            {/* Scroll buttons for tablet/desktop */}
+            <button
+              type="button"
+              onClick={() => scroll(recentProgramsRef, 'left', setRecentProgramsScrollLeft)}
+              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+              aria-label="Scroll recent programs left"
+            >
+              <ChevronLeft className="w-5 h-5 text-navy" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scroll(recentProgramsRef, 'right', setRecentProgramsScrollLeft)}
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+              aria-label="Scroll recent programs right"
+            >
+              <ChevronRight className="w-5 h-5 text-navy" />
+            </button>
 
-              <div 
-                key={`biography-${language}`}
-                className={`text-gray-700 leading-relaxed text-base sm:text-lg whitespace-pre-line break-words hyphens-auto ${isRTL ? 'text-right' : 'text-left'}`} 
-                dir={isRTL ? 'rtl' : 'ltr'}
-              >
-                {renderBiographyWithBoldHeadings(biographyText, language)}
-              </div>
-
-              {/* Learn More Button */}
-              <div className="pt-2 md:pt-4">
-                <a
-                  href="https://isaelbuba.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-navy text-white font-bold rounded-lg hover:bg-navy-light transition-colors text-sm sm:text-base"
+            <div
+              ref={recentProgramsRef}
+              onScroll={(e) => {
+                setRecentProgramsScrollLeft((e.currentTarget as HTMLDivElement).scrollLeft)
+              }}
+              className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-hide horizontal-scroll-touch"
+            >
+              {recentProgramsImages.map((image, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-[90vw] sm:w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] group snap-start rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <span>{t.common.learnMore}</span>
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
-              </div>
+                  <img
+                    src={image}
+                    alt={`Program ${index + 1}`}
+                    className="w-full h-full object-contain group-hover:scale-105 transition-all duration-500 ease-out"
+                    loading={index < 3 ? "eager" : "lazy"}
+                  />
+                </div>
+              ))}
+            </div>
+            {/* Scroll Indicator */}
+            <div className="flex justify-center gap-1.5 mt-4">
+              {Array.from({ length: Math.min(10, Math.ceil(recentProgramsImages.length / 3)) }).map((_, index) => {
+                const maxScroll = recentProgramsRef.current
+                  ? recentProgramsRef.current.scrollWidth - recentProgramsRef.current.clientWidth
+                  : 1
+                const scrollProgress = maxScroll > 0
+                  ? (recentProgramsScrollLeft / maxScroll) * (Math.min(10, Math.ceil(recentProgramsImages.length / 3)) - 1)
+                  : 0
+                const isActive = Math.abs(scrollProgress - index) < 0.5
+                return (
+                  <div
+                    key={index}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      isActive ? 'w-6 bg-navy' : 'w-1.5 bg-gray-300'
+                    }`}
+                  />
+                )
+              })}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Virtual Tour Section - EBOMI Temple and Towers */}
-      <section id="tour" className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-navy-dark via-navy to-navy-light overflow-hidden">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
+{/* Virtual Tour Section - EBOMI Temple and Towers */}
+      <section id="tour" className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-ink overflow-hidden">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
@@ -1479,8 +1372,89 @@ export default function Home() {
         </div>
       </section>
 
-      {/* EBOMI Arms Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
+{/* Testimony Section */}
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/testimony.jpg"
+            alt="Testimonies"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+          {/* Strong Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-navy/90 via-navy/85 to-navy/90"></div>
+        </div>
+
+        {/* Content with Glassmorphism */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-16 border border-white/20 shadow-2xl">
+            <div className="text-center max-w-4xl mx-auto">
+              {/* Heading */}
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                {t.home.shareTestimony}
+              </h2>
+
+              {/* Description */}
+              <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
+                {t.home.testimonyDescription}
+              </p>
+
+              {/* Benefits */}
+              <div className="grid md:grid-cols-3 gap-6 mb-10">
+                {/* Inspire Others Card */}
+                <div className="group relative bg-gradient-to-br from-gold/20 via-gold/10 to-transparent backdrop-blur-md rounded-2xl p-8 border border-gold/30 hover:border-gold/50 transition-all duration-300 hover:shadow-2xl hover:shadow-gold/20 hover:-translate-y-1">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl"></div>
+                  <div className="relative z-10">
+                    <h3 className="text-white font-bold text-xl mb-3">{t.home.inspireOthers}</h3>
+                    <p className="text-white/90 leading-relaxed">{t.home.inspireDescription}</p>
+                  </div>
+                </div>
+
+                {/* Glorify God Card */}
+                <div className="group relative bg-gradient-to-br from-blue-500/20 via-blue-400/10 to-transparent backdrop-blur-md rounded-2xl p-8 border border-blue-400/30 hover:border-blue-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-1">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                  <div className="relative z-10">
+                    <h3 className="text-white font-bold text-xl mb-3">{t.home.glorifyGod}</h3>
+                    <p className="text-white/90 leading-relaxed">{t.home.glorifyDescription}</p>
+                  </div>
+                </div>
+
+                {/* Build Faith Card */}
+                <div className="group relative bg-gradient-to-br from-purple-500/20 via-purple-400/10 to-transparent backdrop-blur-md rounded-2xl p-8 border border-purple-400/30 hover:border-purple-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
+                  <div className="relative z-10">
+                    <h3 className="text-white font-bold text-xl mb-3">{t.home.buildFaith}</h3>
+                    <p className="text-white/90 leading-relaxed">{t.home.buildFaithDescription}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Call to Action */}
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLScuZ0Kvi4NaukWv-a6HzaIMfaZwX2D6KPTwyRacarqVeSLBiA/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-3 px-10 py-5 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/15 hover:border-white/50 transition-all duration-300 shadow-2xl hover:shadow-white/20 hover:scale-105 text-lg md:text-xl"
+              >
+                <Pointer className="w-6 h-6" />
+                <span>{t.home.shareTestimony}</span>
+                <ArrowRight className="w-6 h-6" />
+              </a>
+
+              {/* Additional Text */}
+              <p className="text-white/70 text-sm mt-6">
+                Your testimony will be reviewed and may be featured on our platform to bless others
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+{/* EBOMI Arms Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-10 sm:mb-12 md:mb-16">
@@ -1589,42 +1563,56 @@ export default function Home() {
             </div>
 
             {/* Group of Schools */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 group sm:col-span-2">
-              <div className="relative h-48 sm:h-56 md:h-64 bg-white flex items-center justify-center p-4 sm:p-6 md:p-8">
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/arms/school.png"
-                    alt="EBOMI Group of Schools"
-                    fill
-                    className="object-contain group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    unoptimized
-                  />
-                </div>
-              </div>
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 sm:col-span-2">
               <div className="p-4 sm:p-6">
                 <h3 className="text-xl sm:text-2xl font-bold text-navy-dark mb-2 sm:mb-3">Group of Schools</h3>
-                <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 mb-6 leading-relaxed">
                   Excellence in education through our network of schools, nurturing the next generation with quality learning and character development.
                 </p>
-                <div className="space-y-2 sm:space-y-3">
+                <div className="grid sm:grid-cols-2 gap-4">
                   <a
-                    href="https://www.instagram.com/p/DEiMpExIdmj/"
+                    href="https://tesma.sch.ng/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 hover:bg-gray-100 active:bg-gray-200 rounded-lg transition-colors group/link touch-manipulation min-h-[44px]"
+                    className="flex flex-col items-center text-center p-5 rounded-xl border border-stone-200 bg-canvas hover:border-navy/30 hover:shadow-md transition-all group/school touch-manipulation"
                   >
-                    <span className="text-navy-dark font-medium text-sm sm:text-base">Tanjuriel Elite Stars Model Academy</span>
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 group-hover/link:text-navy-dark flex-shrink-0" />
+                    <div className="relative w-28 h-28 sm:w-32 sm:h-32 mb-4">
+                      <Image
+                        src="/arms/tesma.jpeg"
+                        alt="Tanjuriel Elite Stars Model Academy"
+                        fill
+                        className="object-contain group-hover/school:scale-105 transition-transform duration-500"
+                        sizes="128px"
+                        unoptimized
+                      />
+                    </div>
+                    <span className="text-ink font-semibold text-sm sm:text-base">Tanjuriel Elite Stars Model Academy</span>
+                    <span className="mt-2 inline-flex items-center gap-1 text-navy text-sm font-medium">
+                      Visit website
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </span>
                   </a>
                   <a
-                    href="https://web.facebook.com/ebomiinternationalschool/?_rdc=1&_rdr#"
+                    href="https://www.ebomischool.org/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 hover:bg-gray-100 active:bg-gray-200 rounded-lg transition-colors group/link touch-manipulation min-h-[44px]"
+                    className="flex flex-col items-center text-center p-5 rounded-xl border border-stone-200 bg-canvas hover:border-navy/30 hover:shadow-md transition-all group/school touch-manipulation"
                   >
-                    <span className="text-navy-dark font-medium text-sm sm:text-base">EBOMI High School</span>
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 group-hover/link:text-navy-dark flex-shrink-0" />
+                    <div className="relative w-28 h-28 sm:w-32 sm:h-32 mb-4">
+                      <Image
+                        src="/arms/ebomihigh.png"
+                        alt="EBOMI High School International"
+                        fill
+                        className="object-contain group-hover/school:scale-105 transition-transform duration-500"
+                        sizes="128px"
+                        unoptimized
+                      />
+                    </div>
+                    <span className="text-ink font-semibold text-sm sm:text-base">EBOMI High School International</span>
+                    <span className="mt-2 inline-flex items-center gap-1 text-navy text-sm font-medium">
+                      Visit website
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </span>
                   </a>
                 </div>
               </div>
@@ -1633,10 +1621,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Preview Section */}
+{/* Gallery Preview Section */}
       <GalleryPreview limit={15} />
 
-      {/* Prophet's Books Section */}
+{/* Prophet's Books Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
@@ -1670,8 +1658,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* EBOMI Store Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">
+{/* EBOMI Store Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-10 sm:mb-12 md:mb-16">

@@ -1,26 +1,25 @@
 'use client'
 
-import { BookOpen } from 'lucide-react'
 import BookCard from '@/components/BookCard'
 import { books } from '@/lib/books'
 
 export default function LibraryPage() {
   return (
-    <div className="pt-20 min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <section className="bg-navy text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center mb-6">
-            <BookOpen className="w-12 h-12 text-gold mr-4" />
-            <h1 className="text-4xl md:text-5xl font-bold">Prophet&apos;s Library</h1>
-          </div>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
+    <div className="pt-20 min-h-screen bg-canvas">
+      <section className="py-14 sm:py-16 md:py-20">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-navy font-semibold uppercase tracking-wider text-sm mb-3">Library</p>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-ink mb-4">
+            Prophet&apos;s Library
+          </h1>
+          <p className="text-lg sm:text-xl text-muted leading-relaxed">
             Discover transformative teachings and prophetic insights through the books of Prophet Isa El-Buba
           </p>
-          <p className="text-gold font-semibold mt-4 text-lg">All books £15</p>
+          <p className="text-navy font-semibold mt-4">All books £15</p>
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
             {books.map((book) => (
@@ -30,12 +29,13 @@ export default function LibraryPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-gradient-to-br from-navy via-navy-light to-navy-dark text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <section className="pb-20">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="w-16 h-px bg-gold mx-auto mb-6" />
+          <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4">
             Transform Your Life Through These Teachings
           </h2>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <p className="text-lg text-muted leading-relaxed">
             Each book contains powerful insights, biblical principles, and prophetic wisdom to guide you on your journey of faith and purpose.
           </p>
         </div>

@@ -218,7 +218,7 @@ export default function EbomiBranchesPage() {
   }
 
   return (
-    <div className="pt-20 min-h-screen bg-gray-50">
+    <div className="pt-20 min-h-screen bg-canvas">
       {/* Header */}
       <section className="bg-navy text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

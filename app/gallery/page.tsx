@@ -88,7 +88,7 @@ export default function GalleryPage({
   const images = allImages.slice(start, end)
 
   return (
-    <div className="pt-20 min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="pt-20 min-h-screen bg-canvas">
       {/* Header */}
       <section className="bg-gradient-to-br from-navy via-navy-light to-navy-dark text-white py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -171,4 +171,3 @@ export default function GalleryPage({
     </div>
   )
 }
-

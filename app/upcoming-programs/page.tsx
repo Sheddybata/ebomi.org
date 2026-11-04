@@ -18,7 +18,7 @@ const pastors = [
 
 export default function AboutUsPage() {
   return (
-    <div className="pt-20 min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="pt-20 min-h-screen bg-canvas">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-navy via-navy-light to-navy-dark text-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,7 +115,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Mission Highlights */}
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-16 bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center p-8 bg-white rounded-xl shadow-lg">

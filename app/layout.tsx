@@ -1,12 +1,36 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Fraunces, Noto_Sans_Arabic, Noto_Sans_Hebrew, Source_Sans_3 } from 'next/font/google'
 import './globals.css'
 import Providers from '@/components/Providers'
 import BackgroundAudio from '@/components/BackgroundAudio'
 import { generateSEOMetadata, generateStructuredData } from '@/lib/seo'
 import { LOGO_PATH } from '@/lib/constants'
 
-const inter = Inter({ subsets: ['latin'] })
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const sourceSans = Source_Sans_3({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+const notoArabic = Noto_Sans_Arabic({
+  subsets: ['arabic'],
+  weight: ['400', '600', '700'],
+  variable: '--font-arabic',
+  display: 'swap',
+})
+
+const notoHebrew = Noto_Sans_Hebrew({
+  subsets: ['hebrew'],
+  weight: ['400', '600', '700'],
+  variable: '--font-hebrew',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   ...generateSEOMetadata({
@@ -52,7 +76,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className={inter.className}>
+      <body
+        className={`${fraunces.variable} ${sourceSans.variable} ${notoArabic.variable} ${notoHebrew.variable} font-sans`}
+      >
         <Providers>
           {children}
         </Providers>

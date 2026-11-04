@@ -6,7 +6,7 @@ import { NATIONAL_CONGRESS_2026 } from '@/lib/conference/config'
 
 export default function NationalCongressRegisterPage() {
   return (
-    <div className="pt-20 min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="pt-20 min-h-screen bg-canvas">
       <section className="bg-gradient-to-br from-navy-dark via-navy to-navy-light text-white py-12 sm:py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link

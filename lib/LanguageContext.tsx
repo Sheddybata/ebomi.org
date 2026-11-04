@@ -35,8 +35,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setLanguageState(lang)
     if (typeof window !== 'undefined') {
       localStorage.setItem('ebomi-language', lang)
-      // Update HTML lang attribute
       document.documentElement.lang = lang
+      document.documentElement.dir = lang === 'ar' || lang === 'he' ? 'rtl' : 'ltr'
     }
   }
 
@@ -44,6 +44,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (mounted && typeof document !== 'undefined') {
       document.documentElement.lang = language
+      document.documentElement.dir = language === 'ar' || language === 'he' ? 'rtl' : 'ltr'
     }
   }, [language, mounted])
 

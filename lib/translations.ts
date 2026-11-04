@@ -105,6 +105,7 @@ export interface Translations {
     resources: string
     joinUs: string
     visitTemple: string
+    more: string
   }
   
   // Home Page
@@ -306,6 +307,7 @@ export const translations: Record<Language, Translations> = {
       resources: 'Resources',
       joinUs: 'Join Us',
       visitTemple: 'Visit EBOMI',
+      more: 'More',
     },
     home: {
       welcomeHome: 'WELCOME HOME',
@@ -523,6 +525,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'Ressources',
       joinUs: 'Rejoignez-nous',
       visitTemple: 'Visitez EBOMI',
+      more: 'Plus',
     },
     home: {
       welcomeHome: 'BIENVENUE À LA MAISON',
@@ -740,6 +743,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'Recursos',
       joinUs: 'Únete a nosotros',
       visitTemple: 'Visita EBOMI',
+      more: 'Más',
     },
     home: {
       welcomeHome: 'BIENVENIDO A CASA',
@@ -957,6 +961,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'Recursos',
       joinUs: 'Junte-se a nós',
       visitTemple: 'Visite EBOMI',
+      more: 'Mais',
     },
     home: {
       welcomeHome: 'BEM-VINDO AO LAR',
@@ -1090,6 +1095,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'Albarkatu',
       joinUs: 'Ku shiga tare da mu',
       visitTemple: 'Ziyarci EBOMI',
+      more: 'Ƙari',
     },
     home: {
       welcomeHome: 'BARKA DA GIDA',
@@ -1223,6 +1229,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'Awọn ohun elo',
       joinUs: 'Darapọ mọ wa',
       visitTemple: 'Wọ EBOMI',
+      more: 'Sí i',
     },
     home: {
       welcomeHome: 'KAABO SI ILE',
@@ -1356,6 +1363,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'Akụrụngwa',
       joinUs: 'Sonye anyị',
       visitTemple: 'Gaa na EBOMI',
+      more: 'Ọzọ',
     },
     home: {
       welcomeHome: 'NNABATA N\'ỤLỌ',
@@ -1489,6 +1497,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'Jokkondirɗe',
       joinUs: 'Naat e amen',
       visitTemple: 'Yah e EBOMI',
+      more: 'Goɗɗum',
     },
     home: {
       welcomeHome: 'JAMMINGOL E GALLE',
@@ -1622,6 +1631,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'الموارد',
       joinUs: 'انضم إلينا',
       visitTemple: 'زيارة إيبومي',
+      more: 'المزيد',
     },
     home: {
       welcomeHome: 'مرحباً بك في البيت',
@@ -1755,6 +1765,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: '资源',
       joinUs: '加入我们',
       visitTemple: '参观 EBOMI',
+      more: '更多',
     },
     home: {
       welcomeHome: '欢迎回家',
@@ -1888,6 +1899,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'משאבים',
       joinUs: 'הצטרף אלינו',
       visitTemple: 'בקר ב-EBOMI',
+      more: 'עוד',
     },
     home: {
       welcomeHome: 'ברוך הבא הביתה',
@@ -2021,6 +2033,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'Ressourcen',
       joinUs: 'Tritt uns bei',
       visitTemple: 'Besuchen Sie EBOMI',
+      more: 'Mehr',
     },
     home: {
       welcomeHome: 'WILLKOMMEN ZU HAUSE',
@@ -2154,6 +2167,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: 'संसाधन',
       joinUs: 'हमसे जुड़ें',
       visitTemple: 'EBOMI पर जाएं',
+      more: 'और',
     },
     home: {
       welcomeHome: 'घर में स्वागत है',
@@ -2287,6 +2301,7 @@ Prophet Isa El-Buba is happily married to Pastor Choice Isa El-Buba, a pillar of
       resources: '자료',
       joinUs: '함께하기',
       visitTemple: 'EBOMI 방문',
+      more: '더보기',
     },
     home: {
       welcomeHome: '집에 오신 것을 환영합니다',
