@@ -109,6 +109,7 @@ export async function saveConferenceRegistration(
       name: input.name,
       phone: input.phone,
       email: input.email,
+      country: input.country,
       state: input.state,
       residential_address: input.residentialAddress,
       church_denomination: input.churchDenomination,

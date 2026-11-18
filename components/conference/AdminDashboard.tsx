@@ -174,6 +174,7 @@ export default function AdminDashboard() {
                 <th className="py-2 pr-4">Name</th>
                 <th className="py-2 pr-4">Registered</th>
                 <th className="py-2 pr-4">Phone</th>
+                <th className="py-2 pr-4">Country</th>
                 <th className="py-2 pr-4">State</th>
                 <th className="py-2 pr-4">Church</th>
                 <th className="py-2 pr-4">Affiliation</th>
@@ -190,6 +191,7 @@ export default function AdminDashboard() {
                     {formatRegistrationDate(reg.createdAt)}
                   </td>
                   <td className="py-3 pr-4 text-navy-dark whitespace-nowrap">{reg.phone}</td>
+                  <td className="py-3 pr-4 text-navy-dark">{reg.country || '—'}</td>
                   <td className="py-3 pr-4 text-navy-dark">{reg.state}</td>
                   <td className="py-3 pr-4 text-navy-dark">{reg.churchDenomination}</td>
                   <td className="py-3 pr-4 text-navy-dark">{reg.affiliation}</td>

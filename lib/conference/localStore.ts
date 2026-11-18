@@ -41,6 +41,7 @@ function toRecord(stored: StoredRegistration): ConferenceRegistrationRecord {
   return {
     ...stored,
     email: stored.email ?? '',
+    country: stored.country ?? '',
     residentialAddress: stored.residentialAddress ?? '',
     churchDenomination: stored.churchDenomination ?? '',
     meals: mealsFromLegacy(stored),

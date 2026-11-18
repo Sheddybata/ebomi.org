@@ -4,7 +4,7 @@ import {
   NATIONAL_CONGRESS_2026,
   OCCUPATION_OPTIONS,
 } from './config'
-import { combinePhoneNumber } from './dialCodes'
+import { COUNTRY_DIAL_CODES, combinePhoneNumber } from './dialCodes'
 import type { ConferenceRegistrationInput } from './types'
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -33,6 +33,7 @@ export function validateRegistrationBody(body: unknown): {
     ? combinePhoneNumber(countryDial, nationalNumber)
     : rawPhone.replace(/[^\d+]/g, '')
   const email = typeof input.email === 'string' ? input.email.trim().toLowerCase() : ''
+  const country = typeof input.country === 'string' ? input.country.trim() : ''
   const state = typeof input.state === 'string' ? input.state.trim() : ''
   const residentialAddress =
     typeof input.residentialAddress === 'string' ? input.residentialAddress.trim() : ''
@@ -50,6 +51,9 @@ export function validateRegistrationBody(body: unknown): {
     return { error: 'Please enter a valid phone number with country code.' }
   }
   if (email && !EMAIL_PATTERN.test(email)) return { error: 'Please enter a valid email address.' }
+  if (!COUNTRY_DIAL_CODES.some((item) => item.name === country)) {
+    return { error: 'Please select your country.' }
+  }
   if (!state) return { error: 'Please enter your state or region.' }
   if (!residentialAddress || residentialAddress.length < 8) {
     return { error: 'Please enter your residential address.' }
@@ -79,6 +83,7 @@ export function validateRegistrationBody(body: unknown): {
       name,
       phone,
       email,
+      country,
       state,
       residentialAddress,
       churchDenomination,

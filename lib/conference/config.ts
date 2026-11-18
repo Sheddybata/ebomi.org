@@ -1,6 +1,6 @@
 export const NATIONAL_CONGRESS_2026 = {
   slug: 'national-congress-2026',
-  title: 'National Congress 2026',
+  title: 'National Revival Congress 2026',
   theme: 'Dominion Mandate: Reclaiming the Mountain of Influence',
   date: '23rd November – 27th November 2026',
   venue: 'EBOMI Temple and Towers, No. 1A Kashim Ibrahim Street, Jos, Plateau State, Nigeria.',
@@ -17,6 +17,7 @@ export const AFFILIATION_OPTIONS = [
   'Local Government Intercessor',
   'State Intercessor',
   'Mentee',
+  'Others',
 ] as const
 
 export const OCCUPATION_OPTIONS = [

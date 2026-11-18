@@ -189,7 +189,7 @@ export default function Home() {
   }
 
   const featuredEvent = {
-    title: 'National Congress 2026',
+    title: 'National Revival Congress 2026',
     theme: 'Dominion Mandate: Reclaiming the Mountain of Influence',
     date: '23rd November – 27th November 2026',
     locations: [
@@ -405,7 +405,7 @@ export default function Home() {
         </div>
       </section>
 
-{/* Upcoming Events Section - National Congress Dominion Mandate */}
+{/* Upcoming Events Section - National Revival Congress Dominion Mandate */}
       <section className="relative py-16 sm:py-20 md:py-24 bg-canvas overflow-hidden">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

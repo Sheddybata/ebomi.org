@@ -1,9 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ShoppingCart } from 'lucide-react'
-import type { Product } from '@/lib/storeProducts'
+import { getMerchOrderWhatsAppLink, type Product } from '@/lib/storeProducts'
 
 interface ProductCardProps {
   product: Product
@@ -14,7 +15,14 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, compact = false, buyNowLabel = 'Buy Now' }: ProductCardProps) {
-  const isExternal = product.link.startsWith('http')
+  const gallery = product.images?.length ? product.images : [product.image]
+  const [imageIndex, setImageIndex] = useState(0)
+  const currentImage = gallery[imageIndex] ?? product.image
+
+  const orderLink = product.link.startsWith('http')
+    ? product.link
+    : getMerchOrderWhatsAppLink(product.name)
+  const isExternal = orderLink.startsWith('http')
   const linkProps = isExternal
     ? { target: '_blank', rel: 'noopener noreferrer' as const }
     : {}
@@ -25,25 +33,35 @@ export default function ProductCard({ product, compact = false, buyNowLabel = 'B
         compact ? 'shadow-md' : 'shadow-lg'
       }`}
     >
-      {/* Product Image */}
       <div
-        className={`relative bg-gradient-to-br from-navy/5 via-navy/[0.03] to-gold/5 overflow-hidden ${
+        className={`relative bg-white overflow-hidden ${
           compact ? 'h-40 sm:h-44' : 'h-52 sm:h-60'
         }`}
       >
-        <div className="relative w-full h-full p-4 sm:p-6 flex items-center justify-center">
-          <Image
-            src={product.image}
-            alt={product.name}
-            width={compact ? 120 : 160}
-            height={compact ? 120 : 160}
-            className="object-contain w-auto h-full rounded-lg group-hover:scale-105 transition-transform duration-500 ease-out"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-navy/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <Image
+          src={currentImage}
+          alt={product.name}
+          fill
+          className="object-contain p-3 sm:p-4 group-hover:scale-105 transition-transform duration-500 ease-out"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        />
+        {gallery.length > 1 && (
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
+            {gallery.map((src, index) => (
+              <button
+                key={src}
+                type="button"
+                onClick={() => setImageIndex(index)}
+                className={`h-1.5 rounded-full transition-all ${
+                  index === imageIndex ? 'w-5 bg-navy' : 'w-1.5 bg-navy/30'
+                }`}
+                aria-label={`View ${product.name} photo ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Product Info */}
       <div className={`${compact ? 'p-3 sm:p-4' : 'p-5 sm:p-6'}`}>
         <h3
           className={`font-bold text-navy-dark line-clamp-2 leading-tight ${
@@ -61,7 +79,7 @@ export default function ProductCard({ product, compact = false, buyNowLabel = 'B
         </p>
 
         <Link
-          href={product.link}
+          href={orderLink}
           className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 bg-navy text-white font-bold rounded-xl hover:bg-navy-light active:bg-navy-dark transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-md touch-manipulation min-h-[44px] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-navy"
           {...linkProps}
         >

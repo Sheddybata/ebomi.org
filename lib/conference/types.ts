@@ -8,6 +8,7 @@ export interface ConferenceRegistrationInput {
   name: string
   phone: string
   email: string
+  country: string
   state: string
   residentialAddress: string
   churchDenomination: string

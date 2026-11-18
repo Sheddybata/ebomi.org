@@ -28,6 +28,7 @@ export default function RegistrationForm() {
     countryIso: 'NG',
     nationalNumber: '',
     email: '',
+    country: 'Nigeria',
     state: '',
     residentialAddress: '',
     churchDenomination: '',
@@ -63,6 +64,7 @@ export default function RegistrationForm() {
           countryDial,
           nationalNumber: form.nationalNumber,
           email: form.email,
+          country: form.country,
           state: form.state,
           residentialAddress: form.residentialAddress,
           churchDenomination: form.churchDenomination,
@@ -148,6 +150,26 @@ export default function RegistrationForm() {
             placeholder="your@email.com"
             autoComplete="email"
           />
+        </div>
+
+        <div>
+          <label htmlFor="country" className={labelClass}>
+            Country <span className="text-navy">*</span>
+          </label>
+          <select
+            id="country"
+            required
+            value={form.country}
+            onChange={(e) => updateField('country', e.target.value)}
+            className={`${inputClass} [color-scheme:light] [&>option]:bg-white [&>option]:text-navy-dark`}
+            autoComplete="country-name"
+          >
+            {COUNTRY_DIAL_CODES.map((country) => (
+              <option key={country.iso} value={country.name}>
+                {country.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>

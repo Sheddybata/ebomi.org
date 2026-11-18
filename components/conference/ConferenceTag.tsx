@@ -22,7 +22,9 @@ export default function ConferenceTag({ registration }: { registration: Conferen
 
       <div className="flex-1 px-4 py-3 flex flex-col items-center text-center bg-white">
         <p className="text-lg font-bold text-navy-dark leading-tight mb-1">{registration.name}</p>
-        <p className="text-xs text-gray-700 mb-1">{registration.state}</p>
+        <p className="text-xs text-gray-700 mb-1">
+          {[registration.country, registration.state].filter(Boolean).join(' · ')}
+        </p>
         <p className="text-xs font-semibold text-navy mb-4">{registration.affiliation}</p>
 
         <div className="mb-2">

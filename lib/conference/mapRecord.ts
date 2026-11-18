@@ -6,6 +6,7 @@ export interface SupabaseRegistrationRow {
   name: string
   phone: string
   email: string | null
+  country?: string | null
   state: string
   residential_address?: string | null
   church_denomination?: string | null
@@ -47,6 +48,7 @@ export function mapSupabaseRow(
     name: row.name,
     phone: row.phone,
     email: row.email ?? '',
+    country: row.country ?? '',
     state: row.state,
     residentialAddress: row.residential_address ?? '',
     churchDenomination: row.church_denomination ?? '',

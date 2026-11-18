@@ -8,6 +8,7 @@ create table if not exists conference_registrations (
   name text not null,
   phone text not null,
   email text not null default '',
+  country text not null default '',
   state text not null,
   residential_address text not null default '',
   church_denomination text not null default '',
