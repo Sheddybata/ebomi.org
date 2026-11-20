@@ -122,12 +122,12 @@ export default function Navigation() {
             </div>
 
             <GlobalSearch />
-            <Link
+            <a
               href="/register/national-congress-2026"
               className="inline-flex items-center justify-center px-4 py-2 rounded-full border border-stone-300 text-ink text-sm font-semibold hover:border-navy hover:text-navy transition-colors min-h-[40px]"
             >
               {t.home.registerNow}
-            </Link>
+            </a>
             <Link
               href="/give"
               className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-navy text-white text-sm font-semibold hover:bg-navy-dark transition-colors min-h-[40px]"
@@ -178,13 +178,12 @@ export default function Navigation() {
               ))}
               <div className="px-4 pt-3 flex flex-col gap-2">
                 <GlobalSearch />
-                <Link
+                <a
                   href="/register/national-congress-2026"
-                  onClick={() => setIsOpen(false)}
                   className="inline-flex items-center justify-center px-4 py-3 rounded-full border border-stone-300 text-ink font-semibold hover:border-navy hover:text-navy transition-colors min-h-[44px]"
                 >
                   {t.home.registerNow}
-                </Link>
+                </a>
                 <Link
                   href="/give"
                   onClick={() => setIsOpen(false)}

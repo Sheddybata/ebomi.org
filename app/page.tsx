@@ -501,13 +501,13 @@ export default function Home() {
                   <CountdownTimer targetDate={featuredEvent.startDate} />
                   {featuredEvent.registrationLink && (
                     featuredEvent.registrationLink.startsWith('/') ? (
-                      <Link
+                      <a
                         href={featuredEvent.registrationLink}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-8 py-4 text-white font-semibold hover:bg-navy-dark transition-colors min-h-[56px]"
+                        className="relative z-10 inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-8 py-4 text-white font-semibold hover:bg-navy-dark transition-colors min-h-[56px]"
                       >
                         <span>{t.home.registerNow}</span>
                         <ArrowRight className="w-5 h-5 flex-shrink-0" />
-                      </Link>
+                      </a>
                     ) : (
                     <a
                       href={featuredEvent.registrationLink}

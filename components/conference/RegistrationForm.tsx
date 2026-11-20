@@ -11,6 +11,7 @@ import {
 } from '@/lib/conference/config'
 import { COUNTRY_DIAL_CODES } from '@/lib/conference/dialCodes'
 import PhoneCountryInput from '@/components/conference/PhoneCountryInput'
+import CountrySelect from '@/components/conference/CountrySelect'
 
 function yesNoToBoolean(value: string): boolean | null {
   if (value === 'Yes') return true
@@ -156,20 +157,14 @@ export default function RegistrationForm() {
           <label htmlFor="country" className={labelClass}>
             Country <span className="text-navy">*</span>
           </label>
-          <select
-            id="country"
-            required
+          <CountrySelect
             value={form.country}
-            onChange={(e) => updateField('country', e.target.value)}
-            className={`${inputClass} [color-scheme:light] [&>option]:bg-white [&>option]:text-navy-dark`}
-            autoComplete="country-name"
-          >
-            {COUNTRY_DIAL_CODES.map((country) => (
-              <option key={country.iso} value={country.name}>
-                {country.name}
-              </option>
-            ))}
-          </select>
+            onChange={(name) => {
+              updateField('country', name)
+              const match = COUNTRY_DIAL_CODES.find((country) => country.name === name)
+              if (match) updateField('countryIso', match.iso)
+            }}
+          />
         </div>
 
         <div>

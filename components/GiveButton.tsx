@@ -15,14 +15,14 @@ export default function GiveButton() {
   return (
     <>
       <div
-        className="fixed right-8 z-40 flex flex-col items-end gap-3"
+        className="fixed right-4 sm:right-8 z-30 flex flex-col items-end gap-3"
         style={{ bottom: floatingBottom }}
       >
         <a
           href={PRAYER_REQUEST_WHATSAPP}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-gold hover:bg-gold-light text-white rounded-full px-4 py-3 sm:px-4 sm:py-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 flex items-center space-x-2 group min-h-[44px] min-w-[44px] touch-manipulation font-bold text-base sm:text-lg"
+          className="bg-gold hover:bg-gold-light text-white rounded-full px-3 py-2.5 sm:px-4 sm:py-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 flex items-center space-x-2 group min-h-[44px] min-w-[44px] touch-manipulation font-bold text-sm sm:text-lg"
           aria-label="Prayer Request"
         >
           <Heart className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white group-hover:scale-110 transition-transform flex-shrink-0" />
@@ -30,7 +30,7 @@ export default function GiveButton() {
         </a>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-navy hover:bg-navy-light text-white rounded-full px-4 py-3 sm:px-4 sm:py-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 flex items-center space-x-2 group min-h-[44px] min-w-[44px] touch-manipulation"
+          className="bg-navy hover:bg-navy-light text-white rounded-full px-3 py-2.5 sm:px-4 sm:py-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 flex items-center space-x-2 group min-h-[44px] min-w-[44px] touch-manipulation"
           aria-label="Give"
         >
           <Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:scale-110 transition-transform flex-shrink-0" />
