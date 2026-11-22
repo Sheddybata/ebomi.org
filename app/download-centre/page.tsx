@@ -20,6 +20,16 @@ interface Resource {
 
 const resources: Resource[] = [
   {
+    id: 0,
+    title: 'EBOMI E-Magazine',
+    type: 'pdf',
+    category: 'books',
+    size: '65 MB',
+    date: '2026-11-22',
+    description: 'Read or download the EBOMI e-magazine.',
+    link: '/magazine',
+  },
+  {
     id: 1,
     title: 'He is my everything',
     type: 'mp3',

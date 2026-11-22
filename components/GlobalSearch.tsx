@@ -74,6 +74,14 @@ export default function GlobalSearch() {
     },
     // Resources
     {
+      id: 'magazine',
+      title: 'EBOMI E-Magazine',
+      description: 'Read or download the EBOMI e-magazine',
+      url: '/magazine',
+      type: 'resource',
+      icon: BookOpen,
+    },
+    {
       id: 'sermon1',
       title: 'He is my everything',
       description: 'A powerful sermon by Prophet Isa El-Buba',

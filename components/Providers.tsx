@@ -16,7 +16,8 @@ const GiveButton = dynamic(() => import('./GiveButton'), {
 export default function Providers({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isAdmin = pathname?.startsWith('/admin')
-  const hideGiveButton = isAdmin || pathname?.startsWith('/register')
+  const hideGiveButton =
+    isAdmin || pathname?.startsWith('/register') || pathname === '/magazine'
   const [isLoading, setIsLoading] = useState(true)
   const [hasLoaded, setHasLoaded] = useState(false)
 
