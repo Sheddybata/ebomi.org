@@ -1,4 +1,5 @@
 import type { ConferenceRegistrationRecord, MealScanRecord, MealType } from './types'
+import { parseMinistryClass } from './ministryClasses'
 
 export interface SupabaseRegistrationRow {
   registration_id: string
@@ -15,6 +16,7 @@ export interface SupabaseRegistrationRow {
   needs_accommodation: boolean
   needs_feeding: boolean
   heard_about: string
+  ministry_class?: number | null
   checked_in: boolean
   checked_in_at?: string | null
   breakfast_at?: string | null
@@ -57,6 +59,7 @@ export function mapSupabaseRow(
     needsAccommodation: row.needs_accommodation,
     needsFeeding: row.needs_feeding,
     heardAbout: row.heard_about as ConferenceRegistrationRecord['heardAbout'],
+    ministryClass: parseMinistryClass(row.ministry_class),
     checkedIn: row.checked_in,
     checkedInAt: row.checked_in_at ?? null,
     meals,

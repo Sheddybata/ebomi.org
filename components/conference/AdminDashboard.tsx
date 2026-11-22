@@ -108,6 +108,19 @@ export default function AdminDashboard() {
       </div>
 
       {stats && (
+        <Panel title="School of Ministry classes">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {stats.byMinistryClass.map(({ ministryClass, count }) => (
+              <div key={ministryClass} className="flex items-center justify-between px-3 py-2 text-sm bg-gray-50 rounded-lg">
+                <span className="font-medium text-navy-dark">Class {ministryClass}</span>
+                <span className="text-gray-600">{count}</span>
+              </div>
+            ))}
+          </div>
+        </Panel>
+      )}
+
+      {stats && (
         <Panel title="Meals by day">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -178,6 +191,7 @@ export default function AdminDashboard() {
                 <th className="py-2 pr-4">State</th>
                 <th className="py-2 pr-4">Church</th>
                 <th className="py-2 pr-4">Affiliation</th>
+                <th className="py-2 pr-4">Class</th>
                 <th className="py-2 pr-4">ID</th>
                 <th className="py-2 pr-4">Check-in</th>
                 <th className="py-2">Meals</th>
@@ -195,6 +209,9 @@ export default function AdminDashboard() {
                   <td className="py-3 pr-4 text-navy-dark">{reg.state}</td>
                   <td className="py-3 pr-4 text-navy-dark">{reg.churchDenomination}</td>
                   <td className="py-3 pr-4 text-navy-dark">{reg.affiliation}</td>
+                  <td className="py-3 pr-4 text-navy-dark whitespace-nowrap">
+                    {reg.ministryClass ? `Class ${reg.ministryClass}` : '—'}
+                  </td>
                   <td className="py-3 pr-4 font-mono text-xs text-navy-dark">{reg.registrationId}</td>
                   <td className="py-3 pr-4">
                     {reg.checkedIn ? (

@@ -1,4 +1,5 @@
 import { NATIONAL_CONGRESS_2026 } from './config'
+import { MINISTRY_CLASS_COUNT, parseMinistryClass } from './ministryClasses'
 import { todayInLagos } from './mealDates'
 import type { ConferenceRegistrationRecord, ConferenceStats, MealDayStats } from './types'
 
@@ -9,6 +10,7 @@ function emptyDayStats(date: string): MealDayStats {
 export function buildConferenceStats(registrations: ConferenceRegistrationRecord[]): ConferenceStats {
   const stateMap = new Map<string, number>()
   const affiliationMap = new Map<string, number>()
+  const ministryClassCounts = Array.from({ length: MINISTRY_CLASS_COUNT }, () => 0)
   const mealDays = new Map<string, MealDayStats>()
 
   for (const date of NATIONAL_CONGRESS_2026.mealDates) {
@@ -26,6 +28,8 @@ export function buildConferenceStats(registrations: ConferenceRegistrationRecord
 
     stateMap.set(reg.state, (stateMap.get(reg.state) ?? 0) + 1)
     affiliationMap.set(reg.affiliation, (affiliationMap.get(reg.affiliation) ?? 0) + 1)
+    const ministryClass = parseMinistryClass(reg.ministryClass)
+    if (ministryClass) ministryClassCounts[ministryClass - 1] += 1
 
     for (const meal of reg.meals ?? []) {
       if (meal.mealType !== 'lunch' && meal.mealType !== 'dinner') continue
@@ -54,6 +58,10 @@ export function buildConferenceStats(registrations: ConferenceRegistrationRecord
     })),
     byAffiliation: sortByCount([...affiliationMap.entries()]).map(({ key, count }) => ({
       affiliation: key,
+      count,
+    })),
+    byMinistryClass: ministryClassCounts.map((count, index) => ({
+      ministryClass: index + 1,
       count,
     })),
     mealsToday: mealDays.get(today) ?? emptyDayStats(today),

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import {
   AFFILIATION_OPTIONS,
   HEARD_ABOUT_OPTIONS,
+  isNigerianState,
   NATIONAL_CONGRESS_2026,
   OCCUPATION_OPTIONS,
   YES_NO_OPTIONS,
@@ -12,6 +13,7 @@ import {
 import { COUNTRY_DIAL_CODES } from '@/lib/conference/dialCodes'
 import PhoneCountryInput from '@/components/conference/PhoneCountryInput'
 import CountrySelect from '@/components/conference/CountrySelect'
+import NigerianStateSelect from '@/components/conference/NigerianStateSelect'
 
 function yesNoToBoolean(value: string): boolean | null {
   if (value === 'Yes') return true
@@ -160,27 +162,36 @@ export default function RegistrationForm() {
           <CountrySelect
             value={form.country}
             onChange={(name) => {
-              updateField('country', name)
               const match = COUNTRY_DIAL_CODES.find((country) => country.name === name)
-              if (match) updateField('countryIso', match.iso)
+              setForm((prev) => ({
+                ...prev,
+                country: name,
+                countryIso: match?.iso ?? prev.countryIso,
+                state: name === 'Nigeria' && isNigerianState(prev.state) ? prev.state : '',
+              }))
+              setError(null)
             }}
           />
         </div>
 
         <div>
           <label htmlFor="state" className={labelClass}>
-            State / Region <span className="text-navy">*</span>
+            {form.country === 'Nigeria' ? 'State' : 'State / Region'} <span className="text-navy">*</span>
           </label>
-          <input
-            id="state"
-            type="text"
-            required
-            value={form.state}
-            onChange={(e) => updateField('state', e.target.value)}
-            className={inputClass}
-            placeholder="Your state or region"
-            autoComplete="address-level1"
-          />
+          {form.country === 'Nigeria' ? (
+            <NigerianStateSelect value={form.state} onChange={(state) => updateField('state', state)} />
+          ) : (
+            <input
+              id="state"
+              type="text"
+              required
+              value={form.state}
+              onChange={(e) => updateField('state', e.target.value)}
+              className={inputClass}
+              placeholder="Your state or region"
+              autoComplete="address-level1"
+            />
+          )}
         </div>
       </div>
 

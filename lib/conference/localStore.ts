@@ -8,6 +8,7 @@ import type {
   ScanAction,
 } from './types'
 import { generateRegistrationId } from './registrationId'
+import { assignMissingMinistryClasses, nextMinistryClass } from './ministryClasses'
 import { todayInLagos } from './mealDates'
 
 const DATA_DIR = path.join(process.cwd(), 'data')
@@ -15,6 +16,7 @@ const DATA_FILE = path.join(DATA_DIR, 'conference-registrations.json')
 
 interface StoredRegistration extends ConferenceRegistrationInput {
   registrationId: string
+  ministryClass?: number | null
   checkedIn: boolean
   checkedInAt: string | null
   meals?: MealScanRecord[]
@@ -44,6 +46,7 @@ function toRecord(stored: StoredRegistration): ConferenceRegistrationRecord {
     country: stored.country ?? '',
     residentialAddress: stored.residentialAddress ?? '',
     churchDenomination: stored.churchDenomination ?? '',
+    ministryClass: stored.ministryClass ?? null,
     meals: mealsFromLegacy(stored),
   }
 }
@@ -88,9 +91,11 @@ export async function saveLocalConferenceRegistration(
   }
 
   const registrationId = generateRegistrationId()
+  const ministryClass = nextMinistryClass(existing.map((item) => item.ministryClass))
   const record: StoredRegistration = {
     ...input,
     registrationId,
+    ministryClass,
     checkedIn: false,
     checkedInAt: null,
     meals: [],
@@ -105,7 +110,16 @@ export async function listLocalRegistrations(
   conferenceSlug: string
 ): Promise<ConferenceRegistrationRecord[]> {
   const records = await readStore()
-  return records.filter((r) => r.conferenceSlug === conferenceSlug).map(toRecord)
+  const matching = records.filter((r) => r.conferenceSlug === conferenceSlug)
+  const { records: assigned, updates } = assignMissingMinistryClasses(matching)
+  if (updates.length > 0) {
+    const byId = new Map(records.map((record) => [record.registrationId, record]))
+    for (const record of assigned) {
+      byId.set(record.registrationId, record)
+    }
+    await writeStore([...byId.values()])
+  }
+  return assigned.map(toRecord)
 }
 
 export async function getLocalRegistrationById(

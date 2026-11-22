@@ -316,7 +316,12 @@ export default function ConferenceScanner() {
           <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Last scan</p>
           <p className="font-bold text-navy-dark text-lg">{lastRegistration.name}</p>
           <p className="text-sm text-gray-600">
-            {[lastRegistration.country, lastRegistration.state, lastRegistration.affiliation]
+            {[
+              lastRegistration.country,
+              lastRegistration.state,
+              lastRegistration.affiliation,
+              lastRegistration.ministryClass ? `Class ${lastRegistration.ministryClass}` : '',
+            ]
               .filter(Boolean)
               .join(' · ')}
           </p>

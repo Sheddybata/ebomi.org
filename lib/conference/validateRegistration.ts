@@ -1,6 +1,7 @@
 import {
   AFFILIATION_OPTIONS,
   HEARD_ABOUT_OPTIONS,
+  isNigerianState,
   NATIONAL_CONGRESS_2026,
   OCCUPATION_OPTIONS,
 } from './config'
@@ -54,7 +55,11 @@ export function validateRegistrationBody(body: unknown): {
   if (!COUNTRY_DIAL_CODES.some((item) => item.name === country)) {
     return { error: 'Please select your country.' }
   }
-  if (!state) return { error: 'Please enter your state or region.' }
+  if (country === 'Nigeria') {
+    if (!isNigerianState(state)) return { error: 'Please select your state.' }
+  } else if (!state) {
+    return { error: 'Please enter your state or region.' }
+  }
   if (!residentialAddress || residentialAddress.length < 8) {
     return { error: 'Please enter your residential address.' }
   }

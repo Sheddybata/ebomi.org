@@ -19,6 +19,7 @@ import {
   type SupabaseRegistrationRow,
 } from './mapRecord'
 import { todayInLagos } from './mealDates'
+import { assignMissingMinistryClasses, nextMinistryClass } from './ministryClasses'
 
 function getSupabaseConfig() {
   const url = process.env.SUPABASE_URL
@@ -99,28 +100,32 @@ export async function saveConferenceRegistration(
   }
 
   const registrationId = generateRegistrationId()
+  const ministryClass = await nextMinistryClassFromDatabase(config, input.conferenceSlug)
+
+  const payload: Record<string, unknown> = {
+    registration_id: registrationId,
+    conference_slug: input.conferenceSlug,
+    name: input.name,
+    phone: input.phone,
+    email: input.email,
+    country: input.country,
+    state: input.state,
+    residential_address: input.residentialAddress,
+    church_denomination: input.churchDenomination,
+    affiliation: input.affiliation,
+    occupation: input.occupation,
+    needs_accommodation: input.needsAccommodation,
+    needs_feeding: input.needsFeeding,
+    needs_ride_home: false,
+    heard_about: input.heardAbout,
+    ministry_class: ministryClass,
+    checked_in: false,
+  }
 
   const response = await fetch(`${config.url}/rest/v1/conference_registrations`, {
     method: 'POST',
     headers: supabaseHeaders(config, 'return=representation'),
-    body: JSON.stringify({
-      registration_id: registrationId,
-      conference_slug: input.conferenceSlug,
-      name: input.name,
-      phone: input.phone,
-      email: input.email,
-      country: input.country,
-      state: input.state,
-      residential_address: input.residentialAddress,
-      church_denomination: input.churchDenomination,
-      affiliation: input.affiliation,
-      occupation: input.occupation,
-      needs_accommodation: input.needsAccommodation,
-      needs_feeding: input.needsFeeding,
-      needs_ride_home: false,
-      heard_about: input.heardAbout,
-      checked_in: false,
-    }),
+    body: JSON.stringify(payload),
   })
 
   if (!response.ok) {
@@ -128,6 +133,17 @@ export async function saveConferenceRegistration(
     if (response.status === 409 || errorText.includes('duplicate')) {
       throw new Error('DUPLICATE_REGISTRATION')
     }
+
+    const { ministry_class: _ministryClass, ...payloadWithoutClass } = payload
+    const retryWithoutClass = await fetch(`${config.url}/rest/v1/conference_registrations`, {
+      method: 'POST',
+      headers: supabaseHeaders(config, 'return=representation'),
+      body: JSON.stringify(payloadWithoutClass),
+    })
+    if (retryWithoutClass.ok) {
+      return { registrationId }
+    }
+
     throw new Error(`Database error: ${response.status}`)
   }
 
@@ -174,7 +190,53 @@ export async function listConferenceRegistrations(
   }
 
   const mealsById = await listMealScans(rows.map((row) => row.registration_id))
-  return attachMeals(rows, mealsById)
+  const records = attachMeals(rows, mealsById)
+  return persistMissingMinistryClasses(config, records)
+}
+
+async function nextMinistryClassFromDatabase(
+  config: { url: string; serviceRoleKey: string },
+  conferenceSlug: string
+) {
+  const params = new URLSearchParams({
+    conference_slug: `eq.${conferenceSlug}`,
+    select: 'ministry_class',
+  })
+  const response = await fetch(`${config.url}/rest/v1/conference_registrations?${params}`, {
+    headers: supabaseHeaders(config),
+    cache: 'no-store',
+  })
+  if (!response.ok) return nextMinistryClass([])
+  const rows = (await response.json()) as { ministry_class?: number | null }[]
+  return nextMinistryClass(rows.map((row) => row.ministry_class))
+}
+
+async function persistMissingMinistryClasses(
+  config: { url: string; serviceRoleKey: string },
+  records: ConferenceRegistrationRecord[]
+): Promise<ConferenceRegistrationRecord[]> {
+  const { records: assigned, updates } = assignMissingMinistryClasses(records)
+  if (updates.length === 0) return assigned
+
+  const batchSize = 25
+  for (let i = 0; i < updates.length; i += batchSize) {
+    const batch = updates.slice(i, i + batchSize)
+    await Promise.all(
+      batch.map(async ({ index, ministryClass }) => {
+        const registrationId = assigned[index].registrationId
+        const params = new URLSearchParams({
+          registration_id: `eq.${registrationId}`,
+        })
+        await fetch(`${config.url}/rest/v1/conference_registrations?${params}`, {
+          method: 'PATCH',
+          headers: supabaseHeaders(config),
+          body: JSON.stringify({ ministry_class: ministryClass }),
+        })
+      })
+    )
+  }
+
+  return assigned
 }
 
 async function listMealScans(registrationIds: string[]): Promise<Map<string, MealScanRecord[]>> {

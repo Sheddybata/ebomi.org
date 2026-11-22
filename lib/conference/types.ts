@@ -27,6 +27,7 @@ export interface MealScanRecord {
 
 export interface ConferenceRegistrationRecord extends ConferenceRegistrationInput {
   registrationId: string
+  ministryClass: number | null
   checkedIn: boolean
   checkedInAt: string | null
   meals: MealScanRecord[]
@@ -46,6 +47,7 @@ export interface ConferenceStats {
   needsFeeding: number
   byState: { state: string; count: number }[]
   byAffiliation: { affiliation: string; count: number }[]
+  byMinistryClass: { ministryClass: number; count: number }[]
   mealsToday: MealDayStats
   mealsByDay: MealDayStats[]
 }

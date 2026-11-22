@@ -18,6 +18,7 @@ create table if not exists conference_registrations (
   needs_feeding boolean not null default false,
   needs_ride_home boolean not null default false,
   heard_about text not null,
+  ministry_class smallint check (ministry_class is null or (ministry_class >= 1 and ministry_class <= 8)),
   checked_in boolean not null default false,
   checked_in_at timestamptz,
   breakfast_at timestamptz,
