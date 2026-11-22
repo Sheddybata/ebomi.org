@@ -17,7 +17,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isAdmin = pathname?.startsWith('/admin')
   const hideGiveButton =
-    isAdmin || pathname?.startsWith('/register') || pathname === '/magazine'
+    isAdmin || pathname?.startsWith('/register') || pathname?.startsWith('/magazine')
   const [isLoading, setIsLoading] = useState(true)
   const [hasLoaded, setHasLoaded] = useState(false)
 

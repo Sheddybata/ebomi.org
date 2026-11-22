@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { BookOpen, Download, Wifi } from 'lucide-react'
 import { generateSEOMetadata } from '@/lib/seo'
-import { MAGAZINE_COVER_PATH, MAGAZINE_PDF_PATH } from '@/lib/constants'
+import { MAGAZINE_COVER_PATH, MAGAZINE_PDF_PATH, MAGAZINE_READ_PATH } from '@/lib/constants'
 
 export const metadata = generateSEOMetadata({
   title: 'National Revival Congress 2026 E-Magazine',
@@ -32,9 +32,7 @@ export default function MagazinePage() {
         <h1 className="sr-only">National Revival Congress 2026 E-Magazine</h1>
 
         <a
-          href={MAGAZINE_PDF_PATH}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={MAGAZINE_READ_PATH}
           className="block w-fit mx-auto group"
           aria-label="Read the EBOMI magazine online"
         >
@@ -50,9 +48,7 @@ export default function MagazinePage() {
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
           <a
-            href={MAGAZINE_PDF_PATH}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={MAGAZINE_READ_PATH}
             className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition-colors"
           >
             <BookOpen className="w-5 h-5" />
@@ -70,7 +66,7 @@ export default function MagazinePage() {
 
         <p className="mt-5 text-sm text-white/70 flex items-center justify-center gap-2">
           <Wifi className="w-4 h-4 text-gold shrink-0" />
-          About 65 MB — Wi-Fi recommended
+          Reading loads page by page. PDF download is about 65 MB.
         </p>
       </div>
     </div>
