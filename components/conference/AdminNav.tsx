@@ -2,12 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, QrCode, Tags, LogOut } from 'lucide-react'
+import { ClipboardList, FileSpreadsheet, LayoutDashboard, LogOut, QrCode, Tags } from 'lucide-react'
 
 const links = [
   { href: '/admin/conference', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/conference/sheet', label: 'Arrival Sheet', icon: ClipboardList },
   { href: '/admin/conference/scan', label: 'Scan', icon: QrCode },
   { href: '/admin/conference/tags', label: 'Print Tags', icon: Tags },
+  { href: '/admin/conference/reports', label: 'Reports', icon: FileSpreadsheet },
 ]
 
 export default function AdminNav() {
@@ -30,7 +32,10 @@ export default function AdminNav() {
 
         <div className="flex flex-wrap items-center gap-2">
           {links.map(({ href, label, icon: Icon }) => {
-            const active = pathname === href
+            const active =
+              href === '/admin/conference'
+                ? pathname === href
+                : pathname === href || pathname.startsWith(`${href}/`)
             return (
               <Link
                 key={href}

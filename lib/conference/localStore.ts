@@ -19,6 +19,7 @@ interface StoredRegistration extends ConferenceRegistrationInput {
   ministryClass?: number | null
   checkedIn: boolean
   checkedInAt: string | null
+  tagPrintedAt?: string | null
   meals?: MealScanRecord[]
   breakfastAt?: string | null
   lunchAt?: string | null
@@ -47,6 +48,7 @@ function toRecord(stored: StoredRegistration): ConferenceRegistrationRecord {
     residentialAddress: stored.residentialAddress ?? '',
     churchDenomination: stored.churchDenomination ?? '',
     ministryClass: stored.ministryClass ?? null,
+    tagPrintedAt: stored.tagPrintedAt ?? null,
     meals: mealsFromLegacy(stored),
   }
 }
@@ -98,6 +100,7 @@ export async function saveLocalConferenceRegistration(
     ministryClass,
     checkedIn: false,
     checkedInAt: null,
+    tagPrintedAt: null,
     meals: [],
     createdAt: new Date().toISOString(),
   }
@@ -160,4 +163,23 @@ export async function applyLocalScan(
   records[index] = record
   await writeStore(records)
   return toRecord(record)
+}
+
+export async function markLocalTagsPrinted(
+  registrationIds: string[]
+): Promise<ConferenceRegistrationRecord[]> {
+  if (registrationIds.length === 0) return []
+  const records = await readStore()
+  const now = new Date().toISOString()
+  const wanted = new Set(registrationIds)
+  const updated: ConferenceRegistrationRecord[] = []
+
+  for (let i = 0; i < records.length; i++) {
+    if (!wanted.has(records[i].registrationId)) continue
+    records[i] = { ...records[i], tagPrintedAt: now }
+    updated.push(toRecord(records[i]))
+  }
+
+  await writeStore(records)
+  return updated
 }

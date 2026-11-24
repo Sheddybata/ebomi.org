@@ -19,6 +19,7 @@ export interface SupabaseRegistrationRow {
   ministry_class?: number | null
   checked_in: boolean
   checked_in_at?: string | null
+  tag_printed_at?: string | null
   breakfast_at?: string | null
   lunch_at?: string | null
   dinner_at?: string | null
@@ -62,6 +63,7 @@ export function mapSupabaseRow(
     ministryClass: parseMinistryClass(row.ministry_class),
     checkedIn: row.checked_in,
     checkedInAt: row.checked_in_at ?? null,
+    tagPrintedAt: row.tag_printed_at ?? null,
     meals,
     createdAt: row.created_at,
   }

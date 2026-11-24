@@ -30,6 +30,7 @@ export interface ConferenceRegistrationRecord extends ConferenceRegistrationInpu
   ministryClass: number | null
   checkedIn: boolean
   checkedInAt: string | null
+  tagPrintedAt: string | null
   meals: MealScanRecord[]
   createdAt: string
 }
@@ -45,9 +46,12 @@ export interface ConferenceStats {
   checkedIn: number
   needsAccommodation: number
   needsFeeding: number
+  tagsPrinted: number
   byState: { state: string; count: number }[]
   byAffiliation: { affiliation: string; count: number }[]
   byMinistryClass: { ministryClass: number; count: number }[]
+  byZone: { zone: string; count: number }[]
+  byCountry: { country: string; count: number }[]
   mealsToday: MealDayStats
   mealsByDay: MealDayStats[]
 }

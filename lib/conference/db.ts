@@ -10,6 +10,7 @@ import {
   applyLocalScan,
   getLocalRegistrationById,
   listLocalRegistrations,
+  markLocalTagsPrinted,
   saveLocalConferenceRegistration,
 } from './localStore'
 import {
@@ -378,4 +379,47 @@ export async function applyConferenceScan(
   const updated = await getConferenceRegistrationById(registrationId)
   if (!updated) throw new Error('NOT_FOUND')
   return updated
+}
+
+export async function markConferenceTagsPrinted(
+  registrationIds: string[]
+): Promise<{ updated: number; printedAt: string }> {
+  const ids = [...new Set(registrationIds.map((id) => id.trim()).filter(Boolean))]
+  if (ids.length === 0) {
+    throw new Error('NO_IDS')
+  }
+
+  const printedAt = new Date().toISOString()
+
+  if (useLocalStore()) {
+    const updated = await markLocalTagsPrinted(ids)
+    return { updated: updated.length, printedAt }
+  }
+
+  const config = getSupabaseConfig()
+  if (!config) {
+    throw new Error('DATABASE_NOT_CONFIGURED')
+  }
+
+  const quoted = ids.map((id) => `"${id.replace(/"/g, '')}"`).join(',')
+  const params = new URLSearchParams({
+    registration_id: `in.(${quoted})`,
+  })
+
+  const response = await fetch(`${config.url}/rest/v1/conference_registrations?${params}`, {
+    method: 'PATCH',
+    headers: supabaseHeaders(config, 'return=representation'),
+    body: JSON.stringify({ tag_printed_at: printedAt }),
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text()
+    if (errorText.toLowerCase().includes('tag_printed_at')) {
+      throw new Error('PRINTED_COLUMN_MISSING')
+    }
+    throw new Error(`Database error: ${response.status}`)
+  }
+
+  const rows = (await response.json()) as { registration_id: string }[]
+  return { updated: rows.length, printedAt }
 }

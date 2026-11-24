@@ -21,6 +21,7 @@ create table if not exists conference_registrations (
   ministry_class smallint check (ministry_class is null or (ministry_class >= 1 and ministry_class <= 8)),
   checked_in boolean not null default false,
   checked_in_at timestamptz,
+  tag_printed_at timestamptz,
   breakfast_at timestamptz,
   lunch_at timestamptz,
   dinner_at timestamptz,
